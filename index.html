@@ -578,45 +578,45 @@
         <p data-editable="oppo-sub">武道学生の強みを求める企業からの厳選された機会</p>
       </div>
       <div class="oppo-grid">
-        <div class="oppo-card">
+        <a href="jobs.html?cat=sales" class="oppo-card">
           <div class="oppo-card-icon">&#128188;</div>
-          <h3 data-editable="op1-h">営業・コンサルタント</h3>
-          <p data-editable="op1-p">礼儀と粘り強さを活かし、クライアントとの信頼関係を構築する。</p>
-          <div class="tag" data-editable="op1-t">複数企業で募集中</div>
-        </div>
-        <div class="oppo-card">
+          <h3>営業・コンサルタント</h3>
+          <p>礼儀と粘り強さを活かし、クライアントとの信頼関係を構築する。</p>
+          <div class="tag">求人を見る &rarr;</div>
+        </a>
+        <a href="jobs.html?cat=planning" class="oppo-card">
           <div class="oppo-card-icon">&#127970;</div>
-          <h3 data-editable="op2-h">企画・マーケティング</h3>
-          <p data-editable="op2-p">チームワークと戦略的思考で、プロジェクトを推進する。</p>
-          <div class="tag" data-editable="op2-t">複数企業で募集中</div>
-        </div>
-        <div class="oppo-card">
+          <h3>企画・マーケティング</h3>
+          <p>チームワークと戦略的思考で、プロジェクトを推進する。</p>
+          <div class="tag">求人を見る &rarr;</div>
+        </a>
+        <a href="jobs.html?cat=engineer" class="oppo-card">
           <div class="oppo-card-icon">&#128736;</div>
-          <h3 data-editable="op3-h">エンジニア・技術職</h3>
-          <p data-editable="op3-p">忍耐力と集中力で、技術課題に粘り強く取り組む。</p>
-          <div class="tag" data-editable="op3-t">複数企業で募集中</div>
-        </div>
-        <div class="oppo-card">
+          <h3>エンジニア・技術職</h3>
+          <p>忍耐力と集中力で、技術課題に粘り強く取り組む。</p>
+          <div class="tag">求人を見る &rarr;</div>
+        </a>
+        <a href="jobs.html?cat=education" class="oppo-card">
           <div class="oppo-card-icon">&#127891;</div>
-          <h3 data-editable="op4-h">教育・人材育成</h3>
-          <p data-editable="op4-p">指導力とコミュニケーション力で、人を育てる。</p>
-          <div class="tag" data-editable="op4-t">複数企業で募集中</div>
-        </div>
-        <div class="oppo-card">
+          <h3>教育・人材育成</h3>
+          <p>指導力とコミュニケーション力で、人を育てる。</p>
+          <div class="tag">求人を見る &rarr;</div>
+        </a>
+        <a href="jobs.html?cat=finance" class="oppo-card">
           <div class="oppo-card-icon">&#128176;</div>
-          <h3 data-editable="op5-h">金融・保険</h3>
-          <p data-editable="op5-p">精神力と信頼性で、お客様の大切な資産を守る。</p>
-          <div class="tag" data-editable="op5-t">複数企業で募集中</div>
-        </div>
-        <div class="oppo-card">
+          <h3>金融・保険</h3>
+          <p>精神力と信頼性で、お客様の大切な資産を守る。</p>
+          <div class="tag">求人を見る &rarr;</div>
+        </a>
+        <a href="jobs.html?cat=sports" class="oppo-card">
           <div class="oppo-card-icon">&#127942;</div>
-          <h3 data-editable="op6-h">スポーツ関連</h3>
-          <p data-editable="op6-p">武道の経験を直接活かし、スポーツ業界で活躍する。</p>
-          <div class="tag" data-editable="op6-t">複数企業で募集中</div>
-        </div>
+          <h3>スポーツ関連</h3>
+          <p>武道の経験を直接活かし、スポーツ業界で活躍する。</p>
+          <div class="tag">求人を見る &rarr;</div>
+        </a>
       </div>
       <div class="text-center">
-        <a href="#contact" class="btn btn-gold" data-editable="oppo-cta">すべての機会を見る</a>
+        <a href="jobs.html" class="btn btn-gold">すべての求人を見る</a>
       </div>
     </div>
   </section>
@@ -732,20 +732,21 @@
             <p data-editable="contact-addr">東京都渋谷区〇〇 1-2-3<br>BUDOビル 4F</p>
           </div>
         </div>
-        <form class="contact-form" onsubmit="event.preventDefault(); alert('送信機能は現在準備中です。');">
+        <form class="contact-form" id="contactForm">
           <div class="form-group">
-            <label>お名前</label>
-            <input type="text" placeholder="山田 太郎">
+            <label>お名前 <span style="color:#c9a84c;">*</span></label>
+            <input type="text" id="cfName" placeholder="山田 太郎" required>
           </div>
           <div class="form-group">
-            <label>メールアドレス</label>
-            <input type="email" placeholder="taro@example.com">
+            <label>メールアドレス <span style="color:#c9a84c;">*</span></label>
+            <input type="email" id="cfEmail" placeholder="taro@example.com" required>
           </div>
           <div class="form-group">
-            <label>メッセージ</label>
-            <textarea placeholder="お問い合わせ内容をご記入ください"></textarea>
+            <label>メッセージ <span style="color:#c9a84c;">*</span></label>
+            <textarea id="cfMessage" placeholder="お問い合わせ内容をご記入ください" required></textarea>
           </div>
-          <button type="submit" class="btn btn-dark" style="width:100%;">送信する</button>
+          <button type="submit" class="btn btn-dark" id="cfSubmit" style="width:100%;">送信する</button>
+          <div id="cfStatus" style="margin-top:12px; text-align:center; font-size:0.9rem; display:none;"></div>
         </form>
       </div>
     </div>
@@ -950,6 +951,48 @@
     /* Init */
     loadEdits();
     loadImages();
+
+    /* ===== Contact Form Submission ===== */
+    const FORM_ENDPOINT = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('cfSubmit');
+      const status = document.getElementById('cfStatus');
+      const name = document.getElementById('cfName').value.trim();
+      const email = document.getElementById('cfEmail').value.trim();
+      const message = document.getElementById('cfMessage').value.trim();
+
+      if (!name || !email || !message) {
+        status.style.display = 'block';
+        status.style.color = '#e53e3e';
+        status.textContent = 'すべての項目を入力してください。';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = '送信中...';
+      status.style.display = 'none';
+
+      try {
+        await fetch(FORM_ENDPOINT, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, message })
+        });
+        status.style.display = 'block';
+        status.style.color = '#38a169';
+        status.textContent = '送信が完了しました。お問い合わせありがとうございます。';
+        document.getElementById('contactForm').reset();
+      } catch (err) {
+        status.style.display = 'block';
+        status.style.color = '#e53e3e';
+        status.textContent = '送信に失敗しました。時間をおいて再度お試しください。';
+      }
+      btn.disabled = false;
+      btn.textContent = '送信する';
+    });
   </script>
 </body>
 </html>
