@@ -9,12 +9,11 @@
     html { scroll-behavior: smooth; }
     body {
       font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
-      color: #2c2118; line-height: 1.8; background: #fff;
+      color: #2c2118; line-height: 1.8; background: #f5f1eb;
     }
     a { text-decoration: none; color: inherit; }
     ul { list-style: none; }
-
-    .container { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
     /* Header */
     .header {
@@ -42,107 +41,175 @@
       border-radius: 2px; transition: transform 0.3s, opacity 0.3s;
     }
 
-    /* Page Header */
-    .page-header {
-      margin-top: 64px; background: #2c2118; padding: 64px 0; text-align: center;
+    /* Hero */
+    .page-hero {
+      margin-top: 64px; background: #2c2118; padding: 48px 0 32px; text-align: center;
     }
-    .page-header h1 {
-      font-size: 2.4rem; font-weight: 800; color: #fff; margin-bottom: 8px;
+    .page-hero h1 {
+      font-size: 2rem; font-weight: 800; color: #fff; margin-bottom: 4px;
     }
-    .page-header p { font-size: 1.05rem; color: rgba(255,255,255,0.6); }
+    .page-hero p { font-size: 0.95rem; color: rgba(255,255,255,0.55); }
 
-    /* Category Tabs */
-    .cat-tabs {
-      background: #faf6f0; padding: 20px 0;
-      position: sticky; top: 64px; z-index: 100;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    /* ===== Category Icons Grid ===== */
+    .cat-section { background: #fff; padding: 32px 0 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+    .cat-grid {
+      display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px;
     }
-    .cat-tabs-inner {
-      display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px;
-      -webkit-overflow-scrolling: touch;
+    .cat-icon-btn {
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      padding: 16px 4px; border-radius: 12px; cursor: pointer;
+      border: 2px solid transparent; background: #fff;
+      transition: all 0.25s; text-align: center;
     }
-    .cat-tab {
-      flex-shrink: 0; padding: 10px 20px; border-radius: 50px;
-      font-size: 0.85rem; font-weight: 600; cursor: pointer;
-      border: 2px solid #d9d0c5; background: #fff; color: #6b5e53;
-      transition: all 0.3s; white-space: nowrap;
+    .cat-icon-btn:hover { background: #faf6f0; border-color: #e8e2da; }
+    .cat-icon-btn.active { background: #faf6f0; border-color: #c9a84c; }
+    .cat-icon-circle {
+      width: 56px; height: 56px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; transition: transform 0.25s;
     }
-    .cat-tab:hover { border-color: #c9a84c; color: #c9a84c; }
-    .cat-tab.active {
-      background: #2c2118; color: #fff; border-color: #2c2118;
+    .cat-icon-btn:hover .cat-icon-circle { transform: scale(1.1); }
+    .cat-icon-btn.active .cat-icon-circle { transform: scale(1.1); }
+    .cat-icon-label {
+      font-size: 0.7rem; font-weight: 700; color: #6b5e53; line-height: 1.3;
+    }
+    .cat-icon-btn.active .cat-icon-label { color: #2c2118; }
+    .cat-icon-count {
+      font-size: 0.65rem; color: #fff; background: #c9a84c;
+      padding: 1px 8px; border-radius: 50px; font-weight: 700; min-width: 20px;
     }
 
-    /* Jobs Section */
-    .jobs-section { padding: 48px 0 100px; }
-    .jobs-count {
-      font-size: 0.9rem; color: #8a7e74; margin-bottom: 24px;
-    }
-    .jobs-count strong { color: #2c2118; }
+    /* color per category */
+    .cat-all .cat-icon-circle { background: #2c2118; color: #fff; }
+    .cat-sales .cat-icon-circle { background: #e8f4f8; color: #2980b9; }
+    .cat-planning .cat-icon-circle { background: #fef3e2; color: #e67e22; }
+    .cat-engineer .cat-icon-circle { background: #e8f5e9; color: #27ae60; }
+    .cat-education .cat-icon-circle { background: #f3e5f5; color: #8e44ad; }
+    .cat-finance .cat-icon-circle { background: #fff8e1; color: #f39c12; }
+    .cat-sports .cat-icon-circle { background: #fce4ec; color: #e74c3c; }
 
-    /* Job Cards */
-    .jobs-grid { display: flex; flex-direction: column; gap: 20px; }
+    /* ===== Jobs Count Bar ===== */
+    .jobs-bar {
+      padding: 16px 0; display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    }
+    .jobs-bar-left { display: flex; align-items: center; gap: 12px; }
+    .jobs-bar-label {
+      font-size: 1.1rem; font-weight: 800; color: #2c2118;
+    }
+    .jobs-bar-count {
+      font-size: 0.8rem; background: #c9a84c; color: #fff;
+      padding: 3px 14px; border-radius: 50px; font-weight: 700;
+    }
+    .jobs-bar-right { font-size: 0.8rem; color: #8a7e74; }
+
+    /* ===== Job Cards - Townwork Style ===== */
+    .jobs-list { display: flex; flex-direction: column; gap: 16px; padding-bottom: 80px; }
+
     .job-card {
-      background: #fff; border: 1px solid #e8e2da; border-radius: 12px;
-      padding: 32px; transition: box-shadow 0.3s, transform 0.3s;
+      background: #fff; border-radius: 16px; overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      transition: box-shadow 0.3s, transform 0.2s;
+      border: 1px solid #e8e2da;
     }
     .job-card:hover {
-      box-shadow: 0 8px 32px rgba(0,0,0,0.08); transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.1); transform: translateY(-3px);
     }
-    .job-card-header {
-      display: flex; justify-content: space-between; align-items: flex-start;
-      gap: 16px; margin-bottom: 16px; flex-wrap: wrap;
+
+    /* Card top color bar per category */
+    .job-card-bar { height: 5px; }
+    .bar-sales { background: #2980b9; }
+    .bar-planning { background: #e67e22; }
+    .bar-engineer { background: #27ae60; }
+    .bar-education { background: #8e44ad; }
+    .bar-finance { background: #f39c12; }
+    .bar-sports { background: #e74c3c; }
+
+    .job-card-body { padding: 24px 28px; }
+
+    .job-card-top {
+      display: flex; align-items: flex-start; gap: 16px; margin-bottom: 16px;
     }
-    .job-card-title { font-size: 1.2rem; font-weight: 700; color: #2c2118; }
-    .job-card-company { font-size: 0.9rem; color: #c9a84c; font-weight: 600; margin-top: 4px; }
-    .job-card-badges { display: flex; gap: 8px; flex-wrap: wrap; }
-    .job-badge {
-      display: inline-block; padding: 4px 12px; border-radius: 50px;
-      font-size: 0.75rem; font-weight: 600;
+    .job-card-icon {
+      flex-shrink: 0; width: 52px; height: 52px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
     }
-    .job-badge-cat { background: #faf6f0; color: #8a7e74; }
-    .job-badge-type { background: #2c2118; color: #fff; }
-    .job-card-details {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px; margin-bottom: 16px;
+    .job-card-icon.ic-sales { background: #e8f4f8; color: #2980b9; }
+    .job-card-icon.ic-planning { background: #fef3e2; color: #e67e22; }
+    .job-card-icon.ic-engineer { background: #e8f5e9; color: #27ae60; }
+    .job-card-icon.ic-education { background: #f3e5f5; color: #8e44ad; }
+    .job-card-icon.ic-finance { background: #fff8e1; color: #f39c12; }
+    .job-card-icon.ic-sports { background: #fce4ec; color: #e74c3c; }
+
+    .job-card-main { flex: 1; }
+    .job-card-title {
+      font-size: 1.2rem; font-weight: 800; color: #2c2118;
+      margin-bottom: 2px; line-height: 1.4;
     }
-    .job-detail { display: flex; align-items: center; gap: 8px; }
-    .job-detail-icon { font-size: 1rem; flex-shrink: 0; }
-    .job-detail-text { font-size: 0.88rem; color: #6b5e53; }
+    .job-card-company {
+      font-size: 0.88rem; color: #c9a84c; font-weight: 600;
+    }
+
+    .job-card-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+    .jb {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 4px 12px; border-radius: 6px;
+      font-size: 0.72rem; font-weight: 700;
+    }
+    .jb-type { background: #2c2118; color: #fff; }
+    .jb-cat { background: #faf6f0; color: #8a7e74; }
+
+    /* Info chips */
+    .job-card-info {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin: 16px 0; padding: 16px 0; border-top: 1px solid #f0ebe4; border-bottom: 1px solid #f0ebe4;
+    }
+    .info-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #f5f1eb; padding: 8px 16px; border-radius: 8px;
+      font-size: 0.82rem; font-weight: 600; color: #2c2118;
+    }
+    .info-chip-icon { font-size: 1rem; }
+
+    /* Description */
     .job-card-desc {
-      font-size: 0.9rem; color: #6b5e53; line-height: 1.8;
-      border-top: 1px solid #f0ebe4; padding-top: 16px;
+      font-size: 0.9rem; color: #6b5e53; line-height: 1.9;
+      margin-bottom: 16px;
     }
+
+    /* Footer */
     .job-card-footer {
-      margin-top: 20px; display: flex; justify-content: space-between;
-      align-items: center; flex-wrap: wrap; gap: 12px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
     }
-    .job-requirements {
-      font-size: 0.82rem; color: #8a7e74;
+    .job-card-req {
+      font-size: 0.78rem; color: #8a7e74; display: flex; align-items: center; gap: 6px;
     }
     .btn {
-      display: inline-block; padding: 12px 28px; border-radius: 4px;
-      font-size: 0.9rem; font-weight: 600; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 6px; padding: 14px 32px; border-radius: 10px;
+      font-size: 0.9rem; font-weight: 700; cursor: pointer;
       transition: all 0.3s; border: none; text-align: center;
     }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
     .btn-gold { background: #c9a84c; color: #fff; }
     .btn-gold:hover { background: #b89640; }
     .btn-dark { background: #2c2118; color: #fff; }
 
     /* Empty State */
     .empty-state {
-      text-align: center; padding: 80px 20px;
+      text-align: center; padding: 80px 20px; background: #fff;
+      border-radius: 16px; margin-top: 16px;
     }
-    .empty-state-icon { font-size: 3rem; margin-bottom: 16px; }
+    .empty-state-icon { font-size: 4rem; margin-bottom: 16px; }
     .empty-state h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; }
     .empty-state p { font-size: 0.95rem; color: #8a7e74; margin-bottom: 24px; }
 
     /* Loading */
-    .loading {
-      text-align: center; padding: 80px 20px;
-    }
+    .loading { text-align: center; padding: 80px 20px; }
     .loading-spinner {
-      width: 40px; height: 40px; border: 4px solid #e8e2da;
+      width: 44px; height: 44px; border: 4px solid #e8e2da;
       border-top-color: #c9a84c; border-radius: 50%;
       animation: spin 0.8s linear infinite; margin: 0 auto 16px;
     }
@@ -153,7 +220,10 @@
     .footer { background: #2c2118; color: rgba(255,255,255,0.65); padding: 40px 0 24px; }
     .footer-bottom { text-align: center; font-size: 0.78rem; }
 
-    /* Responsive */
+    /* ===== Responsive ===== */
+    @media (max-width: 900px) {
+      .cat-grid { grid-template-columns: repeat(4, 1fr); }
+    }
     @media (max-width: 640px) {
       .nav-links {
         display: none; position: absolute; top: 64px; left: 0; width: 100%;
@@ -165,9 +235,15 @@
       .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
       .hamburger.active span:nth-child(2) { opacity: 0; }
       .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-      .page-header h1 { font-size: 1.7rem; }
-      .job-card { padding: 24px 20px; }
-      .job-card-header { flex-direction: column; }
+      .page-hero h1 { font-size: 1.5rem; }
+      .cat-grid { grid-template-columns: repeat(4, 1fr); gap: 4px; }
+      .cat-icon-circle { width: 44px; height: 44px; font-size: 1.2rem; }
+      .cat-icon-label { font-size: 0.6rem; }
+      .job-card-body { padding: 20px 16px; }
+      .job-card-top { gap: 12px; }
+      .job-card-title { font-size: 1.05rem; }
+      .job-card-info { gap: 6px; }
+      .info-chip { padding: 6px 12px; font-size: 0.75rem; }
     }
   </style>
 </head>
@@ -190,35 +266,69 @@
     </div>
   </header>
 
-  <!-- Page Header -->
-  <div class="page-header">
+  <!-- Hero -->
+  <div class="page-hero">
     <div class="container">
       <h1>求人情報</h1>
-      <p>武道学生の強みを求める企業からの厳選された機会</p>
+      <p>武道学生の強みを求める企業からの厳選された求人</p>
     </div>
   </div>
 
-  <!-- Category Tabs -->
-  <div class="cat-tabs">
+  <!-- Category Icons -->
+  <div class="cat-section">
     <div class="container">
-      <div class="cat-tabs-inner">
-        <button class="cat-tab active" data-cat="">すべて</button>
-        <button class="cat-tab" data-cat="sales">営業・コンサルタント</button>
-        <button class="cat-tab" data-cat="planning">企画・マーケティング</button>
-        <button class="cat-tab" data-cat="engineer">エンジニア・技術職</button>
-        <button class="cat-tab" data-cat="education">教育・人材育成</button>
-        <button class="cat-tab" data-cat="finance">金融・保険</button>
-        <button class="cat-tab" data-cat="sports">スポーツ関連</button>
+      <div class="cat-grid">
+        <button class="cat-icon-btn cat-all active" data-cat="">
+          <div class="cat-icon-circle">&#128270;</div>
+          <div class="cat-icon-label">すべて</div>
+          <div class="cat-icon-count" id="cnt-all">-</div>
+        </button>
+        <button class="cat-icon-btn cat-sales" data-cat="sales">
+          <div class="cat-icon-circle">&#128188;</div>
+          <div class="cat-icon-label">営業<br>コンサル</div>
+          <div class="cat-icon-count" id="cnt-sales">-</div>
+        </button>
+        <button class="cat-icon-btn cat-planning" data-cat="planning">
+          <div class="cat-icon-circle">&#127970;</div>
+          <div class="cat-icon-label">企画<br>マーケ</div>
+          <div class="cat-icon-count" id="cnt-planning">-</div>
+        </button>
+        <button class="cat-icon-btn cat-engineer" data-cat="engineer">
+          <div class="cat-icon-circle">&#128736;</div>
+          <div class="cat-icon-label">エンジニア<br>技術職</div>
+          <div class="cat-icon-count" id="cnt-engineer">-</div>
+        </button>
+        <button class="cat-icon-btn cat-education" data-cat="education">
+          <div class="cat-icon-circle">&#127891;</div>
+          <div class="cat-icon-label">教育<br>人材育成</div>
+          <div class="cat-icon-count" id="cnt-education">-</div>
+        </button>
+        <button class="cat-icon-btn cat-finance" data-cat="finance">
+          <div class="cat-icon-circle">&#128176;</div>
+          <div class="cat-icon-label">金融<br>保険</div>
+          <div class="cat-icon-count" id="cnt-finance">-</div>
+        </button>
+        <button class="cat-icon-btn cat-sports" data-cat="sports">
+          <div class="cat-icon-circle">&#127942;</div>
+          <div class="cat-icon-label">スポーツ<br>関連</div>
+          <div class="cat-icon-count" id="cnt-sports">-</div>
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- Jobs -->
+  <!-- Jobs Bar + List -->
   <section class="jobs-section">
     <div class="container">
-      <div class="jobs-count" id="jobsCount"></div>
-      <div class="jobs-grid" id="jobsGrid">
-        <div class="loading" id="loadingState">
+      <div class="jobs-bar">
+        <div class="jobs-bar-left">
+          <div class="jobs-bar-label" id="jobsLabel">すべての求人</div>
+          <div class="jobs-bar-count" id="jobsCount">-</div>
+        </div>
+        <div class="jobs-bar-right">新着順に表示</div>
+      </div>
+      <div class="jobs-list" id="jobsGrid">
+        <div class="loading">
           <div class="loading-spinner"></div>
           <p>求人情報を読み込み中...</p>
         </div>
@@ -242,7 +352,6 @@
       navLinks.classList.toggle('active');
     });
 
-    /* Category labels */
     const CAT_LABELS = {
       sales: '営業・コンサルタント',
       planning: '企画・マーケティング',
@@ -251,151 +360,152 @@
       finance: '金融・保険',
       sports: 'スポーツ関連'
     };
+    const CAT_ICONS = {
+      sales: '&#128188;', planning: '&#127970;', engineer: '&#128736;',
+      education: '&#127891;', finance: '&#128176;', sports: '&#127942;'
+    };
 
-    /* ===== CONFIG: Replace with your Google Apps Script URL ===== */
     const JOBS_API_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzGpsRl2IeoYrgQP9qLPxREgc1L5pFypgI5AqLmsc6xA-1AuwkiArPMYlLhRGoypvTn/exec';
 
-    /* Sample data (used when API is not yet configured) */
     const SAMPLE_JOBS = [
-      { id: 1, company: 'ABC商事', title: '法人営業', category: 'sales', location: '東京都港区', salary: '月給25万円〜', type: '正社員', description: '法人向け新規開拓営業。武道で培った礼儀・粘り強さを活かし、クライアントとの長期的な信頼関係を構築していただきます。', requirements: '大卒以上・武道経験者優遇' },
-      { id: 2, company: '日本テクノロジー', title: 'ITコンサルタント', category: 'sales', location: '東京都千代田区', salary: '月給28万円〜', type: '正社員', description: 'クライアント企業のDX推進を支援。論理的思考力とコミュニケーション力を活かしたコンサルティング業務。', requirements: '大卒以上・基本的なIT知識' },
-      { id: 3, company: 'グローバルHR', title: 'マーケティングプランナー', category: 'planning', location: '大阪府大阪市', salary: '月給24万円〜', type: '正社員', description: '採用マーケティングの企画立案・実行。チームワークと戦略的思考でプロジェクトを推進。', requirements: '大卒以上・企画に興味がある方' },
-      { id: 4, company: '未来建設', title: 'システムエンジニア', category: 'engineer', location: '東京都新宿区', salary: '月給27万円〜', type: '正社員', description: '建設業向け業務システムの開発。忍耐力と集中力で技術課題に粘り強く取り組んでいただきます。', requirements: '大卒以上・プログラミング基礎知識' },
-      { id: 5, company: 'ブレイン教育', title: '研修トレーナー', category: 'education', location: '東京都渋谷区', salary: '月給23万円〜', type: '正社員', description: '企業向け新入社員研修の企画・運営。指導力とコミュニケーション力を活かし人材育成に携わります。', requirements: '大卒以上・指導経験者歓迎' },
-      { id: 6, company: 'ネクスト金融', title: 'ファイナンシャルアドバイザー', category: 'finance', location: '東京都中央区', salary: '月給26万円〜', type: '正社員', description: '個人・法人のお客様への資産運用アドバイス。精神力と信頼性でお客様の大切な資産を守ります。', requirements: '大卒以上・FP資格取得支援あり' },
-      { id: 7, company: 'スポーツライフ', title: 'スポーツインストラクター', category: 'sports', location: '神奈川県横浜市', salary: '月給22万円〜', type: '正社員', description: '武道・格闘技プログラムの指導。武道経験を直接活かしてスポーツ業界で活躍できます。', requirements: '武道段位保持者優遇' },
-      { id: 8, company: 'サクラ不動産', title: '不動産コンサルタント', category: 'sales', location: '東京都目黒区', salary: '月給25万円〜+歩合', type: '正社員', description: '個人向け住宅の提案営業。お客様の人生の大きな決断に寄り添う仕事です。', requirements: '大卒以上・普通免許' },
-      { id: 9, company: '日本テクノロジー', title: 'インフラエンジニア', category: 'engineer', location: '東京都千代田区', salary: '月給26万円〜', type: '正社員', description: 'クラウドインフラの設計・構築・運用。チームで協力しながら安定したシステム基盤を提供。', requirements: '大卒以上・IT系資格歓迎' },
-      { id: 10, company: 'ABC商事', title: '経営企画', category: 'planning', location: '東京都港区', salary: '月給27万円〜', type: '正社員', description: '中期経営計画の策定支援、新規事業企画。戦略的思考力と実行力が求められます。', requirements: '大卒以上・分析力のある方' },
-      { id: 11, company: 'ブレイン教育', title: 'キャリアアドバイザー', category: 'education', location: '大阪府大阪市', salary: '月給24万円〜', type: '正社員', description: '学生向けキャリア相談・就活支援。自身の武道経験を活かした的確なアドバイスが可能。', requirements: '大卒以上・人材業界経験不問' },
-      { id: 12, company: 'ネクスト金融', title: '法人営業（保険）', category: 'finance', location: '名古屋市中区', salary: '月給25万円〜', type: '正社員', description: '中小企業向け保険提案営業。経営者との対話を通じて企業のリスクマネジメントを支援。', requirements: '大卒以上・営業未経験歓迎' },
+      { id:1, company:'ABC商事', title:'法人営業', category:'sales', location:'東京都港区', salary:'月給25万円〜', type:'正社員', description:'法人向け新規開拓営業。武道で培った礼儀・粘り強さを活かし、クライアントとの長期的な信頼関係を構築していただきます。チームで目標を追いかける達成感があります。', requirements:'大卒以上・武道経験者優遇' },
+      { id:2, company:'日本テクノロジー', title:'ITコンサルタント', category:'sales', location:'東京都千代田区', salary:'月給28万円〜', type:'正社員', description:'クライアント企業のDX推進を支援するコンサルティング業務。論理的思考力とコミュニケーション力を活かせる環境です。', requirements:'大卒以上・基本的なIT知識' },
+      { id:3, company:'グローバルHR', title:'マーケティングプランナー', category:'planning', location:'大阪府大阪市', salary:'月給24万円〜', type:'正社員', description:'採用マーケティングの企画立案・実行。市場分析からクリエイティブ制作まで幅広く携われます。', requirements:'大卒以上・企画に興味がある方' },
+      { id:4, company:'未来建設', title:'システムエンジニア', category:'engineer', location:'東京都新宿区', salary:'月給27万円〜', type:'正社員', description:'建設業向け業務システムの開発。忍耐力と集中力で技術課題に粘り強く取り組んでいただきます。研修制度充実。', requirements:'大卒以上・プログラミング基礎知識' },
+      { id:5, company:'ブレイン教育', title:'研修トレーナー', category:'education', location:'東京都渋谷区', salary:'月給23万円〜', type:'正社員', description:'企業向け新入社員研修の企画・運営。指導力とコミュニケーション力を活かし人材育成に携わります。', requirements:'大卒以上・指導経験者歓迎' },
+      { id:6, company:'ネクスト金融', title:'ファイナンシャルアドバイザー', category:'finance', location:'東京都中央区', salary:'月給26万円〜', type:'正社員', description:'個人・法人のお客様への資産運用アドバイス。精神力と信頼性でお客様の大切な資産を守ります。', requirements:'大卒以上・FP資格取得支援あり' },
+      { id:7, company:'スポーツライフ', title:'スポーツインストラクター', category:'sports', location:'神奈川県横浜市', salary:'月給22万円〜', type:'正社員', description:'武道・格闘技プログラムの指導。武道経験を直接活かしてスポーツ業界で活躍できます。', requirements:'武道段位保持者優遇' },
+      { id:8, company:'サクラ不動産', title:'不動産コンサルタント', category:'sales', location:'東京都目黒区', salary:'月給25万円〜+歩合', type:'正社員', description:'個人向け住宅の提案営業。お客様の人生の大きな決断に寄り添う仕事です。インセンティブ充実。', requirements:'大卒以上・普通免許' },
+      { id:9, company:'日本テクノロジー', title:'インフラエンジニア', category:'engineer', location:'東京都千代田区', salary:'月給26万円〜', type:'正社員', description:'クラウドインフラの設計・構築・運用。チームで協力しながら安定したシステム基盤を提供します。', requirements:'大卒以上・IT系資格歓迎' },
+      { id:10, company:'ABC商事', title:'経営企画', category:'planning', location:'東京都港区', salary:'月給27万円〜', type:'正社員', description:'中期経営計画の策定支援、新規事業企画。戦略的思考力と実行力が求められるやりがいのあるポジション。', requirements:'大卒以上・分析力のある方' },
+      { id:11, company:'ブレイン教育', title:'キャリアアドバイザー', category:'education', location:'大阪府大阪市', salary:'月給24万円〜', type:'正社員', description:'学生向けキャリア相談・就活支援。自身の武道経験を活かした的確なアドバイスが可能です。', requirements:'大卒以上・人材業界経験不問' },
+      { id:12, company:'ネクスト金融', title:'法人営業（保険）', category:'finance', location:'名古屋市中区', salary:'月給25万円〜', type:'正社員', description:'中小企業向け保険提案営業。経営者との対話を通じて企業のリスクマネジメントを支援します。', requirements:'大卒以上・営業未経験歓迎' },
     ];
 
     let currentCategory = '';
-    let allJobs = [];
+    let masterJobs = []; // all jobs loaded
 
-    /* Init */
     async function init() {
       const params = new URLSearchParams(window.location.search);
       currentCategory = params.get('cat') || '';
+      setActiveTab();
+      await loadAllJobs();
+    }
 
-      // Set active tab
-      document.querySelectorAll('.cat-tab').forEach(tab => {
-        tab.classList.toggle('active', tab.dataset.cat === currentCategory);
+    function setActiveTab() {
+      document.querySelectorAll('.cat-icon-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.cat === currentCategory);
       });
-
-      await loadJobs();
     }
 
-    async function loadJobs() {
-      const grid = document.getElementById('jobsGrid');
-      const countEl = document.getElementById('jobsCount');
-
-      // Try API first, fallback to sample data
-      if (JOBS_API_ENDPOINT !== 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
-        try {
-          const url = currentCategory
-            ? JOBS_API_ENDPOINT + '?category=' + currentCategory
-            : JOBS_API_ENDPOINT;
-          const res = await fetch(url);
-          const data = await res.json();
-          if (data.result === 'success') {
-            allJobs = data.jobs;
-          }
-        } catch (e) {
-          allJobs = filterSample();
+    async function loadAllJobs() {
+      // Load ALL jobs first (for counts), then filter for display
+      try {
+        const res = await fetch(JOBS_API_ENDPOINT);
+        const data = await res.json();
+        if (data.result === 'success' && data.jobs.length > 0) {
+          masterJobs = data.jobs;
+        } else {
+          masterJobs = SAMPLE_JOBS;
         }
-      } else {
-        allJobs = filterSample();
+      } catch (e) {
+        masterJobs = SAMPLE_JOBS;
       }
-
-      renderJobs(allJobs, countEl, grid);
+      updateCounts();
+      renderJobs();
     }
 
-    function filterSample() {
-      if (!currentCategory) return SAMPLE_JOBS;
-      return SAMPLE_JOBS.filter(j => j.category === currentCategory);
+    function updateCounts() {
+      document.getElementById('cnt-all').textContent = masterJobs.length + '件';
+      ['sales','planning','engineer','education','finance','sports'].forEach(cat => {
+        var n = masterJobs.filter(j => j.category === cat).length;
+        document.getElementById('cnt-' + cat).textContent = n + '件';
+      });
     }
 
-    function renderJobs(jobs, countEl, grid) {
-      const label = currentCategory ? CAT_LABELS[currentCategory] : 'すべて';
-      countEl.innerHTML = '<strong>' + label + '</strong> の求人 &#8212; ' + jobs.length + '件';
+    function getFiltered() {
+      if (!currentCategory) return masterJobs;
+      return masterJobs.filter(j => j.category === currentCategory);
+    }
 
+    function renderJobs() {
+      var jobs = getFiltered();
+      var label = currentCategory ? CAT_LABELS[currentCategory] : 'すべて';
+      document.getElementById('jobsLabel').textContent = label + 'の求人';
+      document.getElementById('jobsCount').textContent = jobs.length + '件';
+
+      var grid = document.getElementById('jobsGrid');
       if (jobs.length === 0) {
         grid.innerHTML = '<div class="empty-state">' +
           '<div class="empty-state-icon">&#128270;</div>' +
           '<h3>現在この業種の求人はありません</h3>' +
           '<p>新しい求人が掲載され次第、こちらに表示されます。</p>' +
-          '<a href="jobs.html" class="btn btn-dark">すべての求人を見る</a>' +
+          '<button class="btn btn-dark" onclick="resetCat()">すべての求人を見る</button>' +
           '</div>';
         return;
       }
 
       grid.innerHTML = jobs.map(function(job) {
+        var cat = job.category || 'sales';
         return '<div class="job-card">' +
-          '<div class="job-card-header">' +
-            '<div>' +
-              '<div class="job-card-title">' + escHtml(job.title) + '</div>' +
-              '<div class="job-card-company">' + escHtml(job.company) + '</div>' +
+          '<div class="job-card-bar bar-' + cat + '"></div>' +
+          '<div class="job-card-body">' +
+            '<div class="job-card-top">' +
+              '<div class="job-card-icon ic-' + cat + '">' + (CAT_ICONS[cat] || '') + '</div>' +
+              '<div class="job-card-main">' +
+                '<div class="job-card-title">' + esc(job.title) + '</div>' +
+                '<div class="job-card-company">' + esc(job.company) + '</div>' +
+                '<div class="job-card-badges">' +
+                  '<span class="jb jb-type">' + esc(job.type) + '</span>' +
+                  '<span class="jb jb-cat">' + (CAT_LABELS[cat] || cat) + '</span>' +
+                '</div>' +
+              '</div>' +
             '</div>' +
-            '<div class="job-card-badges">' +
-              '<span class="job-badge job-badge-cat">' + (CAT_LABELS[job.category] || job.category) + '</span>' +
-              '<span class="job-badge job-badge-type">' + escHtml(job.type) + '</span>' +
+            '<div class="job-card-info">' +
+              '<div class="info-chip"><span class="info-chip-icon">&#128205;</span>' + esc(job.location) + '</div>' +
+              '<div class="info-chip"><span class="info-chip-icon">&#128176;</span>' + esc(job.salary) + '</div>' +
+              '<div class="info-chip"><span class="info-chip-icon">&#128188;</span>' + esc(job.type) + '</div>' +
             '</div>' +
-          '</div>' +
-          '<div class="job-card-details">' +
-            '<div class="job-detail"><span class="job-detail-icon">&#128205;</span><span class="job-detail-text">' + escHtml(job.location) + '</span></div>' +
-            '<div class="job-detail"><span class="job-detail-icon">&#128176;</span><span class="job-detail-text">' + escHtml(job.salary) + '</span></div>' +
-          '</div>' +
-          '<div class="job-card-desc">' + escHtml(job.description) + '</div>' +
-          '<div class="job-card-footer">' +
-            '<div class="job-requirements">&#128203; ' + escHtml(job.requirements) + '</div>' +
-            '<a href="index.html#contact" class="btn btn-gold">応募・相談する</a>' +
+            '<div class="job-card-desc">' + esc(job.description) + '</div>' +
+            '<div class="job-card-footer">' +
+              '<div class="job-card-req">&#128203; ' + esc(job.requirements) + '</div>' +
+              '<a href="index.html#contact" class="btn btn-gold">&#9993; 応募・相談する</a>' +
+            '</div>' +
           '</div>' +
         '</div>';
       }).join('');
     }
 
-    function escHtml(str) {
-      if (!str) return '';
+    function esc(s) {
+      if (!s) return '';
       var d = document.createElement('div');
-      d.textContent = str;
+      d.textContent = s;
       return d.innerHTML;
     }
 
-    /* Tab clicks */
-    document.querySelectorAll('.cat-tab').forEach(function(tab) {
-      tab.addEventListener('click', function() {
-        currentCategory = this.dataset.cat;
-        document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
-        this.classList.add('active');
+    function resetCat() {
+      currentCategory = '';
+      setActiveTab();
+      history.pushState(null, '', 'jobs.html');
+      renderJobs();
+    }
 
-        // Update URL without reload
+    /* Tab clicks */
+    document.querySelectorAll('.cat-icon-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        currentCategory = this.dataset.cat;
+        setActiveTab();
         var url = currentCategory ? 'jobs.html?cat=' + currentCategory : 'jobs.html';
         history.pushState(null, '', url);
-
-        if (JOBS_API_ENDPOINT !== 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
-          loadJobs();
-        } else {
-          allJobs = filterSample();
-          renderJobs(allJobs, document.getElementById('jobsCount'), document.getElementById('jobsGrid'));
-        }
+        renderJobs();
       });
     });
 
-    /* Handle browser back/forward */
     window.addEventListener('popstate', function() {
       var params = new URLSearchParams(window.location.search);
       currentCategory = params.get('cat') || '';
-      document.querySelectorAll('.cat-tab').forEach(t => {
-        t.classList.toggle('active', t.dataset.cat === currentCategory);
-      });
-      if (JOBS_API_ENDPOINT !== 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
-        loadJobs();
-      } else {
-        allJobs = filterSample();
-        renderJobs(allJobs, document.getElementById('jobsCount'), document.getElementById('jobsGrid'));
-      }
+      setActiveTab();
+      renderJobs();
     });
 
     init();
