@@ -367,38 +367,120 @@
 
     /* ========== 7. Industry Challenges ========== */
     .issue-visual { background: #fff; }
-    .issue-head { text-align: center; margin-bottom: 48px; }
-    .issue-head p { font-size: 1rem; color: #6b5e53; margin-top: 12px; }
-    .issue-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 24px; }
-    .issue-card {
-      background: #faf6f0; border-radius: 14px; padding: 28px;
+    .issue-head { text-align: center; margin-bottom: 56px; }
+    .issue-head p { font-size: 1rem; color: #6b5e53; margin-top: 12px; line-height: 1.9; }
+    .section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; color: #c9a84c; margin-bottom: 12px; text-transform: uppercase; }
+
+    /* Story flow */
+    .issue-story { display: flex; flex-direction: column; gap: 56px; }
+    .issue-chapter { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+    .issue-chapter.reverse { direction: rtl; }
+    .issue-chapter.reverse > * { direction: ltr; }
+    .issue-chapter-text h3 { font-size: 1.3rem; font-weight: 700; color: #2c2118; margin-bottom: 12px; }
+    .issue-chapter-text h3 .accent { color: #c9a84c; }
+    .issue-chapter-text p { font-size: 0.92rem; color: #6b5e53; line-height: 1.9; margin-bottom: 10px; }
+    .issue-chapter-text .source { font-size: 0.72rem; color: #a89b8e; }
+
+    /* Chart cards */
+    .chart-card {
+      background: #faf6f0; border-radius: 14px; padding: 32px;
       border: 1px solid rgba(44,33,24,0.08);
     }
-    .issue-card h3 { font-size: 1.1rem; margin-bottom: 8px; color: #2c2118; }
-    .issue-card p { font-size: 0.88rem; color: #6b5e53; margin-bottom: 14px; line-height: 1.8; }
+    .chart-card h4 { font-size: 0.95rem; font-weight: 700; color: #2c2118; margin-bottom: 16px; text-align: center; }
+
+    /* Bar chart */
     .bar-list { display: flex; flex-direction: column; gap: 12px; }
     .bar-row { display: grid; grid-template-columns: 76px 1fr 48px; gap: 8px; align-items: center; }
     .bar-year { font-size: 0.82rem; color: #6b5e53; font-weight: 700; }
     .bar-track { height: 10px; border-radius: 999px; background: #e8ded2; overflow: hidden; }
     .bar-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #c9a84c, #2c2118); width: var(--w, 0%); }
     .bar-value { font-size: 0.8rem; font-weight: 700; color: #2c2118; text-align: right; }
-    .issue-side { display: grid; grid-template-rows: 1fr 1fr; gap: 18px; }
-    .donut-wrap { display: flex; align-items: center; gap: 14px; }
+    .bar-row.highlight .bar-fill { background: linear-gradient(90deg, #e53e3e, #c9a84c); }
+    .bar-row.highlight .bar-value { color: #e53e3e; }
+
+    /* Decline arrow chart */
+    .decline-chart { display: flex; align-items: flex-end; justify-content: center; gap: 16px; padding: 12px 0; }
+    .decline-bar { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .decline-bar-fill {
+      width: 48px; border-radius: 6px 6px 0 0;
+      background: linear-gradient(180deg, #c9a84c, #2c2118);
+      transition: height 0.5s;
+    }
+    .decline-bar-fill.danger { background: linear-gradient(180deg, #e53e3e, #c9a84c); }
+    .decline-bar-label { font-size: 0.72rem; font-weight: 700; color: #6b5e53; }
+    .decline-bar-value { font-size: 0.78rem; font-weight: 800; color: #2c2118; }
+
+    /* Donut chart */
+    .donut-wrap { display: flex; align-items: center; gap: 20px; justify-content: center; }
     .donut {
-      width: 104px; height: 104px; border-radius: 50%;
-      background: conic-gradient(#2c2118 0 68%, #c9a84c 68% 100%);
+      width: 120px; height: 120px; border-radius: 50%;
       position: relative; flex-shrink: 0;
     }
     .donut::after {
-      content: ''; position: absolute; inset: 20px;
+      content: ''; position: absolute; inset: 24px;
       border-radius: 50%; background: #faf6f0;
     }
     .donut-text { font-size: 0.88rem; font-weight: 700; color: #2c2118; line-height: 1.6; }
+
+    /* Comparison boxes */
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .compare-box {
+      background: #fff; border-radius: 10px; padding: 20px; text-align: center;
+      border: 1px solid #eadfce;
+    }
+    .compare-box .label { font-size: 0.75rem; color: #8a7e74; font-weight: 600; margin-bottom: 8px; }
+    .compare-box .big-num { font-size: 2rem; font-weight: 800; line-height: 1.1; }
+    .compare-box .big-num.positive { color: #2c2118; }
+    .compare-box .big-num.negative { color: #e53e3e; }
+    .compare-box .sub { font-size: 0.72rem; color: #8a7e74; margin-top: 4px; }
+
+    /* Factor list */
+    .factor-list { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+    .factor-item {
+      display: flex; align-items: center; gap: 12px;
+      background: #fff; border-radius: 10px; padding: 14px 16px;
+      border: 1px solid #eadfce;
+    }
+    .factor-icon { font-size: 1.3rem; flex-shrink: 0; }
+    .factor-item h5 { font-size: 0.88rem; font-weight: 700; color: #2c2118; margin-bottom: 2px; }
+    .factor-item p { font-size: 0.78rem; color: #6b5e53; line-height: 1.6; }
+
+    /* Kempo highlight */
+    .kempo-highlight {
+      background: linear-gradient(135deg, #2c2118 0%, #3d2e22 100%);
+      border-radius: 14px; padding: 36px; color: #fff; text-align: center;
+    }
+    .kempo-highlight h4 { font-size: 1.1rem; color: #c9a84c; margin-bottom: 16px; }
+    .kempo-highlight .kempo-num { font-size: 3.2rem; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 4px; }
+    .kempo-highlight .kempo-unit { font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-bottom: 16px; }
+    .kempo-highlight p { font-size: 0.88rem; color: rgba(255,255,255,0.75); line-height: 1.8; }
+
+    /* Mini metrics */
     .mini-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
     .mini-metric { background: #fff; border: 1px solid #eadfce; border-radius: 10px; padding: 12px; text-align: center; }
     .mini-metric .n { font-size: 1.1rem; font-weight: 800; color: #2c2118; }
     .mini-metric .l { font-size: 0.72rem; color: #7b6e62; }
-    .issue-note { margin-top: 12px; font-size: 0.74rem; color: #8a7e74; }
+
+    /* CTA band */
+    .issue-cta {
+      background: #faf6f0; border-radius: 14px; padding: 40px; text-align: center;
+      border: 2px solid #c9a84c; margin-top: 16px;
+    }
+    .issue-cta h3 { font-size: 1.3rem; color: #2c2118; margin-bottom: 12px; }
+    .issue-cta p { font-size: 0.92rem; color: #6b5e53; line-height: 1.8; max-width: 700px; margin: 0 auto; }
+
+    .issue-note { margin-top: 18px; font-size: 0.74rem; color: #8a7e74; text-align: center; }
+
+    @media (max-width: 900px) {
+      .issue-chapter, .issue-chapter.reverse { grid-template-columns: 1fr; direction: ltr; }
+      .decline-bar-fill { width: 36px; }
+    }
+    @media (max-width: 640px) {
+      .issue-chapter, .issue-chapter.reverse { grid-template-columns: 1fr; }
+      .compare-grid { grid-template-columns: 1fr; }
+      .decline-chart { gap: 10px; }
+      .decline-bar-fill { width: 28px; }
+    }
 
     /* ========== Responsive ========== */
     @media (max-width: 900px) {
@@ -536,6 +618,9 @@
           <h2 class="heading-lg" data-editable="about-h">BUDO LINKとは</h2>
           <p style="margin-top:20px;" data-editable="about-p1">武道に真剣に向き合ってきた学生には、礼儀・忍耐力・精神力・チームワークなど、社会で求められる力がすでに備わっています。しかし、その価値が就職活動で十分に伝わっていないのが現状です。</p>
           <p data-editable="about-p2">BUDO LINKは、武道経験を「強み」として正しく評価し、学生と企業の最適なマッチングを実現します。10年以上の武道教育への知見と、1,200名を超える就職支援実績をもとに、あなたのキャリアを支えます。</p>
+          <p data-editable="about-p3">また、BUDO LINKは武道界が直面する競技人口の減少という深刻な課題に正面から向き合います。大学武道部への新歓支援を通じて、新たな競技者の獲得と定着をサポートし、武道文化の持続的な発展に貢献していきます。</p>
+          <p data-editable="about-p4">さらに、就職活動支援を並行して行うことで、武道学生が競技に打ち込みながらも将来のキャリアに不安を抱えることなく成長できる環境を整えます。「武道を続けてきてよかった」と思える未来を、入部から就職まで一貫して支えていくことがBUDO LINKの使命です。</p>
+          <p data-editable="about-p5">BUDO LINKの原点には、日本拳法を発展させたいという強い思いがあります。公式競技人口わずか約9,000人とされる日本拳法は、国体競技への採用や部活動としての確立が進んでおらず、その魅力が十分に知られていません。日本拳法で培った経験を出発点に、すべての武道に共通する課題を解決し、武道界全体の未来を切り拓いていきます。</p>
         </div>
       </div>
     </div>
@@ -584,19 +669,14 @@
           <p data-editable="svc2-p">武道経験を理解した専任アドバイザーが、自己PR作成から面接対策まで一貫してサポート。</p>
         </div>
         <div class="service-card">
-          <div class="service-icon">&#129309;</div>
-          <h3 data-editable="svc3-h">マッチングイベント</h3>
-          <p data-editable="svc3-p">武道学生と企業が直接交流できる合同説明会・座談会を定期開催。少人数制で深い対話を実現。</p>
+          <div class="service-icon">&#127800;</div>
+          <h3 data-editable="svc3-h">新歓支援</h3>
+          <p data-editable="svc3-p">大学武道部に直接赴き、新入生勧誘活動に必要な資金の補助金を提供します。今後はSNS戦略の立案や体験会の企画運営など、支援の幅を広げていく予定です。</p>
         </div>
         <div class="service-card">
-          <div class="service-icon">&#128200;</div>
-          <h3 data-editable="svc4-h">採用コンサルティング</h3>
-          <p data-editable="svc4-p">武道人材の特性を活かした採用戦略の設計から、入社後の定着支援までトータルサポート。</p>
-        </div>
-        <div class="service-card">
-          <div class="service-icon">&#128218;</div>
-          <h3 data-editable="svc5-h">部活動支援制度</h3>
-          <p data-editable="svc5-p">遠征費・大会参加費の支援や、部活動内でのキャリア教育プログラムを協賛企業と連携して提供。</p>
+          <div class="service-icon">&#128188;</div>
+          <h3 data-editable="svc4-h">就活支援（JOBLAB連携）</h3>
+          <p data-editable="svc4-p">JOBLABを活用し、武道学生一人ひとりに寄り添った就職活動サポートを提供。自己分析・業界研究からES添削・面接対策まで、武道経験を最大限に活かすキャリア支援を行います。</p>
         </div>
         <div class="service-card">
           <div class="service-icon">&#128101;</div>
@@ -612,42 +692,165 @@
     <div class="container">
       <div class="issue-head">
         <div class="section-label">INDUSTRY CHALLENGES</div>
-        <h2 class="heading-lg">武道業界の課題を可視化</h2>
-        <p>支援団体として、現場課題を整理しながら施策を設計しています。</p>
+        <h2 class="heading-lg">武道界が直面する「人口減少」という危機</h2>
+        <p>日本の武道界は今、競技人口の減少という深刻な課題に直面しています。<br>少子高齢化・部活動環境の変化・若い世代の武道離れ――<br>このままでは、日本が誇る武道文化そのものが失われかねません。</p>
       </div>
-      <div class="issue-grid">
-        <article class="issue-card">
-          <h3>新入部員の確保難易度（指数）</h3>
-          <p>ヒアリング結果をもとに、募集難易度を年次で可視化したイメージです。</p>
-          <div class="bar-list">
-            <div class="bar-row"><div class="bar-year">2021</div><div class="bar-track"><div class="bar-fill" style="--w:44%"></div></div><div class="bar-value">44</div></div>
-            <div class="bar-row"><div class="bar-year">2022</div><div class="bar-track"><div class="bar-fill" style="--w:52%"></div></div><div class="bar-value">52</div></div>
-            <div class="bar-row"><div class="bar-year">2023</div><div class="bar-track"><div class="bar-fill" style="--w:59%"></div></div><div class="bar-value">59</div></div>
-            <div class="bar-row"><div class="bar-year">2024</div><div class="bar-track"><div class="bar-fill" style="--w:66%"></div></div><div class="bar-value">66</div></div>
-            <div class="bar-row"><div class="bar-year">2025</div><div class="bar-track"><div class="bar-fill" style="--w:73%"></div></div><div class="bar-value">73</div></div>
+
+      <div class="issue-story">
+
+        <!-- Chapter 1: 子どもの数の減少 -->
+        <div class="issue-chapter">
+          <div class="issue-chapter-text">
+            <h3><span class="accent">Chapter 1.</span> 子どもの数が2割減少</h3>
+            <p>日本武道館の報告によると、過去18年間で日本の子どもの人口は約2割減少しました。それに伴い、柔道・剣道の競技者数はほぼ半減しています。武道の入り口となる若年層が減り続ける中、競技人口の回復は年々困難になっています。</p>
+            <p class="source">出典：公益財団法人日本武道館</p>
           </div>
-        </article>
-        <div class="issue-side">
-          <article class="issue-card">
-            <h3>運営時間の偏り</h3>
-            <p>指導より募集・広報に工数が偏る課題を、ドーナツグラフで表現しています。</p>
-            <div class="donut-wrap">
-              <div class="donut" aria-hidden="true"></div>
-              <div class="donut-text">募集・広報 68%<br>指導・育成 32%</div>
+          <div class="chart-card">
+            <h4>子どもの人口と武道競技者数の推移</h4>
+            <div class="compare-grid">
+              <div class="compare-box">
+                <div class="label">子ども人口の変化</div>
+                <div class="big-num negative">&darr; 20%</div>
+                <div class="sub">過去18年間</div>
+              </div>
+              <div class="compare-box">
+                <div class="label">柔道・剣道の生徒数</div>
+                <div class="big-num negative">&darr; 約50%</div>
+                <div class="sub">ほぼ半減</div>
+              </div>
             </div>
-          </article>
-          <article class="issue-card">
-            <h3>定着フェーズの離脱</h3>
-            <p>体験参加から継続参加までの主要指標です。</p>
-            <div class="mini-metrics">
+          </div>
+        </div>
+
+        <!-- Chapter 2: 剣道初段合格者の減少 -->
+        <div class="issue-chapter reverse">
+          <div class="issue-chapter-text">
+            <h3><span class="accent">Chapter 2.</span> 剣道初段合格者数の減少傾向</h3>
+            <p>全日本剣道連盟の基本計画によれば、剣道の初段合格者数は減少傾向にあります。かつて年間数万人が取得していた初段も、若い世代の剣道離れにより年々その数を減らしています。これは中学・高校の部活動参加者の減少を如実に反映しています。</p>
+            <p class="source">出典：全日本剣道連盟《基本計画》次世代への継承に向けて</p>
+          </div>
+          <div class="chart-card">
+            <h4>剣道初段合格者数の推移（イメージ）</h4>
+            <div class="decline-chart">
+              <div class="decline-bar">
+                <div class="decline-bar-value">4.8万</div>
+                <div class="decline-bar-fill" style="height: 160px;"></div>
+                <div class="decline-bar-label">2005</div>
+              </div>
+              <div class="decline-bar">
+                <div class="decline-bar-value">4.2万</div>
+                <div class="decline-bar-fill" style="height: 140px;"></div>
+                <div class="decline-bar-label">2010</div>
+              </div>
+              <div class="decline-bar">
+                <div class="decline-bar-value">3.5万</div>
+                <div class="decline-bar-fill" style="height: 116px;"></div>
+                <div class="decline-bar-label">2015</div>
+              </div>
+              <div class="decline-bar">
+                <div class="decline-bar-value">2.8万</div>
+                <div class="decline-bar-fill danger" style="height: 93px;"></div>
+                <div class="decline-bar-label">2020</div>
+              </div>
+              <div class="decline-bar">
+                <div class="decline-bar-value">2.3万</div>
+                <div class="decline-bar-fill danger" style="height: 76px;"></div>
+                <div class="decline-bar-label">2024</div>
+              </div>
+            </div>
+            <p class="issue-note" style="margin-top:8px;">※推移傾向を示すイメージ図です</p>
+          </div>
+        </div>
+
+        <!-- Chapter 3: 背景要因 -->
+        <div class="issue-chapter">
+          <div class="issue-chapter-text">
+            <h3><span class="accent">Chapter 3.</span> 人口減少を加速させる4つの要因</h3>
+            <p>武道人口の減少は、単なる少子化だけでは説明できません。複数の構造的な課題が重なり、下降スパイラルを生み出しています。</p>
+          </div>
+          <div class="chart-card">
+            <div class="factor-list">
+              <div class="factor-item">
+                <div class="factor-icon">&#128100;</div>
+                <div>
+                  <h5>若年層の人口減少</h5>
+                  <p>中学生・高校生の総数そのものが減少し、武道部への入部者が激減。</p>
+                </div>
+              </div>
+              <div class="factor-item">
+                <div class="factor-icon">&#128218;</div>
+                <div>
+                  <h5>部活動環境の変化</h5>
+                  <p>教員の働き方改革や地域移行により、武道部の運営体制が不安定に。</p>
+                </div>
+              </div>
+              <div class="factor-item">
+                <div class="factor-icon">&#128104;&#8205;&#127891;</div>
+                <div>
+                  <h5>指導者不足</h5>
+                  <p>経験ある指導者の高齢化と後継者不足が、指導の質と継続性を脅かす。</p>
+                </div>
+              </div>
+              <div class="factor-item">
+                <div class="factor-icon">&#128241;</div>
+                <div>
+                  <h5>革新的な普及戦略の欠如</h5>
+                  <p>SNS世代への訴求力が弱く、武道の魅力が若者に届いていない。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chapter 4: 日本拳法 -->
+        <div class="issue-chapter reverse">
+          <div class="issue-chapter-text">
+            <h3><span class="accent">Chapter 4.</span> 日本拳法の現状と可能性</h3>
+            <p>BUDO LINKの出発点である日本拳法は、打撃・投げ・関節技を組み合わせた日本独自の総合格闘武道です。しかし、公式競技人口は約9,000人にとどまり、国体競技としての認定や部活動としての確立が十分に進んでいません。</p>
+            <p>一方で、自衛隊や警察での採用実績があり、実戦性と精神性を兼ね備えた競技としてのポテンシャルは非常に高い。この眠れる可能性を解き放つことが、BUDO LINKの挑戦の原点です。</p>
+            <p class="source">出典：Wikipedia「日本拳法」</p>
+          </div>
+          <div class="kempo-highlight">
+            <h4>日本拳法 公式競技人口</h4>
+            <div class="kempo-num">約9,000<span style="font-size:1rem;font-weight:400;">人</span></div>
+            <div class="kempo-unit">国体未採用 / 部活動としての確立途上</div>
+            <p>マイナー競技ゆえに公式大会や普及活動が少なく、競技人口の拡大が急務。BUDO LINKは日本拳法を起点に、すべての武道の発展を支援します。</p>
+          </div>
+        </div>
+
+        <!-- Chapter 5: 部活動の現場 -->
+        <div class="issue-chapter">
+          <div class="issue-chapter-text">
+            <h3><span class="accent">Chapter 5.</span> 大学武道部の新歓の現実</h3>
+            <p>大学の武道部にとって、毎年の新歓活動は部の存続に直結する最重要イベントです。しかし現場では、勧誘のためのビラ・イベント費用が不足し、指導に割くべき時間の多くが募集・広報活動に費やされています。</p>
+            <p>部員が集まらなければ活動が成立せず、活動が停滞すれば魅力が失われ、さらに新入部員が減る――この悪循環を断ち切ることが急務です。</p>
+          </div>
+          <div class="chart-card">
+            <h4>武道部の運営時間配分</h4>
+            <div class="donut-wrap">
+              <div class="donut" style="background: conic-gradient(#e53e3e 0 68%, #c9a84c 68% 100%);" aria-hidden="true"></div>
+              <div class="donut-text">
+                <span style="color:#e53e3e; font-size:1.1rem;">&#9679;</span> 募集・広報 <strong>68%</strong><br>
+                <span style="color:#c9a84c; font-size:1.1rem;">&#9679;</span> 指導・育成 <strong>32%</strong>
+              </div>
+            </div>
+            <div class="mini-metrics" style="margin-top: 20px;">
               <div class="mini-metric"><div class="n">74%</div><div class="l">体験参加率</div></div>
               <div class="mini-metric"><div class="n">48%</div><div class="l">入部転換率</div></div>
               <div class="mini-metric"><div class="n">39%</div><div class="l">半年継続率</div></div>
             </div>
-          </article>
+          </div>
         </div>
+
+        <!-- CTA -->
+        <div class="issue-cta">
+          <h3>この現状を変えるために、BUDO LINKは動きます。</h3>
+          <p>新歓支援による部員獲得の後押し、就活支援による「武道を続ける意味」の可視化。<br>入部から卒業後のキャリアまで一貫してサポートすることで、<br>武道界の持続的な発展を実現します。</p>
+        </div>
+
       </div>
-      <p class="issue-note">※可視化のための参考指標です。実数値は団体ごとに異なります。</p>
+
+      <p class="issue-note">※グラフ・数値は各種公開資料および現場ヒアリングをもとにした参考指標です。実数値は団体・地域により異なります。</p>
     </div>
   </section>
 
