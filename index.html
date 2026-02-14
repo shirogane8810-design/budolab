@@ -108,12 +108,19 @@
     .hero-img { display: none; }
 
     /* ========== 3. About ========== */
-    .about { background: #fff; }
-    .about-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+    .about {
+      background: url('66259.jpg') center center / cover no-repeat fixed;
+      position: relative;
     }
-    .about-img { border-radius: 12px; overflow: hidden; }
-    .about-img img { width: 100%; height: 100%; object-fit: cover; }
+    .about::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.92) 0%, rgba(250,246,240,0.88) 100%);
+    }
+    .about .container { position: relative; z-index: 1; }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr; gap: 0; align-items: center;
+    }
+    .about-img { display: none; }
     .about-text p { font-size: 1rem; color: #6b5e53; margin-bottom: 16px; line-height: 2; }
 
     /* Stats */
@@ -471,6 +478,32 @@
 
     .issue-note { margin-top: 18px; font-size: 0.74rem; color: #8a7e74; text-align: center; }
 
+    /* More button */
+    .issue-more-wrap {
+      text-align: center; padding: 8px 0 0;
+      position: relative;
+    }
+    .issue-more-wrap::before {
+      content: ''; position: absolute; top: -48px; left: 0; right: 0; height: 48px;
+      background: linear-gradient(to bottom, transparent, #fff);
+      pointer-events: none;
+    }
+    .issue-more-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #2c2118; color: #fff;
+      border: none; border-radius: 50px;
+      padding: 14px 40px; font-size: 0.95rem; font-weight: 700;
+      cursor: pointer; transition: all 0.3s;
+      letter-spacing: 0.04em;
+    }
+    .issue-more-btn:hover {
+      background: #c9a84c; transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    }
+    .issue-more-btn::after {
+      content: '\25BC'; font-size: 0.7rem;
+    }
+
     @media (max-width: 900px) {
       .issue-chapter, .issue-chapter.reverse { grid-template-columns: 1fr; direction: ltr; }
       .decline-bar-fill { width: 36px; }
@@ -691,14 +724,14 @@
   <section class="issue-visual section-pad" id="issues">
     <div class="container">
       <div class="issue-head">
-        <div class="section-label">INDUSTRY CHALLENGES</div>
-        <h2 class="heading-lg">武道界が直面する「人口減少」という危機</h2>
-        <p>日本の武道界は今、競技人口の減少という深刻な課題に直面しています。<br>少子高齢化・部活動環境の変化・若い世代の武道離れ――<br>このままでは、日本が誇る武道文化そのものが失われかねません。</p>
+        <div class="section-label">WHY WE ACT</div>
+        <h2 class="heading-lg">私たちが活動する理由</h2>
+        <p>日本の武道界は今、競技人口の減少という深刻な課題に直面しています。<br>少子高齢化・部活動環境の変化・若い世代の武道離れ――<br>このままでは、日本が誇る武道文化そのものが失われかねません。<br>だからこそ、BUDO LINKは立ち上がりました。</p>
       </div>
 
       <div class="issue-story">
 
-        <!-- Chapter 1: 子どもの数の減少 -->
+        <!-- Chapter 1: 子どもの数の減少（常に表示） -->
         <div class="issue-chapter">
           <div class="issue-chapter-text">
             <h3><span class="accent">Chapter 1.</span> 子どもの数が2割減少</h3>
@@ -721,6 +754,16 @@
             </div>
           </div>
         </div>
+
+        <!-- もっと見るボタン -->
+        <div class="issue-more-wrap" id="issueMoreWrap">
+          <button class="issue-more-btn" id="issueMoreBtn" onclick="document.getElementById('issueHidden').style.display='flex';this.parentElement.style.display='none';">
+            もっと見る
+          </button>
+        </div>
+
+        <!-- Chapter 2以降（初期非表示） -->
+        <div class="issue-hidden" id="issueHidden" style="display:none; flex-direction:column; gap:56px;">
 
         <!-- Chapter 2: 剣道初段合格者の減少 -->
         <div class="issue-chapter reverse">
@@ -847,6 +890,8 @@
           <h3>この現状を変えるために、BUDO LINKは動きます。</h3>
           <p>新歓支援による部員獲得の後押し、就活支援による「武道を続ける意味」の可視化。<br>入部から卒業後のキャリアまで一貫してサポートすることで、<br>武道界の持続的な発展を実現します。</p>
         </div>
+
+        </div><!-- /issue-hidden -->
 
       </div>
 
