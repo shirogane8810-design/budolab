@@ -606,86 +606,6 @@
     .footer-col a:hover { color: #00C8FF; }
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; text-align: center; font-size: 0.78rem; }
 
-    /* ========== Editor ========== */
-    .editor-fab {
-      position: fixed; bottom: 24px; right: 24px; z-index: 9999;
-      display: flex; gap: 8px; align-items: center;
-    }
-    .editor-fab button {
-      padding: 12px 20px; border: none; border-radius: 50px;
-      font-size: 0.85rem; font-weight: 700; cursor: pointer;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.15); transition: all 0.3s;
-    }
-    .editor-fab button:hover { transform: translateY(-2px); }
-    .btn-edit-toggle { background: #0028FF; color: #fff; }
-    .btn-edit-toggle.active { background: #00C8FF; color: #fff; }
-    .btn-edit-reset { background: #fff; color: #666; display: none; }
-    .btn-edit-reset.visible { display: inline-block; }
-
-    .edit-banner {
-      position: fixed; top: 72px; left: 0; width: 100%;
-      background: linear-gradient(90deg, #0028FF, #00C8FF); color: #fff; text-align: center;
-      padding: 8px 16px; font-size: 0.82rem; font-weight: 600;
-      z-index: 999; display: none;
-    }
-    .edit-banner.visible { display: block; }
-    body.edit-mode .hero { margin-top: 108px; min-height: calc(100vh - 108px); }
-
-    .edit-toolbar {
-      position: fixed; top: 108px; left: 50%; transform: translateX(-50%);
-      background: #fff; border-radius: 12px; padding: 8px 12px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.18); z-index: 9998;
-      display: none; align-items: center; gap: 4px; flex-wrap: wrap;
-    }
-    body.edit-mode .edit-toolbar { display: flex; }
-    .edit-toolbar button, .edit-toolbar select {
-      background: #f5f5f5; border: 1px solid #e0e0e0; border-radius: 6px;
-      padding: 6px 10px; font-size: 0.8rem; cursor: pointer;
-      transition: background 0.2s; font-family: inherit; color: #333;
-    }
-    .edit-toolbar button:hover { background: #e8e8e8; }
-    .edit-toolbar button.tb-active { background: #0028FF; color: #fff; border-color: #0028FF; }
-    .edit-toolbar .tb-sep { width: 1px; height: 24px; background: #e0e0e0; margin: 0 4px; }
-    .edit-toolbar select { padding: 6px 6px; }
-    .edit-toolbar input[type="color"] {
-      width: 30px; height: 30px; border: 1px solid #e0e0e0; border-radius: 6px;
-      cursor: pointer; padding: 2px; background: #f5f5f5;
-    }
-
-    body.edit-mode [data-editable] {
-      outline: 2px dashed rgba(0,40,255,0.4); outline-offset: 4px;
-      cursor: text; border-radius: 4px; transition: outline-color 0.2s;
-    }
-    body.edit-mode [data-editable]:hover { outline-color: rgba(0,40,255,0.8); }
-    body.edit-mode [data-editable]:focus { outline: 2px solid #0028FF; outline-offset: 4px; background: rgba(0,40,255,0.04); }
-
-    .img-slot { position: relative; border-radius: 16px; overflow: hidden; }
-    .img-slot img { width: 100%; height: auto; display: block; border-radius: 16px; }
-    .img-slot .img-upload-overlay { display: none; }
-    body.edit-mode .img-slot .img-upload-overlay {
-      display: flex; position: absolute; inset: 0;
-      background: rgba(0,40,255,0.5); color: #fff; align-items: center;
-      justify-content: center; flex-direction: column; gap: 8px;
-      cursor: pointer; opacity: 0; transition: opacity 0.3s;
-      border-radius: 16px; font-size: 0.85rem; font-weight: 600;
-    }
-    body.edit-mode .img-slot:hover .img-upload-overlay { opacity: 1; }
-    .img-slot .img-remove-btn { display: none; }
-    body.edit-mode .img-slot img ~ .img-remove-btn {
-      display: flex; position: absolute; top: 8px; right: 8px;
-      width: 28px; height: 28px; background: #e53e3e; color: #fff;
-      border: none; border-radius: 50%; cursor: pointer;
-      align-items: center; justify-content: center;
-      font-size: 1rem; font-weight: 700; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
-    .img-slot-empty {
-      background: #eef0f4; border: 2px dashed #0028FF; min-height: 200px;
-      display: flex; align-items: center; justify-content: center;
-    }
-    body.edit-mode .img-slot-empty .img-upload-overlay {
-      opacity: 1; background: transparent; color: #5a6577;
-    }
-
     /* ========== Responsive ========== */
     @media (max-width: 900px) {
       .pc-nav { display: none; }
@@ -723,7 +643,6 @@
       .contact-form { padding: 28px 20px; }
       .section-pad { padding: 64px 0; }
       .cases-section { padding: 64px 0; }
-      .edit-toolbar { top: auto; bottom: 72px; left: 8px; right: 8px; transform: none; border-radius: 10px; justify-content: center; }
       .case-card { width: 220px; }
       .case-photo { height: 120px; }
       .compare-grid { grid-template-columns: 1fr; }
@@ -784,63 +703,22 @@
     </div>
   </div>
 
-  <!-- Edit Banner -->
-  <div class="edit-banner" id="editBanner">編集モード ON — テキストをクリックして編集 / ツールバーで書式変更 / 画像をクリックして差し替え</div>
-
-  <!-- Edit Toolbar -->
-  <div class="edit-toolbar" id="editToolbar">
-    <button id="tbBold" title="太字"><b>B</b></button>
-    <button id="tbItalic" title="斜体"><i>I</i></button>
-    <button id="tbUnderline" title="下線"><u>U</u></button>
-    <div class="tb-sep"></div>
-    <select id="tbFont" title="フォント">
-      <option value="">フォント</option>
-      <option value="'游ゴシック体', YuGothic, sans-serif">游ゴシック</option>
-      <option value="'游明朝体', 'Yu Mincho', serif">游明朝</option>
-      <option value="'Hiragino Kaku Gothic ProN', sans-serif">ヒラギノ角ゴ</option>
-      <option value="'Hiragino Mincho ProN', serif">ヒラギノ明朝</option>
-      <option value="Meiryo, sans-serif">メイリオ</option>
-      <option value="Georgia, serif">Georgia</option>
-      <option value="Arial, sans-serif">Arial</option>
-    </select>
-    <select id="tbSize" title="文字サイズ">
-      <option value="">サイズ</option>
-      <option value="1">極小</option>
-      <option value="2">小</option>
-      <option value="3">標準</option>
-      <option value="4">やや大</option>
-      <option value="5">大</option>
-      <option value="6">特大</option>
-      <option value="7">最大</option>
-    </select>
-    <div class="tb-sep"></div>
-    <input type="color" id="tbColor" value="#0028FF" title="文字色">
-    <div class="tb-sep"></div>
-    <button id="tbAlignL" title="左寄せ" style="font-size:0.7rem;">左</button>
-    <button id="tbAlignC" title="中央" style="font-size:0.7rem;">中</button>
-    <button id="tbAlignR" title="右寄せ" style="font-size:0.7rem;">右</button>
-  </div>
-
   <!-- ===== 2. Hero ===== -->
   <section class="hero" id="hero">
     <div class="hero-pattern"></div>
     <div class="container">
       <div class="hero-inner">
         <div class="hero-text">
-          <div class="hero-badge" data-editable="hero-badge">BUDO LINK</div>
-          <h1 class="heading-xl" data-editable="hero-h1">武道で培った力を、<br>キャリアの武器に。</h1>
-          <p data-editable="hero-p">BUDO LINKは、武道に打ち込む学生と、その力を求める企業をつなぐキャリア支援プラットフォームです。あなたの経験が、最大の強みになる。</p>
+          <div class="hero-badge">BUDO LINK</div>
+          <h1 class="heading-xl">武道で培った力を、<br>キャリアの武器に。</h1>
+          <p>BUDO LINKは、武道に打ち込む学生と、その力を求める企業をつなぐキャリア支援プラットフォームです。あなたの経験が、最大の強みになる。</p>
           <div class="hero-buttons">
-            <a href="#services" class="btn btn-white" data-editable="hero-btn1">サービスを見る</a>
-            <a href="#contact" class="btn btn-outline-white" data-editable="hero-btn2">お問い合わせ</a>
+            <a href="#services" class="btn btn-white">サービスを見る</a>
+            <a href="#contact" class="btn btn-outline-white">お問い合わせ</a>
           </div>
         </div>
         <div class="hero-img">
-          <div class="img-slot" data-img="hero-img">
-            <img src="budo-illustration.jpg" alt="BUDO LINK">
-            <div class="img-upload-overlay"><span style="font-size:2rem;">&#128247;</span><span>クリックして画像を変更</span></div>
-            <button class="img-remove-btn" title="削除">&times;</button>
-          </div>
+          <img src="budo-illustration.jpg" alt="BUDO LINK" style="border-radius:16px;">
         </div>
       </div>
     </div>
@@ -855,20 +733,20 @@
     <div class="container">
       <div class="stats-grid">
         <div class="stat-item">
-          <div class="stat-num" data-count="1200" data-editable="stat1-n">0<span>+</span></div>
-          <div class="stat-label" data-editable="stat1-l">登録学生数</div>
+          <div class="stat-num" data-count="1200">0<span>+</span></div>
+          <div class="stat-label">登録学生数</div>
         </div>
         <div class="stat-item">
-          <div class="stat-num" data-count="80" data-editable="stat2-n">0<span>+</span></div>
-          <div class="stat-label" data-editable="stat2-l">提携部活動数</div>
+          <div class="stat-num" data-count="80">0<span>+</span></div>
+          <div class="stat-label">提携部活動数</div>
         </div>
         <div class="stat-item">
-          <div class="stat-num" data-count="150" data-editable="stat3-n">0<span>+</span></div>
-          <div class="stat-label" data-editable="stat3-l">連携企業数</div>
+          <div class="stat-num" data-count="150">0<span>+</span></div>
+          <div class="stat-label">連携企業数</div>
         </div>
         <div class="stat-item">
-          <div class="stat-num" data-count="95" data-suffix="%" data-editable="stat4-n">0<span>%</span></div>
-          <div class="stat-label" data-editable="stat4-l">入社後定着率</div>
+          <div class="stat-num" data-count="95" data-suffix="%">0<span>%</span></div>
+          <div class="stat-label">入社後定着率</div>
         </div>
       </div>
     </div>
@@ -879,20 +757,16 @@
     <div class="container">
       <div class="about-grid">
         <div class="about-img-wrap">
-          <div class="img-slot" data-img="about-img">
-            <img src="66259.jpg" alt="BUDO LINK" style="width: 100%; border-radius: 16px;">
-            <div class="img-upload-overlay"><span style="font-size:2rem;">&#128247;</span><span>クリックして画像を変更</span></div>
-            <button class="img-remove-btn" title="削除">&times;</button>
-          </div>
+          <img src="66259.jpg" alt="BUDO LINK" style="width: 100%; border-radius: 16px;">
         </div>
         <div class="about-text">
           <div class="section-label">About</div>
-          <h2 class="heading-lg" data-editable="about-h">BUDO LINKとは</h2>
-          <p style="margin-top:20px;" data-editable="about-p1">武道に真剣に向き合ってきた学生には、礼儀・忍耐力・精神力・チームワークなど、社会で求められる力がすでに備わっています。しかし、その価値が就職活動で十分に伝わっていないのが現状です。</p>
-          <p data-editable="about-p2">BUDO LINKは、武道経験を「強み」として正しく評価し、学生と企業の最適なマッチングを実現します。10年以上の武道教育への知見と、1,200名を超える就職支援実績をもとに、あなたのキャリアを支えます。</p>
-          <p data-editable="about-p3">また、BUDO LINKは武道界が直面する競技人口の減少という深刻な課題に正面から向き合います。大学武道部への新歓支援を通じて、新たな競技者の獲得と定着をサポートし、武道文化の持続的な発展に貢献していきます。</p>
-          <p data-editable="about-p4">さらに、就職活動支援を並行して行うことで、武道学生が競技に打ち込みながらも将来のキャリアに不安を抱えることなく成長できる環境を整えます。「武道を続けてきてよかった」と思える未来を、入部から就職まで一貫して支えていくことがBUDO LINKの使命です。</p>
-          <p data-editable="about-p5">BUDO LINKの原点には、日本拳法を発展させたいという強い思いがあります。公式競技人口わずか約9,000人とされる日本拳法は、国体競技への採用や部活動としての確立が進んでおらず、その魅力が十分に知られていません。日本拳法で培った経験を出発点に、すべての武道に共通する課題を解決し、武道界全体の未来を切り拓いていきます。</p>
+          <h2 class="heading-lg">BUDO LINKとは</h2>
+          <p style="margin-top:20px;">武道に真剣に向き合ってきた学生には、礼儀・忍耐力・精神力・チームワークなど、社会で求められる力がすでに備わっています。しかし、その価値が就職活動で十分に伝わっていないのが現状です。</p>
+          <p>BUDO LINKは、武道経験を「強み」として正しく評価し、学生と企業の最適なマッチングを実現します。10年以上の武道教育への知見と、1,200名を超える就職支援実績をもとに、あなたのキャリアを支えます。</p>
+          <p>また、BUDO LINKは武道界が直面する競技人口の減少という深刻な課題に正面から向き合います。大学武道部への新歓支援を通じて、新たな競技者の獲得と定着をサポートし、武道文化の持続的な発展に貢献していきます。</p>
+          <p>さらに、就職活動支援を並行して行うことで、武道学生が競技に打ち込みながらも将来のキャリアに不安を抱えることなく成長できる環境を整えます。「武道を続けてきてよかった」と思える未来を、入部から就職まで一貫して支えていくことがBUDO LINKの使命です。</p>
+          <p>BUDO LINKの原点には、日本拳法を発展させたいという強い思いがあります。公式競技人口わずか約9,000人とされる日本拳法は、国体競技への採用や部活動としての確立が進んでおらず、その魅力が十分に知られていません。日本拳法で培った経験を出発点に、すべての武道に共通する課題を解決し、武道界全体の未来を切り拓いていきます。</p>
         </div>
       </div>
     </div>
@@ -903,34 +777,34 @@
     <div class="container">
       <div class="services-header">
         <div class="section-label">Services</div>
-        <h2 class="heading-lg" data-editable="svc-h">BUDO LINKの活動</h2>
-        <p data-editable="svc-sub">武道学生と企業、双方の可能性を最大化するサービス</p>
+        <h2 class="heading-lg">BUDO LINKの活動</h2>
+        <p>武道学生と企業、双方の可能性を最大化するサービス</p>
       </div>
       <div class="services-grid">
         <div class="service-card">
           <div class="service-icon">&#9876;</div>
-          <h3 data-editable="svc1-h">武道経験の可視化</h3>
-          <p data-editable="svc1-p">段位・戦績・役職・競技歴を体系的にプロフィール化。企業が求める人材像と正確にマッチング。</p>
+          <h3>武道経験の可視化</h3>
+          <p>段位・戦績・役職・競技歴を体系的にプロフィール化。企業が求める人材像と正確にマッチング。</p>
         </div>
         <div class="service-card">
           <div class="service-icon">&#127919;</div>
-          <h3 data-editable="svc2-h">キャリアコンサルティング</h3>
-          <p data-editable="svc2-p">武道経験を理解した専任アドバイザーが、自己PR作成から面接対策まで一貫してサポート。</p>
+          <h3>キャリアコンサルティング</h3>
+          <p>武道経験を理解した専任アドバイザーが、自己PR作成から面接対策まで一貫してサポート。</p>
         </div>
         <div class="service-card">
           <div class="service-icon">&#127800;</div>
-          <h3 data-editable="svc3-h">新歓支援</h3>
-          <p data-editable="svc3-p">大学武道部に直接赴き、新入生勧誘活動に必要な資金の補助金を提供します。今後はSNS戦略の立案や体験会の企画運営など、支援の幅を広げていく予定です。</p>
+          <h3>新歓支援</h3>
+          <p>大学武道部に直接赴き、新入生勧誘活動に必要な資金の補助金を提供します。今後はSNS戦略の立案や体験会の企画運営など、支援の幅を広げていく予定です。</p>
         </div>
         <div class="service-card">
           <div class="service-icon">&#128188;</div>
-          <h3 data-editable="svc4-h">就活支援（JOBLAB連携）</h3>
-          <p data-editable="svc4-p">JOBLABを活用し、武道学生一人ひとりに寄り添った就職活動サポートを提供。自己分析・業界研究からES添削・面接対策まで、武道経験を最大限に活かすキャリア支援を行います。</p>
+          <h3>就活支援（JOBLAB連携）</h3>
+          <p>JOBLABを活用し、武道学生一人ひとりに寄り添った就職活動サポートを提供。自己分析・業界研究からES添削・面接対策まで、武道経験を最大限に活かすキャリア支援を行います。</p>
         </div>
         <div class="service-card">
           <div class="service-icon">&#128101;</div>
-          <h3 data-editable="svc6-h">OB・OGネットワーク</h3>
-          <p data-editable="svc6-p">同じ武道出身の先輩社会人とつながるネットワーク。キャリア情報やノウハウを共有します。</p>
+          <h3>OB・OGネットワーク</h3>
+          <p>同じ武道出身の先輩社会人とつながるネットワーク。キャリア情報やノウハウを共有します。</p>
         </div>
       </div>
     </div>
@@ -1184,8 +1058,8 @@
     <div class="container">
       <div class="oppo-header">
         <div class="section-label">Opportunities</div>
-        <h2 class="heading-lg" data-editable="oppo-h">あなたに合った機会を見つける</h2>
-        <p data-editable="oppo-sub">武道学生の強みを求める企業からの厳選された機会</p>
+        <h2 class="heading-lg">あなたに合った機会を見つける</h2>
+        <p>武道学生の強みを求める企業からの厳選された機会</p>
       </div>
       <div class="oppo-grid">
         <a href="jobs.html?cat=sales" class="oppo-card">
@@ -1234,8 +1108,8 @@
   <!-- Quote Band -->
   <section class="quote-band fade-in">
     <div class="container">
-      <p class="quote-text" data-editable="quote-text">「一つひとつの出会いが、<br>単なる就職ではなく、<br>人生を変えるキャリアになる。」</p>
-      <p class="quote-author" data-editable="quote-author">BUDO LINK 代表</p>
+      <p class="quote-text">「一つひとつの出会いが、<br>単なる就職ではなく、<br>人生を変えるキャリアになる。」</p>
+      <p class="quote-author">BUDO LINK 代表</p>
     </div>
   </section>
 
@@ -1284,40 +1158,40 @@
     <div class="container">
       <div class="testi-header">
         <div class="section-label">Testimonials</div>
-        <h2 class="heading-lg" data-editable="testi-h">利用者の声</h2>
+        <h2 class="heading-lg">利用者の声</h2>
       </div>
       <div class="testi-grid">
         <div class="testi-card">
           <div class="testi-avatar">A</div>
-          <blockquote data-editable="t1-q">「武道の経験を初めて正当に評価してもらえた。面接でも自信を持って話せるようになりました。」</blockquote>
-          <div class="testi-name" data-editable="t1-name">A.T さん</div>
-          <div class="testi-role" data-editable="t1-role">柔道部 / 大学4年</div>
+          <blockquote>「武道の経験を初めて正当に評価してもらえた。面接でも自信を持って話せるようになりました。」</blockquote>
+          <div class="testi-name">A.T さん</div>
+          <div class="testi-role">柔道部 / 大学4年</div>
         </div>
         <div class="testi-card">
           <div class="testi-avatar">K</div>
-          <blockquote data-editable="t2-q">「武道出身の人材は定着率が高い。BUDO LINKを通じて3名採用し、全員が活躍しています。」</blockquote>
-          <div class="testi-name" data-editable="t2-name">K.M さん</div>
-          <div class="testi-role" data-editable="t2-role">人事部長 / IT企業</div>
+          <blockquote>「武道出身の人材は定着率が高い。BUDO LINKを通じて3名採用し、全員が活躍しています。」</blockquote>
+          <div class="testi-name">K.M さん</div>
+          <div class="testi-role">人事部長 / IT企業</div>
         </div>
         <div class="testi-card">
           <div class="testi-avatar">S</div>
-          <blockquote data-editable="t3-q">「部活と就活の両立が難しかったけど、スケジュールを柔軟に組んでもらえて助かりました。」</blockquote>
-          <div class="testi-name" data-editable="t3-name">S.Y さん</div>
-          <div class="testi-role" data-editable="t3-role">剣道部 / 大学3年</div>
+          <blockquote>「部活と就活の両立が難しかったけど、スケジュールを柔軟に組んでもらえて助かりました。」</blockquote>
+          <div class="testi-name">S.Y さん</div>
+          <div class="testi-role">剣道部 / 大学3年</div>
         </div>
       </div>
 
       <div class="partners-section">
-        <h3 class="heading-md text-center" data-editable="partner-h">パートナー企業</h3>
+        <h3 class="heading-md text-center">パートナー企業</h3>
         <div class="partners-list">
-          <span data-editable="p1">ABC商事</span>
-          <span data-editable="p2">日本テクノロジー</span>
-          <span data-editable="p3">グローバルHR</span>
-          <span data-editable="p4">未来建設</span>
-          <span data-editable="p5">サクラ不動産</span>
-          <span data-editable="p6">ブレイン教育</span>
-          <span data-editable="p7">スポーツライフ</span>
-          <span data-editable="p8">ネクスト金融</span>
+          <span>ABC商事</span>
+          <span>日本テクノロジー</span>
+          <span>グローバルHR</span>
+          <span>未来建設</span>
+          <span>サクラ不動産</span>
+          <span>ブレイン教育</span>
+          <span>スポーツライフ</span>
+          <span>ネクスト金融</span>
         </div>
       </div>
     </div>
@@ -1329,19 +1203,19 @@
       <div class="contact-grid">
         <div class="contact-info">
           <div class="section-label">Contact</div>
-          <h2 class="heading-lg" data-editable="contact-h">お問い合わせ</h2>
-          <p data-editable="contact-p">ご質問やご相談がございましたら、お気軽にお問い合わせください。武道学生の方も企業の方も、まずはお話をお聞かせください。</p>
+          <h2 class="heading-lg">お問い合わせ</h2>
+          <p>ご質問やご相談がございましたら、お気軽にお問い合わせください。武道学生の方も企業の方も、まずはお話をお聞かせください。</p>
           <div class="contact-detail">
             <h4>PHONE</h4>
-            <p data-editable="contact-phone">03-1234-5678</p>
+            <p>03-1234-5678</p>
           </div>
           <div class="contact-detail">
             <h4>EMAIL</h4>
-            <p data-editable="contact-email">info@budolink.jp</p>
+            <p>info@budolink.jp</p>
           </div>
           <div class="contact-detail">
             <h4>ADDRESS</h4>
-            <p data-editable="contact-addr">東京都渋谷区〇〇 1-2-3<br>BUDOビル 4F</p>
+            <p>東京都渋谷区〇〇 1-2-3<br>BUDOビル 4F</p>
           </div>
         </div>
         <form class="contact-form" id="contactForm">
@@ -1370,7 +1244,7 @@
       <div class="footer-inner">
         <div class="footer-brand">
           <div class="logo">BUDO <span>LINK</span></div>
-          <p data-editable="footer-desc">武道学生の可能性を最大化するキャリア支援プラットフォーム</p>
+          <p>武道学生の可能性を最大化するキャリア支援プラットフォーム</p>
         </div>
         <div class="footer-links">
           <div class="footer-col">
@@ -1390,13 +1264,6 @@
       <div class="footer-bottom">&copy; 2025 BUDO LINK. All Rights Reserved.</div>
     </div>
   </footer>
-
-  <!-- Editor FAB -->
-  <div class="editor-fab">
-    <button class="btn-edit-reset" id="btnReset" title="リセット">リセット</button>
-    <button class="btn-edit-toggle" id="btnEditToggle">編集モード</button>
-  </div>
-  <input type="file" id="imgFileInput" accept="image/*" style="display:none">
 
   <!-- ===== Scripts ===== -->
   <script>
@@ -1463,147 +1330,6 @@
       });
     }, { threshold: 0.3 });
     if (statsSection) statsObserver.observe(statsSection);
-
-    /* ===== Editor System ===== */
-    const STORAGE_KEY = 'budolink_edits';
-    const IMG_STORAGE_KEY = 'budolink_images';
-    const btnToggle = document.getElementById('btnEditToggle');
-    const btnReset = document.getElementById('btnReset');
-    const editBanner = document.getElementById('editBanner');
-    const editToolbar = document.getElementById('editToolbar');
-    const imgFileInput = document.getElementById('imgFileInput');
-    let editMode = false;
-    let activeImgSlot = null;
-
-    const tbBold = document.getElementById('tbBold');
-    const tbItalic = document.getElementById('tbItalic');
-    const tbUnderline = document.getElementById('tbUnderline');
-    const tbFont = document.getElementById('tbFont');
-    const tbSize = document.getElementById('tbSize');
-    const tbColor = document.getElementById('tbColor');
-    const tbAlignL = document.getElementById('tbAlignL');
-    const tbAlignC = document.getElementById('tbAlignC');
-    const tbAlignR = document.getElementById('tbAlignR');
-
-    function execCmd(cmd, val) { document.execCommand(cmd, false, val || null); }
-
-    tbBold.addEventListener('click', () => execCmd('bold'));
-    tbItalic.addEventListener('click', () => execCmd('italic'));
-    tbUnderline.addEventListener('click', () => execCmd('underline'));
-    tbFont.addEventListener('change', () => { if (tbFont.value) { execCmd('fontName', tbFont.value); tbFont.value = ''; } });
-    tbSize.addEventListener('change', () => { if (tbSize.value) { execCmd('fontSize', tbSize.value); tbSize.value = ''; } });
-    tbColor.addEventListener('input', () => execCmd('foreColor', tbColor.value));
-    tbAlignL.addEventListener('click', () => execCmd('justifyLeft'));
-    tbAlignC.addEventListener('click', () => execCmd('justifyCenter'));
-    tbAlignR.addEventListener('click', () => execCmd('justifyRight'));
-
-    document.addEventListener('selectionchange', () => {
-      if (!editMode) return;
-      tbBold.classList.toggle('tb-active', document.queryCommandState('bold'));
-      tbItalic.classList.toggle('tb-active', document.queryCommandState('italic'));
-      tbUnderline.classList.toggle('tb-active', document.queryCommandState('underline'));
-    });
-
-    function loadEdits() {
-      try {
-        const d = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-        Object.keys(d).forEach(k => {
-          const el = document.querySelector('[data-editable="' + k + '"]');
-          if (el) el.innerHTML = d[k];
-        });
-      } catch(e) {}
-    }
-    function loadImages() {
-      try {
-        const d = JSON.parse(localStorage.getItem(IMG_STORAGE_KEY) || '{}');
-        Object.keys(d).forEach(k => {
-          const slot = document.querySelector('[data-img="' + k + '"]');
-          if (slot && d[k]) setSlotImage(slot, d[k]);
-        });
-      } catch(e) {}
-    }
-    function saveEdits() {
-      const d = {};
-      document.querySelectorAll('[data-editable]').forEach(el => {
-        d[el.getAttribute('data-editable')] = el.innerHTML;
-      });
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(d));
-    }
-    function saveImages() {
-      const d = {};
-      document.querySelectorAll('[data-img]').forEach(slot => {
-        const img = slot.querySelector('img');
-        d[slot.getAttribute('data-img')] = img ? img.src : null;
-      });
-      localStorage.setItem(IMG_STORAGE_KEY, JSON.stringify(d));
-    }
-    function setSlotImage(slot, src) {
-      slot.classList.remove('img-slot-empty');
-      let img = slot.querySelector('img');
-      if (!img) { img = document.createElement('img'); slot.insertBefore(img, slot.firstChild); }
-      img.src = src; img.alt = 'image';
-    }
-    function removeSlotImage(slot) {
-      const img = slot.querySelector('img');
-      if (img) img.remove();
-      slot.classList.add('img-slot-empty');
-      saveImages();
-    }
-
-    function toggleEditMode() {
-      editMode = !editMode;
-      document.body.classList.toggle('edit-mode', editMode);
-      editBanner.classList.toggle('visible', editMode);
-      btnToggle.classList.toggle('active', editMode);
-      btnToggle.textContent = editMode ? '編集を終了' : '編集モード';
-      const hasEdits = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(IMG_STORAGE_KEY);
-      btnReset.classList.toggle('visible', editMode && !!hasEdits);
-      document.querySelectorAll('[data-editable]').forEach(el => {
-        editMode ? el.setAttribute('contenteditable', 'true') : el.removeAttribute('contenteditable');
-      });
-      if (!editMode) { saveEdits(); saveImages(); }
-    }
-    btnToggle.addEventListener('click', toggleEditMode);
-
-    document.addEventListener('blur', (e) => {
-      if (e.target.hasAttribute && e.target.hasAttribute('data-editable') && editMode) {
-        saveEdits(); btnReset.classList.add('visible');
-      }
-    }, true);
-
-    document.addEventListener('click', (e) => {
-      if (editMode && e.target.closest('[data-editable]')) e.preventDefault();
-    });
-
-    document.addEventListener('click', (e) => {
-      if (!editMode) return;
-      const overlay = e.target.closest('.img-upload-overlay');
-      if (overlay) { activeImgSlot = overlay.closest('.img-slot'); imgFileInput.click(); return; }
-      const rmBtn = e.target.closest('.img-remove-btn');
-      if (rmBtn) removeSlotImage(rmBtn.closest('.img-slot'));
-    });
-    imgFileInput.addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (!file || !activeImgSlot) return;
-      const reader = new FileReader();
-      reader.onload = (ev) => {
-        setSlotImage(activeImgSlot, ev.target.result);
-        saveImages(); btnReset.classList.add('visible'); activeImgSlot = null;
-      };
-      reader.readAsDataURL(file);
-      imgFileInput.value = '';
-    });
-
-    btnReset.addEventListener('click', () => {
-      if (confirm('編集内容をすべてリセットしますか？')) {
-        localStorage.removeItem(STORAGE_KEY);
-        localStorage.removeItem(IMG_STORAGE_KEY);
-        location.reload();
-      }
-    });
-
-    loadEdits();
-    loadImages();
 
     /* ===== Contact Form Submission ===== */
     const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzH9vvLN_g4A6y8-XmflK6QK0ek24lSzqepFLGfEg55ldsWIFYRPX736uHXdh5x3I9r/exec';
