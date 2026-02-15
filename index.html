@@ -4,13 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BUDO LINK - 武道学生向けキャリア支援プラットフォーム</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     /* ========== Reset & Base ========== */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
-      font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
-      color: #2c2118;
+      font-family: "Inter", "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+      color: #1a2744;
       line-height: 1.8;
       background: #fff;
     }
@@ -20,170 +23,486 @@
 
     /* ========== Utility ========== */
     .container { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
-    .section-pad { padding: 100px 0; }
+    .section-pad { padding: 120px 0; }
 
     .btn {
-      display: inline-block; padding: 14px 36px; border-radius: 4px;
+      display: inline-block; padding: 16px 40px; border-radius: 50px;
       font-size: 0.95rem; font-weight: 600; cursor: pointer;
-      transition: all 0.3s; border: none; text-align: center; letter-spacing: 0.03em;
+      transition: all 0.4s ease; border: none; text-align: center; letter-spacing: 0.03em;
     }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
-    .btn-dark { background: #2c2118; color: #fff; }
-    .btn-dark:hover { background: #1a1410; }
-    .btn-outline-dark { background: transparent; color: #2c2118; border: 2px solid #2c2118; }
-    .btn-outline-dark:hover { background: #2c2118; color: #fff; }
-    .btn-gold { background: #c9a84c; color: #fff; }
-    .btn-gold:hover { background: #b89640; }
-    .btn-white { background: #fff; color: #2c2118; }
-    .btn-white:hover { background: #f5efe6; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,40,255,0.18); }
+    .btn-primary { background: linear-gradient(135deg, #0028FF, #00C8FF); color: #fff; }
+    .btn-primary:hover { box-shadow: 0 8px 32px rgba(0,40,255,0.3); }
+    .btn-dark { background: #0a1628; color: #fff; }
+    .btn-dark:hover { background: #111f3a; }
+    .btn-outline-dark { background: transparent; color: #0a1628; border: 2px solid #0a1628; }
+    .btn-outline-dark:hover { background: #0a1628; color: #fff; }
+    .btn-white { background: #fff; color: #0028FF; font-weight: 700; }
+    .btn-white:hover { background: #f0f4ff; box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
     .btn-outline-white { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.7); }
     .btn-outline-white:hover { background: rgba(255,255,255,0.15); border-color: #fff; color: #fff; }
+    .btn-gold { background: linear-gradient(135deg, #0028FF, #00C8FF); color: #fff; }
+    .btn-gold:hover { box-shadow: 0 8px 32px rgba(0,40,255,0.3); }
 
     .heading-xl {
-      font-size: 3.2rem; font-weight: 700; line-height: 1.2;
-      letter-spacing: -0.02em;
+      font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 900; line-height: 1.1;
+      letter-spacing: -0.03em;
     }
-    .heading-lg { font-size: 2.4rem; font-weight: 700; line-height: 1.25; letter-spacing: -0.01em; }
-    .heading-md { font-size: 1.5rem; font-weight: 700; line-height: 1.35; }
-    .text-muted { color: #8a7e74; }
+    .heading-lg {
+      font-family: "Inter", "Noto Serif JP", serif;
+      font-size: 2.6rem; font-weight: 800; line-height: 1.25; letter-spacing: -0.02em;
+    }
+    .heading-md {
+      font-family: "Inter", "Noto Serif JP", serif;
+      font-size: 1.5rem; font-weight: 700; line-height: 1.35;
+    }
+    .text-muted { color: #5a6577; }
     .text-center { text-align: center; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em;
+      color: #0028FF; margin-bottom: 12px; text-transform: uppercase;
+    }
+
+    /* ========== Scroll Animations ========== */
+    .fade-in {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-in.visible {
+      opacity: 1; transform: translateY(0);
+    }
 
     /* ========== 1. Header ========== */
     .header {
       position: fixed; top: 0; left: 0; width: 100%;
       background: rgba(255,255,255,0.97); z-index: 1000;
       box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+      backdrop-filter: blur(12px);
     }
     .header .container {
-      display: flex; align-items: center; justify-content: space-between; height: 64px;
+      display: flex; align-items: center; justify-content: space-between; height: 72px;
     }
-    .logo { font-size: 1.35rem; font-weight: 800; color: #2c2118; letter-spacing: 0.08em; }
-    .logo span { color: #c9a84c; }
-    .nav-links { display: flex; gap: 32px; }
-    .nav-links a {
-      font-size: 0.85rem; font-weight: 600; color: #2c2118;
-      letter-spacing: 0.04em; transition: color 0.3s;
+    .logo { font-size: 1.5rem; font-weight: 900; color: #0028FF; letter-spacing: 0.06em; }
+    .logo span { color: #00C8FF; }
+
+    /* PC Nav */
+    .pc-nav { display: flex; gap: 28px; align-items: center; }
+    .pc-nav a {
+      font-size: 0.85rem; font-weight: 600; color: #1a2744;
+      letter-spacing: 0.03em; transition: color 0.3s; position: relative;
     }
-    .nav-links a:hover { color: #c9a84c; }
+    .pc-nav a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px;
+      background: linear-gradient(90deg, #0028FF, #00C8FF);
+      transition: width 0.3s;
+    }
+    .pc-nav a:hover { color: #0028FF; }
+    .pc-nav a:hover::after { width: 100%; }
+
+    .header-right {
+      display: flex; align-items: center; gap: 16px;
+    }
+    .header-sns {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .header-sns a {
+      display: flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; border-radius: 50%;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .header-sns a:hover {
+      background: rgba(0,40,255,0.08); transform: scale(1.1);
+    }
+    .header-sns svg { width: 22px; height: 22px; fill: #1a2744; }
+
+    /* Hamburger */
     .hamburger {
-      display: none; flex-direction: column; gap: 5px;
-      cursor: pointer; background: none; border: none; padding: 4px;
+      display: none; flex-direction: column; gap: 6px;
+      cursor: pointer; background: none; border: none; padding: 6px;
+      z-index: 1100; position: relative;
     }
     .hamburger span {
-      display: block; width: 22px; height: 2px; background: #2c2118;
-      border-radius: 2px; transition: transform 0.3s, opacity 0.3s;
+      display: block; width: 26px; height: 2px; background: #1a2744;
+      border-radius: 2px; transition: transform 0.4s, opacity 0.3s, background 0.3s;
     }
+    .hamburger.active span { background: #fff; }
+    .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    /* Mobile Side Drawer */
+    .drawer-overlay {
+      position: fixed; inset: 0; z-index: 1040;
+      background: rgba(10,22,40,0.6); backdrop-filter: blur(4px);
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.4s, visibility 0.4s;
+    }
+    .drawer-overlay.active { opacity: 1; visibility: visible; }
+
+    .side-drawer {
+      position: fixed; top: 0; right: -375px; width: 375px; max-width: 85vw;
+      height: 100vh; z-index: 1050;
+      background: linear-gradient(180deg, #0a1628 0%, #0028FF 100%);
+      transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      padding: 100px 40px 40px;
+      overflow-y: auto;
+    }
+    .side-drawer.active { right: 0; }
+    .side-drawer nav { display: flex; flex-direction: column; gap: 24px; }
+    .side-drawer nav a {
+      font-size: 1.3rem; font-weight: 700; color: rgba(255,255,255,0.85);
+      letter-spacing: 0.04em; transition: color 0.3s, transform 0.3s;
+    }
+    .side-drawer nav a:hover { color: #00C8FF; transform: translateX(8px); }
+    .side-drawer .drawer-sns {
+      display: flex; gap: 16px; margin-top: 40px; padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.15);
+    }
+    .side-drawer .drawer-sns a {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(255,255,255,0.1); display: flex;
+      align-items: center; justify-content: center;
+      transition: background 0.3s;
+    }
+    .side-drawer .drawer-sns a:hover { background: rgba(255,255,255,0.2); }
+    .side-drawer .drawer-sns svg { width: 22px; height: 22px; fill: #fff; }
 
     /* ========== 2. Hero ========== */
     .hero {
-      margin-top: 64px;
-      background: url('budo-illustration.jpg') center center / cover no-repeat;
-      min-height: calc(100vh - 64px);
+      margin-top: 72px;
+      min-height: calc(100vh - 72px);
       display: flex; align-items: center;
-      position: relative;
-      overflow: hidden;
+      position: relative; overflow: hidden;
+      background: linear-gradient(135deg, #0a1628 0%, #0028FF 50%, #00C8FF 100%);
     }
-    .hero::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(
-        to right,
-        rgba(44, 33, 24, 0.72) 0%,
-        rgba(44, 33, 24, 0.45) 50%,
-        rgba(44, 33, 24, 0.1) 100%
-      );
+    .hero-pattern {
+      position: absolute; inset: 0; opacity: 0.08;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     }
     .hero .container { position: relative; z-index: 1; }
     .hero-inner {
-      display: block; max-width: 560px;
+      display: block; max-width: 700px;
     }
     .hero-text { padding: 60px 0; }
     .hero-badge {
       display: inline-block; font-size: 0.75rem; font-weight: 700;
-      letter-spacing: 0.12em; color: #c9a84c; margin-bottom: 20px;
+      letter-spacing: 0.14em; color: #00C8FF; margin-bottom: 24px;
       text-transform: uppercase;
+      border: 1px solid rgba(0,200,255,0.4); padding: 6px 20px; border-radius: 50px;
+      background: rgba(0,200,255,0.08);
     }
-    .hero-text h1 { margin-bottom: 24px; color: #fff; }
-    .hero-text p { font-size: 1.05rem; color: rgba(255,255,255,0.85); margin-bottom: 36px; line-height: 2; }
-    .hero-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-text h1 {
+      margin-bottom: 28px; color: #fff;
+      opacity: 0; transform: translateY(30px);
+      animation: heroFadeUp 1s 0.3s forwards;
+    }
+    .hero-text p {
+      font-size: 1.15rem; color: rgba(255,255,255,0.85); margin-bottom: 40px; line-height: 2;
+      opacity: 0; transform: translateY(30px);
+      animation: heroFadeUp 1s 0.6s forwards;
+    }
+    .hero-buttons {
+      display: flex; gap: 14px; flex-wrap: wrap;
+      opacity: 0; transform: translateY(30px);
+      animation: heroFadeUp 1s 0.9s forwards;
+    }
     .hero-img { display: none; }
 
-    /* ========== 3. About ========== */
+    @keyframes heroFadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+      z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px;
+    }
+    .scroll-indicator span {
+      font-size: 0.72rem; font-weight: 600; color: rgba(255,255,255,0.5);
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .scroll-arrow {
+      width: 24px; height: 24px; border-right: 2px solid rgba(255,255,255,0.5);
+      border-bottom: 2px solid rgba(255,255,255,0.5);
+      transform: rotate(45deg);
+      animation: bounceArrow 2s infinite;
+    }
+    @keyframes bounceArrow {
+      0%, 20%, 50%, 80%, 100% { transform: rotate(45deg) translateY(0); }
+      40% { transform: rotate(45deg) translateY(8px); }
+      60% { transform: rotate(45deg) translateY(4px); }
+    }
+
+    /* ========== 3. Stats Band ========== */
+    .stats-band {
+      background: linear-gradient(135deg, #0028FF, #00C8FF);
+      padding: 64px 0;
+    }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+    .stat-item { text-align: center; }
+    .stat-num { font-size: 3.2rem; font-weight: 900; color: #fff; line-height: 1.1; margin-bottom: 4px; }
+    .stat-num span { font-size: 1rem; font-weight: 500; }
+    .stat-label { font-size: 0.9rem; color: rgba(255,255,255,0.75); }
+
+    /* ========== 4. About ========== */
     .about {
       background: url('66259.jpg') center center / cover no-repeat fixed;
       position: relative;
     }
     .about::before {
       content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.92) 0%, rgba(250,246,240,0.88) 100%);
+      background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(247,248,250,0.93) 100%);
     }
     .about .container { position: relative; z-index: 1; }
     .about-grid {
-      display: grid; grid-template-columns: 1fr; gap: 0; align-items: center;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
     }
-    .about-img { display: none; }
-    .about-text p { font-size: 1rem; color: #6b5e53; margin-bottom: 16px; line-height: 2; }
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-img-wrap img {
+      width: 100%; border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,40,255,0.1);
+    }
+    .about-text p { font-size: 1rem; color: #5a6577; margin-bottom: 16px; line-height: 2; }
 
-    /* Stats */
-    .stats-band { background: #2c2118; padding: 60px 0; }
-    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
-    .stat-item { text-align: center; }
-    .stat-num { font-size: 3rem; font-weight: 800; color: #c9a84c; line-height: 1.1; margin-bottom: 4px; }
-    .stat-num span { font-size: 1rem; font-weight: 500; }
-    .stat-label { font-size: 0.9rem; color: rgba(255,255,255,0.7); }
-
-    /* ========== 4. Services ========== */
-    .services { background: #faf6f0; }
-    .services-header { text-align: center; margin-bottom: 56px; }
-    .services-header p { font-size: 1.05rem; color: #6b5e53; margin-top: 12px; }
+    /* ========== 5. Services ========== */
+    .services { background: #f7f8fa; }
+    .services-header { text-align: center; margin-bottom: 64px; }
+    .services-header p { font-size: 1.05rem; color: #5a6577; margin-top: 14px; }
     .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
     .service-card {
-      background: #fff; border-radius: 12px; padding: 40px 28px;
-      transition: transform 0.3s, box-shadow 0.3s;
+      background: #fff; border-radius: 16px; padding: 44px 30px;
+      transition: transform 0.4s, box-shadow 0.4s;
+      box-shadow: 0 2px 12px rgba(0,40,255,0.04);
+      position: relative; overflow: hidden;
     }
-    .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+    .service-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, #0028FF, #00C8FF);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s;
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,40,255,0.10); }
     .service-icon {
-      width: 48px; height: 48px; background: #2c2118; border-radius: 8px;
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg, #0028FF, #00C8FF);
+      border-radius: 12px;
       display: flex; align-items: center; justify-content: center;
-      margin-bottom: 20px; font-size: 1.3rem; color: #fff;
+      margin-bottom: 22px; font-size: 1.3rem; color: #fff;
     }
-    .service-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; color: #2c2118; }
-    .service-card p { font-size: 0.9rem; color: #6b5e53; line-height: 1.8; }
+    .service-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; color: #0a1628; }
+    .service-card p { font-size: 0.9rem; color: #5a6577; line-height: 1.8; }
 
-    /* ========== 5. Opportunities ========== */
+    /* ========== Cases ========== */
+    .cases-section { background: #fff; padding: 120px 0; }
+    .cases-header { text-align: center; margin-bottom: 48px; }
+    .cases-header h2 { margin-top: 8px; }
+    .cases-header p { color: #5a6577; margin-top: 10px; font-size: 1rem; }
+
+    .marquee {
+      overflow: hidden;
+      mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
+    }
+    .track {
+      width: max-content; display: flex; gap: 16px;
+      animation: flow-rtl 42s linear infinite;
+      padding: 4px 0;
+    }
+    @keyframes flow-rtl {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .case-card {
+      width: 260px; flex-shrink: 0;
+      background: #f7f8fa; border-radius: 16px; overflow: hidden;
+      border: 1px solid rgba(0,40,255,0.08);
+      box-shadow: 0 4px 16px rgba(0,40,255,0.05);
+    }
+    .case-photo { height: 140px; background: #e4e7ec; }
+    .case-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .case-body { padding: 14px 14px 16px; }
+    .case-uni { font-size: 0.95rem; font-weight: 800; margin-bottom: 5px; color: #0a1628; }
+    .case-content { font-size: 0.82rem; color: #5a6577; line-height: 1.7; }
+    .case-tag {
+      display: inline-block; margin-top: 8px;
+      padding: 2px 10px; border-radius: 999px;
+      font-size: 0.7rem; font-weight: 700;
+      color: #fff; background: linear-gradient(135deg, #0028FF, #00C8FF);
+    }
+
+    .cases-cta {
+      margin-top: 40px;
+      background: linear-gradient(135deg, #0028FF, #00C8FF);
+      color: #fff;
+      border-radius: 16px; padding: 28px 32px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    }
+    .cases-cta strong { font-size: 1rem; }
+
+    /* ========== Industry Challenges ========== */
+    .issue-visual { background: #fff; }
+    .issue-head { text-align: center; margin-bottom: 64px; }
+    .issue-head p { font-size: 1rem; color: #5a6577; margin-top: 14px; line-height: 1.9; }
+
+    .issue-story { display: flex; flex-direction: column; gap: 64px; }
+    .issue-chapter { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .issue-chapter.reverse { direction: rtl; }
+    .issue-chapter.reverse > * { direction: ltr; }
+    .issue-chapter-text h3 { font-size: 1.3rem; font-weight: 700; color: #0a1628; margin-bottom: 14px; }
+    .issue-chapter-text h3 .accent { color: #0028FF; }
+    .issue-chapter-text p { font-size: 0.92rem; color: #5a6577; line-height: 1.9; margin-bottom: 10px; }
+    .issue-chapter-text .source { font-size: 0.72rem; color: #8a95a8; }
+
+    .chart-card {
+      background: #f7f8fa; border-radius: 16px; padding: 36px;
+      border: 1px solid rgba(0,40,255,0.06);
+    }
+    .chart-card h4 { font-size: 0.95rem; font-weight: 700; color: #0a1628; margin-bottom: 16px; text-align: center; }
+
+    .bar-list { display: flex; flex-direction: column; gap: 12px; }
+    .bar-row { display: grid; grid-template-columns: 76px 1fr 48px; gap: 8px; align-items: center; }
+    .bar-year { font-size: 0.82rem; color: #5a6577; font-weight: 700; }
+    .bar-track { height: 10px; border-radius: 999px; background: #dfe2e8; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #00C8FF, #0028FF); width: var(--w, 0%); }
+    .bar-value { font-size: 0.8rem; font-weight: 700; color: #0a1628; text-align: right; }
+    .bar-row.highlight .bar-fill { background: linear-gradient(90deg, #e53e3e, #0028FF); }
+    .bar-row.highlight .bar-value { color: #e53e3e; }
+
+    .decline-chart { display: flex; align-items: flex-end; justify-content: center; gap: 16px; padding: 12px 0; }
+    .decline-bar { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .decline-bar-fill {
+      width: 48px; border-radius: 6px 6px 0 0;
+      background: linear-gradient(180deg, #00C8FF, #0028FF);
+      transition: height 0.5s;
+    }
+    .decline-bar-fill.danger { background: linear-gradient(180deg, #e53e3e, #0028FF); }
+    .decline-bar-label { font-size: 0.72rem; font-weight: 700; color: #5a6577; }
+    .decline-bar-value { font-size: 0.78rem; font-weight: 800; color: #0a1628; }
+
+    .donut-wrap { display: flex; align-items: center; gap: 20px; justify-content: center; }
+    .donut {
+      width: 120px; height: 120px; border-radius: 50%;
+      position: relative; flex-shrink: 0;
+    }
+    .donut::after {
+      content: ''; position: absolute; inset: 24px;
+      border-radius: 50%; background: #f7f8fa;
+    }
+    .donut-text { font-size: 0.88rem; font-weight: 700; color: #0a1628; line-height: 1.6; }
+
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .compare-box {
+      background: #fff; border-radius: 12px; padding: 20px; text-align: center;
+      border: 1px solid #dfe2e8;
+    }
+    .compare-box .label { font-size: 0.75rem; color: #5a6577; font-weight: 600; margin-bottom: 8px; }
+    .compare-box .big-num { font-size: 2rem; font-weight: 800; line-height: 1.1; }
+    .compare-box .big-num.positive { color: #0028FF; }
+    .compare-box .big-num.negative { color: #e53e3e; }
+    .compare-box .sub { font-size: 0.72rem; color: #5a6577; margin-top: 4px; }
+
+    .factor-list { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+    .factor-item {
+      display: flex; align-items: center; gap: 12px;
+      background: #fff; border-radius: 12px; padding: 14px 16px;
+      border: 1px solid #dfe2e8;
+    }
+    .factor-icon { font-size: 1.3rem; flex-shrink: 0; }
+    .factor-item h5 { font-size: 0.88rem; font-weight: 700; color: #0a1628; margin-bottom: 2px; }
+    .factor-item p { font-size: 0.78rem; color: #5a6577; line-height: 1.6; }
+
+    .kempo-highlight {
+      background: linear-gradient(135deg, #0a1628 0%, #0028FF 100%);
+      border-radius: 16px; padding: 40px; color: #fff; text-align: center;
+    }
+    .kempo-highlight h4 { font-size: 1.1rem; color: #00C8FF; margin-bottom: 16px; }
+    .kempo-highlight .kempo-num { font-size: 3.2rem; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 4px; }
+    .kempo-highlight .kempo-unit { font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-bottom: 16px; }
+    .kempo-highlight p { font-size: 0.88rem; color: rgba(255,255,255,0.75); line-height: 1.8; }
+
+    .mini-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .mini-metric { background: #fff; border: 1px solid #dfe2e8; border-radius: 12px; padding: 12px; text-align: center; }
+    .mini-metric .n { font-size: 1.1rem; font-weight: 800; color: #0028FF; }
+    .mini-metric .l { font-size: 0.72rem; color: #5a6577; }
+
+    .issue-cta {
+      background: #f7f8fa; border-radius: 16px; padding: 44px; text-align: center;
+      border: 2px solid #0028FF; margin-top: 16px;
+    }
+    .issue-cta h3 { font-size: 1.3rem; color: #0a1628; margin-bottom: 12px; }
+    .issue-cta p { font-size: 0.92rem; color: #5a6577; line-height: 1.8; max-width: 700px; margin: 0 auto; }
+
+    .issue-note { margin-top: 18px; font-size: 0.74rem; color: #8a95a8; text-align: center; }
+
+    .issue-more-wrap {
+      text-align: center; padding: 8px 0 0; position: relative;
+    }
+    .issue-more-wrap::before {
+      content: ''; position: absolute; top: -48px; left: 0; right: 0; height: 48px;
+      background: linear-gradient(to bottom, transparent, #fff);
+      pointer-events: none;
+    }
+    .issue-more-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, #0028FF, #00C8FF); color: #fff;
+      border: none; border-radius: 50px;
+      padding: 14px 40px; font-size: 0.95rem; font-weight: 700;
+      cursor: pointer; transition: all 0.4s;
+      letter-spacing: 0.04em;
+    }
+    .issue-more-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,40,255,0.25);
+    }
+    .issue-more-btn::after { content: '\25BC'; font-size: 0.7rem; }
+
+    /* ========== 6. Opportunities ========== */
     .opportunities { background: #fff; }
-    .oppo-header { text-align: center; margin-bottom: 56px; }
-    .oppo-header p { font-size: 1.05rem; color: #6b5e53; margin-top: 12px; }
+    .oppo-header { text-align: center; margin-bottom: 64px; }
+    .oppo-header p { font-size: 1.05rem; color: #5a6577; margin-top: 14px; }
     .oppo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 48px; }
     .oppo-card {
-      background: #faf6f0; border-radius: 12px; padding: 36px 28px; text-align: center;
-      transition: transform 0.3s;
+      background: #f7f8fa; border-radius: 16px; padding: 36px 28px; text-align: center;
+      transition: transform 0.4s, box-shadow 0.4s;
+      position: relative; overflow: hidden;
     }
-    .oppo-card:hover { transform: translateY(-4px); }
+    .oppo-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(0,40,255,0.03), rgba(0,200,255,0.03));
+      opacity: 0; transition: opacity 0.4s;
+    }
+    .oppo-card:hover::before { opacity: 1; }
+    .oppo-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,40,255,0.08); }
     .oppo-card-icon { font-size: 2rem; margin-bottom: 16px; }
     .oppo-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
-    .oppo-card p { font-size: 0.88rem; color: #6b5e53; margin-bottom: 16px; line-height: 1.7; }
-    .oppo-card .tag { font-size: 0.78rem; font-weight: 700; color: #c9a84c; letter-spacing: 0.05em; }
+    .oppo-card p { font-size: 0.88rem; color: #5a6577; margin-bottom: 16px; line-height: 1.7; }
+    .oppo-card .tag { font-size: 0.78rem; font-weight: 700; color: #0028FF; letter-spacing: 0.05em; }
 
-    /* Quote band */
+    /* ========== Quote Band ========== */
     .quote-band {
-      background: #2c2118; color: #fff; padding: 80px 0;
+      background: linear-gradient(135deg, #0028FF 0%, #00C8FF 100%);
+      color: #fff; padding: 100px 0;
       text-align: center; position: relative; overflow: hidden;
     }
     .quote-band::before {
       content: "\201C"; position: absolute; top: -20px; left: 50%;
-      transform: translateX(-50%); font-size: 14rem; color: rgba(201,168,76,0.1);
+      transform: translateX(-50%); font-size: 14rem; color: rgba(255,255,255,0.08);
       font-family: Georgia, serif; line-height: 1;
     }
     .quote-text {
-      font-size: 2rem; font-weight: 700; line-height: 1.5;
+      font-family: "Noto Serif JP", serif;
+      font-size: 2.2rem; font-weight: 700; line-height: 1.6;
       max-width: 720px; margin: 0 auto 24px; position: relative; z-index: 1;
     }
-    .quote-author { font-size: 0.9rem; color: rgba(255,255,255,0.6); position: relative; z-index: 1; }
+    .quote-author { font-size: 0.9rem; color: rgba(255,255,255,0.65); position: relative; z-index: 1; }
 
     /* ========== JOBLAB Promo ========== */
     .joblab-promo {
-      position: relative; overflow: hidden;
-      padding: 100px 0;
+      position: relative; overflow: hidden; padding: 120px 0;
     }
     .joblab-promo-bg {
       position: absolute; inset: 0;
@@ -191,17 +510,18 @@
     }
     .joblab-promo-bg::after {
       content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(44,33,24,0.85) 0%, rgba(44,33,24,0.6) 100%);
+      background: linear-gradient(135deg, rgba(0,40,255,0.85) 0%, rgba(0,200,255,0.65) 100%);
     }
     .joblab-promo .container { position: relative; z-index: 1; }
     .joblab-promo-inner {
       display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center;
     }
     .joblab-promo-text h2 {
+      font-family: "Inter", "Noto Serif JP", serif;
       font-size: 2.2rem; font-weight: 800; color: #fff;
       line-height: 1.3; margin-bottom: 20px;
     }
-    .joblab-promo-text h2 em { font-style: normal; color: #c9a84c; }
+    .joblab-promo-text h2 em { font-style: normal; color: #00C8FF; }
     .joblab-promo-text p {
       font-size: 1rem; color: rgba(255,255,255,0.8); line-height: 2; margin-bottom: 12px;
     }
@@ -211,82 +531,79 @@
     }
     .promo-point {
       background: rgba(255,255,255,0.1); backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.12); border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.15); border-radius: 16px;
       padding: 24px 20px; text-align: center;
-      transition: transform 0.3s, background 0.3s;
+      transition: transform 0.4s, background 0.4s;
     }
-    .promo-point:hover { transform: translateY(-3px); background: rgba(255,255,255,0.15); }
+    .promo-point:hover { transform: translateY(-3px); background: rgba(255,255,255,0.18); }
     .promo-point-icon { font-size: 1.8rem; margin-bottom: 10px; }
     .promo-point h4 { font-size: 0.95rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
     .promo-point p { font-size: 0.8rem; color: rgba(255,255,255,0.65); line-height: 1.6; }
-    @media (max-width: 900px) {
-      .joblab-promo-inner { grid-template-columns: 1fr; }
-      .joblab-promo-text h2 { font-size: 1.8rem; }
-    }
-    @media (max-width: 640px) {
-      .joblab-promo { padding: 64px 0; }
-      .joblab-promo-points { grid-template-columns: 1fr; }
-    }
 
-    /* ========== 6. Testimonials ========== */
-    .testimonials { background: #faf6f0; }
-    .testi-header { text-align: center; margin-bottom: 56px; }
+    /* ========== 7. Testimonials ========== */
+    .testimonials { background: #f7f8fa; }
+    .testi-header { text-align: center; margin-bottom: 64px; }
     .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-bottom: 64px; }
     .testi-card {
-      background: #fff; border-radius: 12px; padding: 36px 28px;
-      text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+      background: #fff; border-radius: 16px; padding: 40px 28px;
+      text-align: center; box-shadow: 0 2px 16px rgba(0,40,255,0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
     }
+    .testi-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,40,255,0.08); }
     .testi-avatar {
       width: 72px; height: 72px; border-radius: 50%;
-      background: #d9d0c5; margin: 0 auto 20px;
+      background: linear-gradient(135deg, #0028FF, #00C8FF);
+      margin: 0 auto 20px;
       display: flex; align-items: center; justify-content: center;
       font-size: 1.8rem; color: #fff; font-weight: 700;
     }
     .testi-card blockquote {
-      font-size: 0.95rem; color: #2c2118; font-style: italic;
+      font-size: 0.95rem; color: #1a2744; font-style: italic;
       margin-bottom: 20px; line-height: 1.8;
     }
-    .testi-name { font-size: 0.88rem; font-weight: 700; color: #c9a84c; }
-    .testi-role { font-size: 0.8rem; color: #8a7e74; }
+    .testi-name { font-size: 0.88rem; font-weight: 700; color: #0028FF; }
+    .testi-role { font-size: 0.8rem; color: #5a6577; }
 
-    /* Partners */
     .partners-section { margin-top: 16px; }
     .partners-section h3 { text-align: center; margin-bottom: 28px; }
     .partners-list {
       display: flex; flex-wrap: wrap; justify-content: center;
       gap: 20px 40px;
     }
-    .partners-list span { font-size: 0.95rem; font-weight: 600; color: #6b5e53; }
+    .partners-list span { font-size: 0.95rem; font-weight: 600; color: #5a6577; }
 
-    /* ========== 7. Contact ========== */
+    /* ========== 8. Contact ========== */
     .contact { background: #fff; }
     .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
     .contact-info h2 { margin-bottom: 16px; }
-    .contact-info p { color: #6b5e53; margin-bottom: 32px; line-height: 1.9; }
+    .contact-info p { color: #5a6577; margin-bottom: 32px; line-height: 1.9; }
     .contact-detail { margin-bottom: 20px; }
-    .contact-detail h4 { font-size: 0.85rem; font-weight: 700; color: #c9a84c; letter-spacing: 0.05em; margin-bottom: 4px; }
-    .contact-detail p { color: #2c2118; font-size: 0.95rem; margin-bottom: 0; }
-    .contact-form { background: #faf6f0; border-radius: 12px; padding: 40px; }
+    .contact-detail h4 { font-size: 0.85rem; font-weight: 700; color: #0028FF; letter-spacing: 0.05em; margin-bottom: 4px; }
+    .contact-detail p { color: #0a1628; font-size: 0.95rem; margin-bottom: 0; }
+    .contact-form { background: #f7f8fa; border-radius: 16px; padding: 44px; }
     .form-group { margin-bottom: 20px; }
-    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: #2c2118; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: #0a1628; }
     .form-group input, .form-group textarea {
-      width: 100%; padding: 12px 16px; border: 1px solid #d9d0c5;
-      border-radius: 6px; font-size: 0.95rem; font-family: inherit;
-      background: #fff; transition: border-color 0.3s;
+      width: 100%; padding: 14px 18px; border: 1px solid #d0d5dd;
+      border-radius: 10px; font-size: 0.95rem; font-family: inherit;
+      background: #fff; transition: border-color 0.3s, box-shadow 0.3s;
     }
-    .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #c9a84c; }
+    .form-group input:focus, .form-group textarea:focus {
+      outline: none; border-color: #0028FF;
+      box-shadow: 0 0 0 3px rgba(0,40,255,0.1);
+    }
     .form-group textarea { resize: vertical; min-height: 120px; }
 
-    /* ========== 8. Footer ========== */
-    .footer { background: #2c2118; color: rgba(255,255,255,0.65); padding: 56px 0 32px; }
+    /* ========== 9. Footer ========== */
+    .footer { background: #0a1628; color: rgba(255,255,255,0.65); padding: 64px 0 36px; }
     .footer-inner { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 32px; margin-bottom: 40px; }
     .footer-brand .logo { color: #fff; font-size: 1.3rem; }
-    .footer-brand .logo span { color: #c9a84c; }
+    .footer-brand .logo span { color: #00C8FF; }
     .footer-brand p { font-size: 0.85rem; max-width: 280px; margin-top: 8px; line-height: 1.7; }
     .footer-links { display: flex; gap: 56px; }
     .footer-col h4 { color: #fff; font-size: 0.85rem; margin-bottom: 12px; font-weight: 700; }
     .footer-col a { display: block; font-size: 0.83rem; color: rgba(255,255,255,0.5); margin-bottom: 8px; transition: color 0.3s; }
-    .footer-col a:hover { color: #c9a84c; }
+    .footer-col a:hover { color: #00C8FF; }
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; text-align: center; font-size: 0.78rem; }
 
     /* ========== Editor ========== */
@@ -300,24 +617,23 @@
       box-shadow: 0 4px 16px rgba(0,0,0,0.15); transition: all 0.3s;
     }
     .editor-fab button:hover { transform: translateY(-2px); }
-    .btn-edit-toggle { background: #2c2118; color: #fff; }
-    .btn-edit-toggle.active { background: #c9a84c; color: #fff; }
+    .btn-edit-toggle { background: #0028FF; color: #fff; }
+    .btn-edit-toggle.active { background: #00C8FF; color: #fff; }
     .btn-edit-reset { background: #fff; color: #666; display: none; }
     .btn-edit-reset.visible { display: inline-block; }
 
     .edit-banner {
-      position: fixed; top: 64px; left: 0; width: 100%;
-      background: #c9a84c; color: #fff; text-align: center;
+      position: fixed; top: 72px; left: 0; width: 100%;
+      background: linear-gradient(90deg, #0028FF, #00C8FF); color: #fff; text-align: center;
       padding: 8px 16px; font-size: 0.82rem; font-weight: 600;
       z-index: 999; display: none;
     }
     .edit-banner.visible { display: block; }
-    body.edit-mode .hero { margin-top: 100px; min-height: calc(100vh - 100px); }
+    body.edit-mode .hero { margin-top: 108px; min-height: calc(100vh - 108px); }
 
-    /* Toolbar */
     .edit-toolbar {
-      position: fixed; top: 100px; left: 50%; transform: translateX(-50%);
-      background: #fff; border-radius: 10px; padding: 8px 12px;
+      position: fixed; top: 108px; left: 50%; transform: translateX(-50%);
+      background: #fff; border-radius: 12px; padding: 8px 12px;
       box-shadow: 0 8px 32px rgba(0,0,0,0.18); z-index: 9998;
       display: none; align-items: center; gap: 4px; flex-wrap: wrap;
     }
@@ -328,7 +644,7 @@
       transition: background 0.2s; font-family: inherit; color: #333;
     }
     .edit-toolbar button:hover { background: #e8e8e8; }
-    .edit-toolbar button.tb-active { background: #2c2118; color: #fff; border-color: #2c2118; }
+    .edit-toolbar button.tb-active { background: #0028FF; color: #fff; border-color: #0028FF; }
     .edit-toolbar .tb-sep { width: 1px; height: 24px; background: #e0e0e0; margin: 0 4px; }
     .edit-toolbar select { padding: 6px 6px; }
     .edit-toolbar input[type="color"] {
@@ -336,24 +652,22 @@
       cursor: pointer; padding: 2px; background: #f5f5f5;
     }
 
-    /* Editable highlights */
     body.edit-mode [data-editable] {
-      outline: 2px dashed rgba(201,168,76,0.4); outline-offset: 4px;
+      outline: 2px dashed rgba(0,40,255,0.4); outline-offset: 4px;
       cursor: text; border-radius: 4px; transition: outline-color 0.2s;
     }
-    body.edit-mode [data-editable]:hover { outline-color: rgba(201,168,76,0.8); }
-    body.edit-mode [data-editable]:focus { outline: 2px solid #c9a84c; outline-offset: 4px; background: rgba(201,168,76,0.04); }
+    body.edit-mode [data-editable]:hover { outline-color: rgba(0,40,255,0.8); }
+    body.edit-mode [data-editable]:focus { outline: 2px solid #0028FF; outline-offset: 4px; background: rgba(0,40,255,0.04); }
 
-    /* Image slots */
-    .img-slot { position: relative; border-radius: 12px; overflow: hidden; }
-    .img-slot img { width: 100%; height: auto; display: block; border-radius: 12px; }
+    .img-slot { position: relative; border-radius: 16px; overflow: hidden; }
+    .img-slot img { width: 100%; height: auto; display: block; border-radius: 16px; }
     .img-slot .img-upload-overlay { display: none; }
     body.edit-mode .img-slot .img-upload-overlay {
       display: flex; position: absolute; inset: 0;
-      background: rgba(44,33,24,0.5); color: #fff; align-items: center;
+      background: rgba(0,40,255,0.5); color: #fff; align-items: center;
       justify-content: center; flex-direction: column; gap: 8px;
       cursor: pointer; opacity: 0; transition: opacity 0.3s;
-      border-radius: 12px; font-size: 0.85rem; font-weight: 600;
+      border-radius: 16px; font-size: 0.85rem; font-weight: 600;
     }
     body.edit-mode .img-slot:hover .img-upload-overlay { opacity: 1; }
     .img-slot .img-remove-btn { display: none; }
@@ -365,192 +679,59 @@
       font-size: 1rem; font-weight: 700; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
     .img-slot-empty {
-      background: #f0ebe4; border: 2px dashed #c9a84c; min-height: 200px;
+      background: #eef0f4; border: 2px dashed #0028FF; min-height: 200px;
       display: flex; align-items: center; justify-content: center;
     }
     body.edit-mode .img-slot-empty .img-upload-overlay {
-      opacity: 1; background: transparent; color: #8a7e74;
-    }
-
-    /* ========== 7. Industry Challenges ========== */
-    .issue-visual { background: #fff; }
-    .issue-head { text-align: center; margin-bottom: 56px; }
-    .issue-head p { font-size: 1rem; color: #6b5e53; margin-top: 12px; line-height: 1.9; }
-    .section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; color: #c9a84c; margin-bottom: 12px; text-transform: uppercase; }
-
-    /* Story flow */
-    .issue-story { display: flex; flex-direction: column; gap: 56px; }
-    .issue-chapter { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
-    .issue-chapter.reverse { direction: rtl; }
-    .issue-chapter.reverse > * { direction: ltr; }
-    .issue-chapter-text h3 { font-size: 1.3rem; font-weight: 700; color: #2c2118; margin-bottom: 12px; }
-    .issue-chapter-text h3 .accent { color: #c9a84c; }
-    .issue-chapter-text p { font-size: 0.92rem; color: #6b5e53; line-height: 1.9; margin-bottom: 10px; }
-    .issue-chapter-text .source { font-size: 0.72rem; color: #a89b8e; }
-
-    /* Chart cards */
-    .chart-card {
-      background: #faf6f0; border-radius: 14px; padding: 32px;
-      border: 1px solid rgba(44,33,24,0.08);
-    }
-    .chart-card h4 { font-size: 0.95rem; font-weight: 700; color: #2c2118; margin-bottom: 16px; text-align: center; }
-
-    /* Bar chart */
-    .bar-list { display: flex; flex-direction: column; gap: 12px; }
-    .bar-row { display: grid; grid-template-columns: 76px 1fr 48px; gap: 8px; align-items: center; }
-    .bar-year { font-size: 0.82rem; color: #6b5e53; font-weight: 700; }
-    .bar-track { height: 10px; border-radius: 999px; background: #e8ded2; overflow: hidden; }
-    .bar-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #c9a84c, #2c2118); width: var(--w, 0%); }
-    .bar-value { font-size: 0.8rem; font-weight: 700; color: #2c2118; text-align: right; }
-    .bar-row.highlight .bar-fill { background: linear-gradient(90deg, #e53e3e, #c9a84c); }
-    .bar-row.highlight .bar-value { color: #e53e3e; }
-
-    /* Decline arrow chart */
-    .decline-chart { display: flex; align-items: flex-end; justify-content: center; gap: 16px; padding: 12px 0; }
-    .decline-bar { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-    .decline-bar-fill {
-      width: 48px; border-radius: 6px 6px 0 0;
-      background: linear-gradient(180deg, #c9a84c, #2c2118);
-      transition: height 0.5s;
-    }
-    .decline-bar-fill.danger { background: linear-gradient(180deg, #e53e3e, #c9a84c); }
-    .decline-bar-label { font-size: 0.72rem; font-weight: 700; color: #6b5e53; }
-    .decline-bar-value { font-size: 0.78rem; font-weight: 800; color: #2c2118; }
-
-    /* Donut chart */
-    .donut-wrap { display: flex; align-items: center; gap: 20px; justify-content: center; }
-    .donut {
-      width: 120px; height: 120px; border-radius: 50%;
-      position: relative; flex-shrink: 0;
-    }
-    .donut::after {
-      content: ''; position: absolute; inset: 24px;
-      border-radius: 50%; background: #faf6f0;
-    }
-    .donut-text { font-size: 0.88rem; font-weight: 700; color: #2c2118; line-height: 1.6; }
-
-    /* Comparison boxes */
-    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .compare-box {
-      background: #fff; border-radius: 10px; padding: 20px; text-align: center;
-      border: 1px solid #eadfce;
-    }
-    .compare-box .label { font-size: 0.75rem; color: #8a7e74; font-weight: 600; margin-bottom: 8px; }
-    .compare-box .big-num { font-size: 2rem; font-weight: 800; line-height: 1.1; }
-    .compare-box .big-num.positive { color: #2c2118; }
-    .compare-box .big-num.negative { color: #e53e3e; }
-    .compare-box .sub { font-size: 0.72rem; color: #8a7e74; margin-top: 4px; }
-
-    /* Factor list */
-    .factor-list { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
-    .factor-item {
-      display: flex; align-items: center; gap: 12px;
-      background: #fff; border-radius: 10px; padding: 14px 16px;
-      border: 1px solid #eadfce;
-    }
-    .factor-icon { font-size: 1.3rem; flex-shrink: 0; }
-    .factor-item h5 { font-size: 0.88rem; font-weight: 700; color: #2c2118; margin-bottom: 2px; }
-    .factor-item p { font-size: 0.78rem; color: #6b5e53; line-height: 1.6; }
-
-    /* Kempo highlight */
-    .kempo-highlight {
-      background: linear-gradient(135deg, #2c2118 0%, #3d2e22 100%);
-      border-radius: 14px; padding: 36px; color: #fff; text-align: center;
-    }
-    .kempo-highlight h4 { font-size: 1.1rem; color: #c9a84c; margin-bottom: 16px; }
-    .kempo-highlight .kempo-num { font-size: 3.2rem; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 4px; }
-    .kempo-highlight .kempo-unit { font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-bottom: 16px; }
-    .kempo-highlight p { font-size: 0.88rem; color: rgba(255,255,255,0.75); line-height: 1.8; }
-
-    /* Mini metrics */
-    .mini-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-    .mini-metric { background: #fff; border: 1px solid #eadfce; border-radius: 10px; padding: 12px; text-align: center; }
-    .mini-metric .n { font-size: 1.1rem; font-weight: 800; color: #2c2118; }
-    .mini-metric .l { font-size: 0.72rem; color: #7b6e62; }
-
-    /* CTA band */
-    .issue-cta {
-      background: #faf6f0; border-radius: 14px; padding: 40px; text-align: center;
-      border: 2px solid #c9a84c; margin-top: 16px;
-    }
-    .issue-cta h3 { font-size: 1.3rem; color: #2c2118; margin-bottom: 12px; }
-    .issue-cta p { font-size: 0.92rem; color: #6b5e53; line-height: 1.8; max-width: 700px; margin: 0 auto; }
-
-    .issue-note { margin-top: 18px; font-size: 0.74rem; color: #8a7e74; text-align: center; }
-
-    /* More button */
-    .issue-more-wrap {
-      text-align: center; padding: 8px 0 0;
-      position: relative;
-    }
-    .issue-more-wrap::before {
-      content: ''; position: absolute; top: -48px; left: 0; right: 0; height: 48px;
-      background: linear-gradient(to bottom, transparent, #fff);
-      pointer-events: none;
-    }
-    .issue-more-btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: #2c2118; color: #fff;
-      border: none; border-radius: 50px;
-      padding: 14px 40px; font-size: 0.95rem; font-weight: 700;
-      cursor: pointer; transition: all 0.3s;
-      letter-spacing: 0.04em;
-    }
-    .issue-more-btn:hover {
-      background: #c9a84c; transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
-    }
-    .issue-more-btn::after {
-      content: '\25BC'; font-size: 0.7rem;
-    }
-
-    @media (max-width: 900px) {
-      .issue-chapter, .issue-chapter.reverse { grid-template-columns: 1fr; direction: ltr; }
-      .decline-bar-fill { width: 36px; }
-    }
-    @media (max-width: 640px) {
-      .issue-chapter, .issue-chapter.reverse { grid-template-columns: 1fr; }
-      .compare-grid { grid-template-columns: 1fr; }
-      .decline-chart { gap: 10px; }
-      .decline-bar-fill { width: 28px; }
+      opacity: 1; background: transparent; color: #5a6577;
     }
 
     /* ========== Responsive ========== */
     @media (max-width: 900px) {
+      .pc-nav { display: none; }
+      .hamburger { display: flex; }
       .hero-inner { max-width: 100%; }
       .about-grid { grid-template-columns: 1fr; }
       .services-grid { grid-template-columns: repeat(2, 1fr); }
       .oppo-grid { grid-template-columns: repeat(2, 1fr); }
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
       .testi-grid { grid-template-columns: repeat(2, 1fr); }
-      .issue-grid { grid-template-columns: 1fr; }
       .contact-grid { grid-template-columns: 1fr; }
-      .heading-xl { font-size: 2.4rem; }
+      .heading-xl { font-size: 2.6rem; }
+      .section-pad { padding: 80px 0; }
+      .cases-section { padding: 80px 0; }
+      .issue-chapter, .issue-chapter.reverse { grid-template-columns: 1fr; direction: ltr; }
+      .decline-bar-fill { width: 36px; }
+      .joblab-promo-inner { grid-template-columns: 1fr; }
+      .joblab-promo-text h2 { font-size: 1.8rem; }
+    }
+    @media (min-width: 901px) {
+      .hamburger { display: none; }
     }
     @media (max-width: 640px) {
-      .nav-links {
-        display: none; position: absolute; top: 64px; left: 0; width: 100%;
-        background: #fff; flex-direction: column; padding: 20px 28px; gap: 16px;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-      }
-      .nav-links.active { display: flex; }
-      .hamburger { display: flex; }
-      .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-      .hamburger.active span:nth-child(2) { opacity: 0; }
-      .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
       .hero { min-height: 80vh; }
-      .hero-text h1 { font-size: 2rem; }
+      .hero-text h1 { font-size: 2.2rem; }
       .hero-buttons { flex-direction: column; }
-      .services-grid, .oppo-grid, .testi-grid, .issue-grid { grid-template-columns: 1fr; }
+      .services-grid, .oppo-grid, .testi-grid { grid-template-columns: 1fr; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-      .stat-num { font-size: 2.2rem; }
-      .quote-text { font-size: 1.4rem; }
-      .heading-xl { font-size: 1.9rem; }
-      .heading-lg { font-size: 1.7rem; }
+      .stat-num { font-size: 2.4rem; }
+      .quote-text { font-size: 1.5rem; }
+      .heading-xl { font-size: 2rem; }
+      .heading-lg { font-size: 1.8rem; }
       .footer-inner { flex-direction: column; }
       .footer-links { flex-direction: column; gap: 24px; }
       .contact-form { padding: 28px 20px; }
+      .section-pad { padding: 64px 0; }
+      .cases-section { padding: 64px 0; }
       .edit-toolbar { top: auto; bottom: 72px; left: 8px; right: 8px; transform: none; border-radius: 10px; justify-content: center; }
+      .case-card { width: 220px; }
+      .case-photo { height: 120px; }
+      .compare-grid { grid-template-columns: 1fr; }
+      .decline-chart { gap: 10px; }
+      .decline-bar-fill { width: 28px; }
+      .joblab-promo { padding: 80px 0; }
+      .joblab-promo-points { grid-template-columns: 1fr; }
+      .scroll-indicator { display: none; }
     }
   </style>
 </head>
@@ -560,20 +741,54 @@
   <header class="header">
     <div class="container">
       <a href="#" class="logo">BUDO <span>LINK</span></a>
-      <nav class="nav-links" id="navLinks">
+      <nav class="pc-nav">
+        <a href="#hero">Home</a>
         <a href="#about">About</a>
         <a href="#services">Services</a>
-        <a href="#opportunities">Opportunities</a>
-        <a href="support-results.html">Cases</a>
-        <a href="#testimonials">Testimonials</a>
+        <a href="#cases">Cases</a>
         <a href="joblab.html">JOBLAB</a>
+        <a href="jobs.html">求人情報</a>
         <a href="#contact">Contact</a>
       </nav>
-      <button class="hamburger" id="hamburger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+      <div class="header-right">
+        <div class="header-sns">
+          <a href="https://line.me/" target="_blank" rel="noopener" aria-label="LINE">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 5.82 2 10.5c0 4.21 3.74 7.74 8.79 8.41.34.07.81.23.93.52.1.27.07.68.03.95l-.15.9c-.05.27-.21 1.07.94.58 1.15-.49 6.2-3.65 8.46-6.25C22.88 13.37 22 11.83 22 10.5 22 5.82 17.52 2 12 2zm-3.38 11.18h-2.1a.53.53 0 01-.53-.53V8.53a.53.53 0 011.06 0v3.59h1.57a.53.53 0 010 1.06zm1.67-.53a.53.53 0 01-1.06 0V8.53a.53.53 0 011.06 0v4.12zm4.22 0a.53.53 0 01-.42.52h-.06a.53.53 0 01-.42-.21l-2.07-2.81v2.5a.53.53 0 01-1.06 0V8.53a.53.53 0 01.42-.52h.06a.53.53 0 01.42.21l2.07 2.81V8.53a.53.53 0 011.06 0v4.12zm3.12-2.53a.53.53 0 010 1.06h-1.57v1h1.57a.53.53 0 010 1.06h-2.1a.53.53 0 01-.53-.53V8.53a.53.53 0 01.53-.53h2.1a.53.53 0 010 1.06h-1.57v1h1.57z"/></svg>
+          </a>
+          <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 1.5A4.25 4.25 0 003.5 7.75v8.5A4.25 4.25 0 007.75 20.5h8.5a4.25 4.25 0 004.25-4.25v-8.5A4.25 4.25 0 0016.25 3.5h-8.5zM12 7a5 5 0 110 10 5 5 0 010-10zm0 1.5a3.5 3.5 0 100 7 3.5 3.5 0 000-7zm5.25-2a.88.88 0 110 1.75.88.88 0 010-1.75z"/></svg>
+          </a>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </header>
+
+  <!-- Mobile Drawer Overlay -->
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+
+  <!-- Side Drawer -->
+  <div class="side-drawer" id="sideDrawer">
+    <nav>
+      <a href="#hero">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#cases">Cases</a>
+      <a href="joblab.html">JOBLAB</a>
+      <a href="jobs.html">求人情報</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="drawer-sns">
+      <a href="https://line.me/" target="_blank" rel="noopener" aria-label="LINE">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 5.82 2 10.5c0 4.21 3.74 7.74 8.79 8.41.34.07.81.23.93.52.1.27.07.68.03.95l-.15.9c-.05.27-.21 1.07.94.58 1.15-.49 6.2-3.65 8.46-6.25C22.88 13.37 22 11.83 22 10.5 22 5.82 17.52 2 12 2zm-3.38 11.18h-2.1a.53.53 0 01-.53-.53V8.53a.53.53 0 011.06 0v3.59h1.57a.53.53 0 010 1.06zm1.67-.53a.53.53 0 01-1.06 0V8.53a.53.53 0 011.06 0v4.12zm4.22 0a.53.53 0 01-.42.52h-.06a.53.53 0 01-.42-.21l-2.07-2.81v2.5a.53.53 0 01-1.06 0V8.53a.53.53 0 01.42-.52h.06a.53.53 0 01.42.21l2.07 2.81V8.53a.53.53 0 011.06 0v4.12zm3.12-2.53a.53.53 0 010 1.06h-1.57v1h1.57a.53.53 0 010 1.06h-2.1a.53.53 0 01-.53-.53V8.53a.53.53 0 01.53-.53h2.1a.53.53 0 010 1.06h-1.57v1h1.57z"/></svg>
+      </a>
+      <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 1.5A4.25 4.25 0 003.5 7.75v8.5A4.25 4.25 0 007.75 20.5h8.5a4.25 4.25 0 004.25-4.25v-8.5A4.25 4.25 0 0016.25 3.5h-8.5zM12 7a5 5 0 110 10 5 5 0 010-10zm0 1.5a3.5 3.5 0 100 7 3.5 3.5 0 000-7zm5.25-2a.88.88 0 110 1.75.88.88 0 010-1.75z"/></svg>
+      </a>
+    </div>
+  </div>
 
   <!-- Edit Banner -->
   <div class="edit-banner" id="editBanner">編集モード ON — テキストをクリックして編集 / ツールバーで書式変更 / 画像をクリックして差し替え</div>
@@ -605,7 +820,7 @@
       <option value="7">最大</option>
     </select>
     <div class="tb-sep"></div>
-    <input type="color" id="tbColor" value="#2c2118" title="文字色">
+    <input type="color" id="tbColor" value="#0028FF" title="文字色">
     <div class="tb-sep"></div>
     <button id="tbAlignL" title="左寄せ" style="font-size:0.7rem;">左</button>
     <button id="tbAlignC" title="中央" style="font-size:0.7rem;">中</button>
@@ -614,6 +829,7 @@
 
   <!-- ===== 2. Hero ===== -->
   <section class="hero" id="hero">
+    <div class="hero-pattern"></div>
     <div class="container">
       <div class="hero-inner">
         <div class="hero-text">
@@ -634,20 +850,49 @@
         </div>
       </div>
     </div>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ===== Stats Band ===== -->
+  <section class="stats-band fade-in">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-num" data-count="1200" data-editable="stat1-n">0<span>+</span></div>
+          <div class="stat-label" data-editable="stat1-l">登録学生数</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" data-count="80" data-editable="stat2-n">0<span>+</span></div>
+          <div class="stat-label" data-editable="stat2-l">提携部活動数</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" data-count="150" data-editable="stat3-n">0<span>+</span></div>
+          <div class="stat-label" data-editable="stat3-l">連携企業数</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" data-count="95" data-suffix="%" data-editable="stat4-n">0<span>%</span></div>
+          <div class="stat-label" data-editable="stat4-l">入社後定着率</div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- ===== 3. About ===== -->
-  <section class="about section-pad" id="about">
+  <section class="about section-pad fade-in" id="about">
     <div class="container">
       <div class="about-grid">
-        <div class="about-img">
-          <div class="img-slot" data-img="about-img" style="min-height:360px; background: #faf6f0; display: flex; align-items: center; justify-content: center;">
-            <img src="66259.jpg" alt="BUDO LINK" style="width: 80%; max-width: 400px; border-radius: 12px;">
+        <div class="about-img-wrap">
+          <div class="img-slot" data-img="about-img">
+            <img src="66259.jpg" alt="BUDO LINK" style="width: 100%; border-radius: 16px;">
             <div class="img-upload-overlay"><span style="font-size:2rem;">&#128247;</span><span>クリックして画像を変更</span></div>
             <button class="img-remove-btn" title="削除">&times;</button>
           </div>
         </div>
         <div class="about-text">
+          <div class="section-label">About</div>
           <h2 class="heading-lg" data-editable="about-h">BUDO LINKとは</h2>
           <p style="margin-top:20px;" data-editable="about-p1">武道に真剣に向き合ってきた学生には、礼儀・忍耐力・精神力・チームワークなど、社会で求められる力がすでに備わっています。しかし、その価値が就職活動で十分に伝わっていないのが現状です。</p>
           <p data-editable="about-p2">BUDO LINKは、武道経験を「強み」として正しく評価し、学生と企業の最適なマッチングを実現します。10年以上の武道教育への知見と、1,200名を超える就職支援実績をもとに、あなたのキャリアを支えます。</p>
@@ -659,34 +904,11 @@
     </div>
   </section>
 
-  <!-- Stats Band -->
-  <section class="stats-band">
-    <div class="container">
-      <div class="stats-grid">
-        <div class="stat-item">
-          <div class="stat-num" data-editable="stat1-n">1,200<span>+</span></div>
-          <div class="stat-label" data-editable="stat1-l">登録学生数</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num" data-editable="stat2-n">80<span>+</span></div>
-          <div class="stat-label" data-editable="stat2-l">提携部活動数</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num" data-editable="stat3-n">150<span>+</span></div>
-          <div class="stat-label" data-editable="stat3-l">連携企業数</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num" data-editable="stat4-n">95<span>%</span></div>
-          <div class="stat-label" data-editable="stat4-l">入社後定着率</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ===== 4. Services ===== -->
-  <section class="services section-pad" id="services">
+  <section class="services section-pad fade-in" id="services">
     <div class="container">
       <div class="services-header">
+        <div class="section-label">Services</div>
         <h2 class="heading-lg" data-editable="svc-h">BUDO LINKの活動</h2>
         <p data-editable="svc-sub">武道学生と企業、双方の可能性を最大化するサービス</p>
       </div>
@@ -720,8 +942,72 @@
     </div>
   </section>
 
-  <!-- ===== 5.5 Industry Challenges ===== -->
-  <section class="issue-visual section-pad" id="issues">
+  <!-- ===== Cases Section ===== -->
+  <section class="cases-section fade-in" id="cases">
+    <div class="container">
+      <div class="cases-header">
+        <div class="section-label">Support Cases</div>
+        <h2 class="heading-lg">大学武道団体への資金支援実績</h2>
+        <p>BUDO LINKは各大学武道部の新歓活動に必要な資金を補助金として提供しています。</p>
+      </div>
+
+      <div class="marquee" aria-label="支援実績一覧">
+        <div class="track">
+          <article class="case-card">
+            <div class="case-photo"><img src="6257kv_article.jpg" alt="中央大学"></div>
+            <div class="case-body"><h3 class="case-uni">中央大学</h3><p class="case-content">新歓活動のためのビラ・ポスター制作費および体験会運営費として資金を補助。</p><span class="case-tag">資金支援</span></div>
+          </article>
+          <article class="case-card">
+            <div class="case-photo"><img src="66259.jpg" alt="明治大学"></div>
+            <div class="case-body"><h3 class="case-uni">明治大学</h3><p class="case-content">新歓ブース設営費および勧誘用パンフレット印刷費として資金を補助。</p><span class="case-tag">資金支援</span></div>
+          </article>
+          <article class="case-card">
+            <div class="case-photo"><img src="71ac0db1bfc0368c40fb40c569dc103a.webp" alt="立教大学"></div>
+            <div class="case-body"><h3 class="case-uni">立教大学</h3><p class="case-content">新入生向け体験稽古の会場費および備品購入費として資金を補助。</p><span class="case-tag">資金支援</span></div>
+          </article>
+          <article class="case-card">
+            <div class="case-photo"><img src="pixta_98470197_M.jpg" alt="法政大学"></div>
+            <div class="case-body"><h3 class="case-uni">法政大学</h3><p class="case-content">新歓期の広報活動費および説明会運営費として資金を補助。</p><span class="case-tag">資金支援</span></div>
+          </article>
+          <article class="case-card">
+            <div class="case-photo"><img src="OIP.webp" alt="青山学院大学"></div>
+            <div class="case-body"><h3 class="case-uni">青山学院大学</h3><p class="case-content">新歓イベント開催費および勧誘活動に必要な備品費として資金を補助。</p><span class="case-tag">資金支援</span></div>
+          </article>
+          <!-- duplicate set for seamless loop -->
+          <article class="case-card">
+            <div class="case-photo"><img src="6257kv_article.jpg" alt="中央大学"></div>
+            <div class="case-body"><h3 class="case-uni">中央大学</h3><p class="case-content">新歓活動のためのビラ・ポスター制作費および体験会運営費として資金を補助。</p><span class="case-tag">資金支援</span></div>
+          </article>
+          <article class="case-card">
+            <div class="case-photo"><img src="66259.jpg" alt="明治大学"></div>
+            <div class="case-body"><h3 class="case-uni">明治大学</h3><p class="case-content">新歓ブース設営費および勧誘用パンフレット印刷費として資金を補助。</p><span class="case-tag">資金支援</span></div>
+          </article>
+          <article class="case-card">
+            <div class="case-photo"><img src="71ac0db1bfc0368c40fb40c569dc103a.webp" alt="立教大学"></div>
+            <div class="case-body"><h3 class="case-uni">立教大学</h3><p class="case-content">新入生向け体験稽古の会場費および備品購入費として資金を補助。</p><span class="case-tag">資金支援</span></div>
+          </article>
+          <article class="case-card">
+            <div class="case-photo"><img src="pixta_98470197_M.jpg" alt="法政大学"></div>
+            <div class="case-body"><h3 class="case-uni">法政大学</h3><p class="case-content">新歓期の広報活動費および説明会運営費として資金を補助。</p><span class="case-tag">資金支援</span></div>
+          </article>
+          <article class="case-card">
+            <div class="case-photo"><img src="OIP.webp" alt="青山学院大学"></div>
+            <div class="case-body"><h3 class="case-uni">青山学院大学</h3><p class="case-content">新歓イベント開催費および勧誘活動に必要な備品費として資金を補助。</p><span class="case-tag">資金支援</span></div>
+          </article>
+        </div>
+      </div>
+
+      <div class="cases-cta">
+        <div>
+          <strong>各大学武道部の新歓活動に必要な資金を補助金として支援しています。お気軽にご相談ください。</strong>
+        </div>
+        <a class="btn btn-white" href="#contact">相談する</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHY WE ACT ===== -->
+  <section class="issue-visual section-pad fade-in" id="issues">
     <div class="container">
       <div class="issue-head">
         <div class="section-label">WHY WE ACT</div>
@@ -731,7 +1017,7 @@
 
       <div class="issue-story">
 
-        <!-- Chapter 1: 子どもの数の減少（常に表示） -->
+        <!-- Chapter 1 -->
         <div class="issue-chapter">
           <div class="issue-chapter-text">
             <h3><span class="accent">Chapter 1.</span> 子どもの数が2割減少</h3>
@@ -755,17 +1041,17 @@
           </div>
         </div>
 
-        <!-- もっと見るボタン -->
+        <!-- More button -->
         <div class="issue-more-wrap" id="issueMoreWrap">
           <button class="issue-more-btn" id="issueMoreBtn" onclick="document.getElementById('issueHidden').style.display='flex';this.parentElement.style.display='none';">
             もっと見る
           </button>
         </div>
 
-        <!-- Chapter 2以降（初期非表示） -->
-        <div class="issue-hidden" id="issueHidden" style="display:none; flex-direction:column; gap:56px;">
+        <!-- Hidden chapters -->
+        <div class="issue-hidden" id="issueHidden" style="display:none; flex-direction:column; gap:64px;">
 
-        <!-- Chapter 2: 剣道初段合格者の減少 -->
+        <!-- Chapter 2 -->
         <div class="issue-chapter reverse">
           <div class="issue-chapter-text">
             <h3><span class="accent">Chapter 2.</span> 剣道初段合格者数の減少傾向</h3>
@@ -805,7 +1091,7 @@
           </div>
         </div>
 
-        <!-- Chapter 3: 背景要因 -->
+        <!-- Chapter 3 -->
         <div class="issue-chapter">
           <div class="issue-chapter-text">
             <h3><span class="accent">Chapter 3.</span> 人口減少を加速させる4つの要因</h3>
@@ -845,7 +1131,7 @@
           </div>
         </div>
 
-        <!-- Chapter 4: 日本拳法 -->
+        <!-- Chapter 4 -->
         <div class="issue-chapter reverse">
           <div class="issue-chapter-text">
             <h3><span class="accent">Chapter 4.</span> 日本拳法の現状と可能性</h3>
@@ -861,7 +1147,7 @@
           </div>
         </div>
 
-        <!-- Chapter 5: 部活動の現場 -->
+        <!-- Chapter 5 -->
         <div class="issue-chapter">
           <div class="issue-chapter-text">
             <h3><span class="accent">Chapter 5.</span> 大学武道部の新歓の現実</h3>
@@ -871,10 +1157,10 @@
           <div class="chart-card">
             <h4>武道部の運営時間配分</h4>
             <div class="donut-wrap">
-              <div class="donut" style="background: conic-gradient(#e53e3e 0 68%, #c9a84c 68% 100%);" aria-hidden="true"></div>
+              <div class="donut" style="background: conic-gradient(#e53e3e 0 68%, #0028FF 68% 100%);" aria-hidden="true"></div>
               <div class="donut-text">
                 <span style="color:#e53e3e; font-size:1.1rem;">&#9679;</span> 募集・広報 <strong>68%</strong><br>
-                <span style="color:#c9a84c; font-size:1.1rem;">&#9679;</span> 指導・育成 <strong>32%</strong>
+                <span style="color:#0028FF; font-size:1.1rem;">&#9679;</span> 指導・育成 <strong>32%</strong>
               </div>
             </div>
             <div class="mini-metrics" style="margin-top: 20px;">
@@ -900,9 +1186,10 @@
   </section>
 
   <!-- ===== 5. Opportunities ===== -->
-  <section class="opportunities section-pad" id="opportunities">
+  <section class="opportunities section-pad fade-in" id="opportunities">
     <div class="container">
       <div class="oppo-header">
+        <div class="section-label">Opportunities</div>
         <h2 class="heading-lg" data-editable="oppo-h">あなたに合った機会を見つける</h2>
         <p data-editable="oppo-sub">武道学生の強みを求める企業からの厳選された機会</p>
       </div>
@@ -945,13 +1232,13 @@
         </a>
       </div>
       <div class="text-center">
-        <a href="jobs.html" class="btn btn-gold">すべての求人を見る</a>
+        <a href="jobs.html" class="btn btn-primary">すべての求人を見る</a>
       </div>
     </div>
   </section>
 
   <!-- Quote Band -->
-  <section class="quote-band">
+  <section class="quote-band fade-in">
     <div class="container">
       <p class="quote-text" data-editable="quote-text">「一つひとつの出会いが、<br>単なる就職ではなく、<br>人生を変えるキャリアになる。」</p>
       <p class="quote-author" data-editable="quote-author">BUDO LINK 代表</p>
@@ -959,7 +1246,7 @@
   </section>
 
   <!-- ===== JOBLAB Promo ===== -->
-  <section class="joblab-promo">
+  <section class="joblab-promo fade-in">
     <div class="joblab-promo-bg"></div>
     <div class="container">
       <div class="joblab-promo-inner">
@@ -968,7 +1255,7 @@
           <p>BUDO LINKは、即戦力人材の育成を手がける株式会社ANCaの就活支援プログラム「JOBLAB」と提携。ビジネススキルの習得から特別選考ルートの提供まで、武道学生の就職活動を強力にバックアップします。</p>
           <p>部活と就活の両立、自己PRの作成、面接対策まで &#8212; あなたのキャリアを全面サポート。</p>
           <div class="promo-btn-wrap">
-            <a href="joblab.html" class="btn btn-gold">JOBLAB 詳細を見る</a>
+            <a href="joblab.html" class="btn btn-white">JOBLAB 詳細を見る</a>
             <a href="https://www.anca.co.jp/joblab" target="_blank" rel="noopener" class="btn btn-outline-white">JOBLAB 公式サイト</a>
           </div>
         </div>
@@ -999,9 +1286,10 @@
   </section>
 
   <!-- ===== 6. Testimonials ===== -->
-  <section class="testimonials section-pad" id="testimonials">
+  <section class="testimonials section-pad fade-in" id="testimonials">
     <div class="container">
       <div class="testi-header">
+        <div class="section-label">Testimonials</div>
         <h2 class="heading-lg" data-editable="testi-h">利用者の声</h2>
       </div>
       <div class="testi-grid">
@@ -1042,10 +1330,11 @@
   </section>
 
   <!-- ===== 7. Contact ===== -->
-  <section class="contact section-pad" id="contact">
+  <section class="contact section-pad fade-in" id="contact">
     <div class="container">
       <div class="contact-grid">
         <div class="contact-info">
+          <div class="section-label">Contact</div>
           <h2 class="heading-lg" data-editable="contact-h">お問い合わせ</h2>
           <p data-editable="contact-p">ご質問やご相談がございましたら、お気軽にお問い合わせください。武道学生の方も企業の方も、まずはお話をお聞かせください。</p>
           <div class="contact-detail">
@@ -1063,18 +1352,18 @@
         </div>
         <form class="contact-form" id="contactForm">
           <div class="form-group">
-            <label>お名前 <span style="color:#c9a84c;">*</span></label>
+            <label>お名前 <span style="color:#0028FF;">*</span></label>
             <input type="text" id="cfName" placeholder="山田 太郎" required>
           </div>
           <div class="form-group">
-            <label>メールアドレス <span style="color:#c9a84c;">*</span></label>
+            <label>メールアドレス <span style="color:#0028FF;">*</span></label>
             <input type="email" id="cfEmail" placeholder="taro@example.com" required>
           </div>
           <div class="form-group">
-            <label>メッセージ <span style="color:#c9a84c;">*</span></label>
+            <label>メッセージ <span style="color:#0028FF;">*</span></label>
             <textarea id="cfMessage" placeholder="お問い合わせ内容をご記入ください" required></textarea>
           </div>
-          <button type="submit" class="btn btn-dark" id="cfSubmit" style="width:100%;">送信する</button>
+          <button type="submit" class="btn btn-primary" id="cfSubmit" style="width:100%;">送信する</button>
           <div id="cfStatus" style="margin-top:12px; text-align:center; font-size:0.9rem; display:none;"></div>
         </form>
       </div>
@@ -1117,19 +1406,69 @@
 
   <!-- ===== Scripts ===== -->
   <script>
-    /* Mobile menu */
+    /* ===== Menu: Hamburger + Side Drawer ===== */
     const hamburger = document.getElementById('hamburger');
-    const navLinks = document.getElementById('navLinks');
-    hamburger.addEventListener('click', () => {
+    const sideDrawer = document.getElementById('sideDrawer');
+    const drawerOverlay = document.getElementById('drawerOverlay');
+
+    function toggleDrawer() {
+      const isActive = sideDrawer.classList.contains('active');
+      sideDrawer.classList.toggle('active');
+      drawerOverlay.classList.toggle('active');
       hamburger.classList.toggle('active');
-      navLinks.classList.toggle('active');
+      document.body.style.overflow = isActive ? '' : 'hidden';
+    }
+    function closeDrawer() {
+      sideDrawer.classList.remove('active');
+      drawerOverlay.classList.remove('active');
+      hamburger.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    hamburger.addEventListener('click', toggleDrawer);
+    drawerOverlay.addEventListener('click', closeDrawer);
+    sideDrawer.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closeDrawer);
     });
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navLinks.classList.remove('active');
+
+    /* ===== Scroll Fade-In (IntersectionObserver) ===== */
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          fadeObserver.unobserve(entry.target);
+        }
       });
-    });
+    }, { threshold: 0.15 });
+    fadeEls.forEach(el => fadeObserver.observe(el));
+
+    /* ===== Stats Count-Up (IntersectionObserver) ===== */
+    let statsCounted = false;
+    const statsSection = document.querySelector('.stats-band');
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !statsCounted) {
+          statsCounted = true;
+          document.querySelectorAll('[data-count]').forEach(el => {
+            const target = parseInt(el.getAttribute('data-count'));
+            const suffix = el.getAttribute('data-suffix') || '+';
+            const suffixSpan = el.querySelector('span');
+            let current = 0;
+            const step = Math.ceil(target / 60);
+            const timer = setInterval(() => {
+              current += step;
+              if (current >= target) {
+                current = target;
+                clearInterval(timer);
+              }
+              el.childNodes[0].textContent = current.toLocaleString();
+            }, 25);
+          });
+          statsObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    if (statsSection) statsObserver.observe(statsSection);
 
     /* ===== Editor System ===== */
     const STORAGE_KEY = 'budolink_edits';
@@ -1142,7 +1481,6 @@
     let editMode = false;
     let activeImgSlot = null;
 
-    /* Toolbar buttons */
     const tbBold = document.getElementById('tbBold');
     const tbItalic = document.getElementById('tbItalic');
     const tbUnderline = document.getElementById('tbUnderline');
@@ -1165,7 +1503,6 @@
     tbAlignC.addEventListener('click', () => execCmd('justifyCenter'));
     tbAlignR.addEventListener('click', () => execCmd('justifyRight'));
 
-    /* Update toolbar active states */
     document.addEventListener('selectionchange', () => {
       if (!editMode) return;
       tbBold.classList.toggle('tb-active', document.queryCommandState('bold'));
@@ -1173,7 +1510,6 @@
       tbUnderline.classList.toggle('tb-active', document.queryCommandState('underline'));
     });
 
-    /* Load / Save */
     function loadEdits() {
       try {
         const d = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
@@ -1220,7 +1556,6 @@
       saveImages();
     }
 
-    /* Toggle edit mode */
     function toggleEditMode() {
       editMode = !editMode;
       document.body.classList.toggle('edit-mode', editMode);
@@ -1236,19 +1571,16 @@
     }
     btnToggle.addEventListener('click', toggleEditMode);
 
-    /* Auto-save on blur */
     document.addEventListener('blur', (e) => {
       if (e.target.hasAttribute && e.target.hasAttribute('data-editable') && editMode) {
         saveEdits(); btnReset.classList.add('visible');
       }
     }, true);
 
-    /* Prevent link nav in edit mode */
     document.addEventListener('click', (e) => {
       if (editMode && e.target.closest('[data-editable]')) e.preventDefault();
     });
 
-    /* Image upload */
     document.addEventListener('click', (e) => {
       if (!editMode) return;
       const overlay = e.target.closest('.img-upload-overlay');
@@ -1268,7 +1600,6 @@
       imgFileInput.value = '';
     });
 
-    /* Reset */
     btnReset.addEventListener('click', () => {
       if (confirm('編集内容をすべてリセットしますか？')) {
         localStorage.removeItem(STORAGE_KEY);
@@ -1277,7 +1608,6 @@
       }
     });
 
-    /* Init */
     loadEdits();
     loadImages();
 

@@ -4,66 +4,141 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JOBLAB 就活支援 - BUDO LINK × 株式会社ANCa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
-      font-family: "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
-      color: #2c2118; line-height: 1.8; background: #fff;
+      font-family: "Inter", "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+      color: #1a2744; line-height: 1.8; background: #fff;
     }
     a { text-decoration: none; color: inherit; }
     ul { list-style: none; }
     img { max-width: 100%; display: block; }
 
     .container { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
-    .section-pad { padding: 100px 0; }
+    .section-pad { padding: 120px 0; }
 
     .btn {
-      display: inline-block; padding: 16px 40px; border-radius: 4px;
-      font-size: 1rem; font-weight: 600; cursor: pointer;
-      transition: all 0.3s; border: none; text-align: center; letter-spacing: 0.03em;
+      display: inline-block; padding: 16px 40px; border-radius: 50px;
+      font-size: 0.95rem; font-weight: 600; cursor: pointer;
+      transition: all 0.4s ease; border: none; text-align: center; letter-spacing: 0.03em;
     }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
-    .btn-gold { background: #c9a84c; color: #fff; }
-    .btn-gold:hover { background: #b89640; }
-    .btn-dark { background: #2c2118; color: #fff; }
-    .btn-dark:hover { background: #1a1410; }
-    .btn-white { background: #fff; color: #2c2118; }
-    .btn-white:hover { background: #f5efe6; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,40,255,0.18); }
+    .btn-primary { background: linear-gradient(135deg, #0028FF, #00C8FF); color: #fff; }
+    .btn-primary:hover { box-shadow: 0 8px 32px rgba(0,40,255,0.3); }
+    .btn-gold { background: linear-gradient(135deg, #0028FF, #00C8FF); color: #fff; }
+    .btn-gold:hover { box-shadow: 0 8px 32px rgba(0,40,255,0.3); }
+    .btn-dark { background: #0a1628; color: #fff; }
+    .btn-dark:hover { background: #111f3a; }
+    .btn-white { background: #fff; color: #0028FF; font-weight: 700; }
+    .btn-white:hover { background: #f0f4ff; box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
     .btn-outline-white { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.7); }
-    .btn-outline-white:hover { background: rgba(255,255,255,0.15); border-color: #fff; }
-    .btn-lg { padding: 20px 56px; font-size: 1.15rem; border-radius: 6px; }
+    .btn-outline-white:hover { background: rgba(255,255,255,0.15); border-color: #fff; color: #fff; }
+    .btn-lg { padding: 20px 56px; font-size: 1.05rem; border-radius: 50px; }
+
+    /* ===== Scroll Animations ===== */
+    .fade-in {
+      opacity: 0; transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
 
     /* ===== Header ===== */
     .header {
       position: fixed; top: 0; left: 0; width: 100%;
       background: rgba(255,255,255,0.97); z-index: 1000;
       box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+      backdrop-filter: blur(12px);
     }
     .header .container {
-      display: flex; align-items: center; justify-content: space-between; height: 64px;
+      display: flex; align-items: center; justify-content: space-between; height: 72px;
     }
-    .logo { font-size: 1.35rem; font-weight: 800; color: #2c2118; letter-spacing: 0.08em; }
-    .logo span { color: #c9a84c; }
-    .nav-links { display: flex; gap: 32px; align-items: center; }
-    .nav-links a {
-      font-size: 0.85rem; font-weight: 600; color: #2c2118;
-      letter-spacing: 0.04em; transition: color 0.3s;
+    .logo { font-size: 1.5rem; font-weight: 900; color: #0028FF; letter-spacing: 0.06em; }
+    .logo span { color: #00C8FF; }
+
+    /* PC Nav */
+    .pc-nav { display: flex; gap: 28px; align-items: center; }
+    .pc-nav a {
+      font-size: 0.85rem; font-weight: 600; color: #1a2744;
+      letter-spacing: 0.03em; transition: color 0.3s; position: relative;
     }
-    .nav-links a:hover { color: #c9a84c; }
+    .pc-nav a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px;
+      background: linear-gradient(90deg, #0028FF, #00C8FF);
+      transition: width 0.3s;
+    }
+    .pc-nav a:hover { color: #0028FF; }
+    .pc-nav a:hover::after { width: 100%; }
+
+    .header-right { display: flex; align-items: center; gap: 16px; }
+    .header-sns { display: flex; align-items: center; gap: 10px; }
+    .header-sns a {
+      display: flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; border-radius: 50%;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .header-sns a:hover { background: rgba(0,40,255,0.08); transform: scale(1.1); }
+    .header-sns svg { width: 22px; height: 22px; fill: #1a2744; }
+
+    /* Hamburger */
     .hamburger {
-      display: none; flex-direction: column; gap: 5px;
-      cursor: pointer; background: none; border: none; padding: 4px;
+      display: none; flex-direction: column; gap: 6px;
+      cursor: pointer; background: none; border: none; padding: 6px;
+      z-index: 1100; position: relative;
     }
     .hamburger span {
-      display: block; width: 22px; height: 2px; background: #2c2118;
-      border-radius: 2px; transition: transform 0.3s, opacity 0.3s;
+      display: block; width: 26px; height: 2px; background: #1a2744;
+      border-radius: 2px; transition: transform 0.4s, opacity 0.3s, background 0.3s;
     }
+    .hamburger.active span { background: #fff; }
+    .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    /* Mobile Side Drawer */
+    .drawer-overlay {
+      position: fixed; inset: 0; z-index: 1040;
+      background: rgba(10,22,40,0.6); backdrop-filter: blur(4px);
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.4s, visibility 0.4s;
+    }
+    .drawer-overlay.active { opacity: 1; visibility: visible; }
+
+    .side-drawer {
+      position: fixed; top: 0; right: -375px; width: 375px; max-width: 85vw;
+      height: 100vh; z-index: 1050;
+      background: linear-gradient(180deg, #0a1628 0%, #0028FF 100%);
+      transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      padding: 100px 40px 40px;
+      overflow-y: auto;
+    }
+    .side-drawer.active { right: 0; }
+    .side-drawer nav { display: flex; flex-direction: column; gap: 24px; }
+    .side-drawer nav a {
+      font-size: 1.3rem; font-weight: 700; color: rgba(255,255,255,0.85);
+      letter-spacing: 0.04em; transition: color 0.3s, transform 0.3s;
+    }
+    .side-drawer nav a:hover { color: #00C8FF; transform: translateX(8px); }
+    .side-drawer .drawer-sns {
+      display: flex; gap: 16px; margin-top: 40px; padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.15);
+    }
+    .side-drawer .drawer-sns a {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(255,255,255,0.1); display: flex;
+      align-items: center; justify-content: center;
+      transition: background 0.3s;
+    }
+    .side-drawer .drawer-sns a:hover { background: rgba(255,255,255,0.2); }
+    .side-drawer .drawer-sns svg { width: 22px; height: 22px; fill: #fff; }
 
     /* ===== Hero with Slideshow ===== */
     .hero {
-      margin-top: 64px; position: relative;
-      min-height: calc(100vh - 64px);
+      margin-top: 72px; position: relative;
+      min-height: calc(100vh - 72px);
       display: flex; align-items: center; justify-content: center;
       overflow: hidden;
     }
@@ -91,7 +166,11 @@
 
     .hero-overlay {
       position: absolute; inset: 0; z-index: 1;
-      background: rgba(44, 33, 24, 0.6);
+      background: linear-gradient(135deg, rgba(10,22,40,0.75) 0%, rgba(0,40,255,0.6) 50%, rgba(0,200,255,0.4) 100%);
+    }
+    .hero-pattern {
+      position: absolute; inset: 0; z-index: 1; opacity: 0.08;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     }
     .hero-content {
       position: relative; z-index: 2;
@@ -99,16 +178,19 @@
     }
     .hero-badge {
       display: inline-block; font-size: 0.75rem; font-weight: 700;
-      letter-spacing: 0.15em; color: #c9a84c; margin-bottom: 16px;
+      letter-spacing: 0.15em; color: #00C8FF; margin-bottom: 16px;
       text-transform: uppercase;
-      border: 1px solid rgba(201,168,76,0.5); padding: 6px 20px; border-radius: 50px;
+      border: 1px solid rgba(0,200,255,0.5); padding: 6px 20px; border-radius: 50px;
     }
     .hero-content h1 {
-      font-size: 3.4rem; font-weight: 800; color: #fff;
+      font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 900; color: #fff;
       line-height: 1.25; margin-bottom: 24px; letter-spacing: -0.02em;
     }
     .hero-content h1 em {
-      font-style: normal; color: #c9a84c;
+      font-style: normal;
+      background: linear-gradient(90deg, #00C8FF, #80E0FF);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
     .hero-content p {
       font-size: 1.1rem; color: rgba(255,255,255,0.85);
@@ -116,78 +198,123 @@
     }
     .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 
+    @keyframes heroFadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-content .hero-badge { animation: heroFadeUp 0.8s ease forwards; animation-delay: 0.3s; opacity: 0; }
+    .hero-content h1 { animation: heroFadeUp 0.8s ease forwards; animation-delay: 0.5s; opacity: 0; }
+    .hero-content p { animation: heroFadeUp 0.8s ease forwards; animation-delay: 0.7s; opacity: 0; }
+    .hero-buttons { animation: heroFadeUp 0.8s ease forwards; animation-delay: 0.9s; opacity: 0; }
+
+    .scroll-indicator {
+      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+      z-index: 2; text-align: center;
+    }
+    .scroll-indicator span {
+      display: block; font-size: 0.7rem; color: rgba(255,255,255,0.6);
+      letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px;
+    }
+    .scroll-indicator svg {
+      animation: bounceArrow 2s ease-in-out infinite;
+    }
+    @keyframes bounceArrow {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(8px); }
+    }
+
     /* ===== About JOBLAB ===== */
     .about-joblab { background: #fff; }
     .about-grid {
       display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
     }
     .about-visual {
-      background: #faf6f0; border-radius: 16px; padding: 48px; text-align: center;
+      background: #f0f4ff; border-radius: 16px; padding: 48px; text-align: center;
     }
     .about-visual .partner-logos {
       display: flex; align-items: center; justify-content: center; gap: 24px; margin-bottom: 32px;
     }
     .partner-logo-box {
       background: #fff; border-radius: 12px; padding: 20px 28px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      box-shadow: 0 2px 12px rgba(0,40,255,0.06);
       font-size: 1.1rem; font-weight: 800; letter-spacing: 0.05em;
     }
-    .partner-logo-box.budo { color: #2c2118; }
-    .partner-logo-box.budo span { color: #c9a84c; }
-    .partner-logo-box.anca { color: #35221c; }
-    .partner-times { font-size: 1.5rem; color: #c9a84c; font-weight: 700; }
+    .partner-logo-box.budo { color: #0028FF; }
+    .partner-logo-box.budo span { color: #00C8FF; }
+    .partner-logo-box.anca { color: #1a2744; }
+    .partner-times { font-size: 1.5rem; color: #0028FF; font-weight: 700; }
     .about-visual p {
-      font-size: 0.9rem; color: #8a7e74; margin-top: 20px; line-height: 1.7;
+      font-size: 0.9rem; color: #5a6577; margin-top: 20px; line-height: 1.7;
+    }
+    .section-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em;
+      color: #0028FF; margin-bottom: 12px; text-transform: uppercase;
     }
     .about-text h2 {
-      font-size: 2.2rem; font-weight: 700; line-height: 1.3; margin-bottom: 20px;
+      font-size: 2.2rem; font-weight: 800; line-height: 1.3; margin-bottom: 20px;
     }
-    .about-text h2 em { font-style: normal; color: #c9a84c; }
-    .about-text > p { font-size: 1rem; color: #6b5e53; margin-bottom: 16px; line-height: 2; }
+    .about-text h2 em {
+      font-style: normal;
+      background: linear-gradient(90deg, #0028FF, #00C8FF);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .about-text > p { font-size: 1rem; color: #5a6577; margin-bottom: 16px; line-height: 2; }
 
     /* ===== What is JOBLAB ===== */
-    .what-joblab { background: #faf6f0; }
+    .what-joblab { background: #f0f4ff; }
     .what-header { text-align: center; margin-bottom: 56px; }
-    .what-header h2 { font-size: 2.2rem; font-weight: 700; margin-bottom: 12px; }
-    .what-header p { font-size: 1.05rem; color: #6b5e53; }
+    .what-header h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 12px; }
+    .what-header p { font-size: 1.05rem; color: #5a6577; }
     .what-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
     .what-card {
       background: #fff; border-radius: 12px; padding: 40px 28px;
       transition: transform 0.3s, box-shadow 0.3s;
+      position: relative; overflow: hidden;
     }
-    .what-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+    .what-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, #0028FF, #00C8FF);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .what-card:hover::before { transform: scaleX(1); }
+    .what-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,40,255,0.1); }
     .what-icon {
-      width: 56px; height: 56px; background: #2c2118; border-radius: 12px;
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, #0028FF, #00C8FF);
+      border-radius: 12px;
       display: flex; align-items: center; justify-content: center;
       margin-bottom: 20px; font-size: 1.5rem; color: #fff;
     }
     .what-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; }
-    .what-card p { font-size: 0.9rem; color: #6b5e53; line-height: 1.8; }
+    .what-card p { font-size: 0.9rem; color: #5a6577; line-height: 1.8; }
 
     /* ===== Student Benefits ===== */
     .benefits { background: #fff; }
     .benefits-header { text-align: center; margin-bottom: 56px; }
-    .benefits-header h2 { font-size: 2.2rem; font-weight: 700; margin-bottom: 12px; }
-    .benefits-header p { font-size: 1.05rem; color: #6b5e53; }
+    .benefits-header h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 12px; }
+    .benefits-header p { font-size: 1.05rem; color: #5a6577; }
     .benefits-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
     .benefit-card {
-      background: #faf6f0; border-radius: 12px; padding: 36px 32px;
+      background: #f0f4ff; border-radius: 12px; padding: 36px 32px;
       display: flex; gap: 20px; align-items: flex-start;
-      transition: transform 0.3s;
+      transition: transform 0.3s, box-shadow 0.3s;
     }
-    .benefit-card:hover { transform: translateY(-3px); }
+    .benefit-card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,40,255,0.08); }
     .benefit-num {
-      flex-shrink: 0; width: 48px; height: 48px; background: #c9a84c;
+      flex-shrink: 0; width: 48px; height: 48px;
+      background: linear-gradient(135deg, #0028FF, #00C8FF);
       color: #fff; border-radius: 50%; display: flex; align-items: center;
       justify-content: center; font-size: 1.2rem; font-weight: 800;
     }
     .benefit-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
-    .benefit-card p { font-size: 0.88rem; color: #6b5e53; line-height: 1.8; }
+    .benefit-card p { font-size: 0.88rem; color: #5a6577; line-height: 1.8; }
 
     /* ===== Flow ===== */
-    .flow { background: #2c2118; color: #fff; }
+    .flow { background: #0a1628; color: #fff; }
     .flow-header { text-align: center; margin-bottom: 56px; }
-    .flow-header h2 { font-size: 2.2rem; font-weight: 700; margin-bottom: 12px; }
+    .flow-header h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 12px; }
     .flow-header p { font-size: 1.05rem; color: rgba(255,255,255,0.6); }
     .flow-steps {
       display: flex; gap: 0; align-items: flex-start; justify-content: center;
@@ -199,40 +326,52 @@
     }
     .flow-step:not(:last-child)::after {
       content: ''; position: absolute; top: 28px; right: -12px;
-      width: 24px; height: 2px; background: #c9a84c;
+      width: 24px; height: 2px;
+      background: linear-gradient(90deg, #0028FF, #00C8FF);
     }
     .flow-step-num {
-      width: 56px; height: 56px; border: 2px solid #c9a84c;
+      width: 56px; height: 56px;
+      border: 2px solid #00C8FF;
       border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      font-size: 1.2rem; font-weight: 800; color: #c9a84c;
+      font-size: 1.2rem; font-weight: 800; color: #00C8FF;
       margin: 0 auto 16px;
+      transition: all 0.3s;
+    }
+    .flow-step:hover .flow-step-num {
+      background: linear-gradient(135deg, #0028FF, #00C8FF);
+      color: #fff; border-color: transparent;
     }
     .flow-step h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; }
     .flow-step p { font-size: 0.82rem; color: rgba(255,255,255,0.6); line-height: 1.7; }
 
     /* ===== CTA ===== */
     .cta-section {
-      background: linear-gradient(135deg, #c9a84c 0%, #b89640 100%);
-      padding: 80px 0; text-align: center;
+      background: linear-gradient(135deg, #0028FF 0%, #00C8FF 100%);
+      padding: 80px 0; text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-section::before {
+      content: ''; position: absolute; inset: 0; opacity: 0.06;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     }
     .cta-section h2 {
-      font-size: 2.4rem; font-weight: 800; color: #fff; margin-bottom: 16px;
-      line-height: 1.3;
+      font-size: 2.4rem; font-weight: 900; color: #fff; margin-bottom: 16px;
+      line-height: 1.3; position: relative;
     }
     .cta-section p {
       font-size: 1.1rem; color: rgba(255,255,255,0.9); margin-bottom: 40px;
       max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.9;
+      position: relative;
     }
-    .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; position: relative; }
 
     /* ===== Footer ===== */
-    .footer { background: #2c2118; color: rgba(255,255,255,0.65); padding: 56px 0 32px; }
+    .footer { background: #0a1628; color: rgba(255,255,255,0.65); padding: 56px 0 32px; }
     .footer-inner {
       display: flex; justify-content: space-between; align-items: flex-start;
       flex-wrap: wrap; gap: 32px; margin-bottom: 40px;
     }
     .footer-brand .logo { color: #fff; font-size: 1.3rem; }
-    .footer-brand .logo span { color: #c9a84c; }
+    .footer-brand .logo span { color: #00C8FF; }
     .footer-brand p { font-size: 0.85rem; max-width: 280px; margin-top: 8px; line-height: 1.7; }
     .footer-links { display: flex; gap: 56px; }
     .footer-col h4 { color: #fff; font-size: 0.85rem; margin-bottom: 12px; font-weight: 700; }
@@ -240,7 +379,7 @@
       display: block; font-size: 0.83rem; color: rgba(255,255,255,0.5);
       margin-bottom: 8px; transition: color 0.3s;
     }
-    .footer-col a:hover { color: #c9a84c; }
+    .footer-col a:hover { color: #00C8FF; }
     .footer-bottom {
       border-top: 1px solid rgba(255,255,255,0.08);
       padding-top: 24px; text-align: center; font-size: 0.78rem;
@@ -251,21 +390,11 @@
       .about-grid { grid-template-columns: 1fr; }
       .what-grid { grid-template-columns: repeat(2, 1fr); }
       .benefits-grid { grid-template-columns: 1fr; }
-      .hero-content h1 { font-size: 2.4rem; }
+      .pc-nav { display: none; }
+      .header-sns { display: none; }
+      .hamburger { display: flex; }
     }
     @media (max-width: 640px) {
-      .nav-links {
-        display: none; position: absolute; top: 64px; left: 0; width: 100%;
-        background: #fff; flex-direction: column; padding: 20px 28px; gap: 16px;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-      }
-      .nav-links.active { display: flex; }
-      .hamburger { display: flex; }
-      .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-      .hamburger.active span:nth-child(2) { opacity: 0; }
-      .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-      .hero-content h1 { font-size: 1.8rem; }
-      .hero-content p { font-size: 0.95rem; }
       .what-grid { grid-template-columns: 1fr; }
       .flow-steps { flex-direction: column; align-items: center; }
       .flow-step:not(:last-child)::after { display: none; }
@@ -284,19 +413,52 @@
   <header class="header">
     <div class="container">
       <a href="index.html" class="logo">BUDO <span>LINK</span></a>
-      <nav class="nav-links" id="navLinks">
+      <nav class="pc-nav">
         <a href="index.html">Home</a>
         <a href="index.html#about">About</a>
         <a href="index.html#services">Services</a>
-        <a href="#about-joblab">JOBLAB とは</a>
-        <a href="#benefits">学生メリット</a>
+        <a href="index.html#cases">Cases</a>
+        <a href="joblab.html">JOBLAB</a>
+        <a href="jobs.html">求人情報</a>
         <a href="index.html#contact">Contact</a>
       </nav>
-      <button class="hamburger" id="hamburger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+      <div class="header-right">
+        <div class="header-sns">
+          <a href="https://lin.ee/yourLineLink" target="_blank" rel="noopener" aria-label="LINE">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+          </a>
+          <a href="https://instagram.com/yourInstagram" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </header>
+
+  <!-- Side Drawer (Mobile) -->
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <div class="side-drawer" id="sideDrawer">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#cases">Cases</a>
+      <a href="joblab.html">JOBLAB</a>
+      <a href="jobs.html">求人情報</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <div class="drawer-sns">
+      <a href="https://lin.ee/yourLineLink" target="_blank" rel="noopener" aria-label="LINE">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+      </a>
+      <a href="https://instagram.com/yourInstagram" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      </a>
+    </div>
+  </div>
 
   <!-- ===== Hero with Photo Slideshow ===== -->
   <section class="hero">
@@ -307,19 +469,24 @@
       <div class="hero-slide" style="background-image: url('6257kv_article.jpg');"></div>
     </div>
     <div class="hero-overlay"></div>
+    <div class="hero-pattern"></div>
     <div class="hero-content">
       <div class="hero-badge">BUDO LINK &times; ANCa</div>
       <h1>武道学生のキャリアを、<br><em>JOBLAB</em>が加速させる。</h1>
       <p>株式会社ANCaが運営する就活支援プログラム「JOBLAB」と提携。<br>ビジネススキルの習得から特別選考まで、あなたの就職活動を全面サポートします。</p>
       <div class="hero-buttons">
-        <a href="https://www.anca.co.jp/joblab" target="_blank" rel="noopener" class="btn btn-gold btn-lg">JOBLAB 公式サイトへ</a>
+        <a href="https://www.anca.co.jp/joblab" target="_blank" rel="noopener" class="btn btn-primary btn-lg">JOBLAB 公式サイトへ</a>
         <a href="#about-joblab" class="btn btn-outline-white btn-lg">詳しく見る</a>
       </div>
+    </div>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
     </div>
   </section>
 
   <!-- ===== About JOBLAB ===== -->
-  <section class="about-joblab section-pad" id="about-joblab">
+  <section class="about-joblab section-pad fade-in" id="about-joblab">
     <div class="container">
       <div class="about-grid">
         <div class="about-visual">
@@ -332,6 +499,7 @@
           <p>BUDO LINK は株式会社ANCa と提携し、<br>武道学生に特化した就活支援を実現しています。</p>
         </div>
         <div class="about-text">
+          <div class="section-label">About JOBLAB</div>
           <h2>JOBLABとは &#8212;<br><em>即戦力人材</em>への道</h2>
           <p>JOBLAB は、株式会社ANCa が運営する就活支援プログラムです。「次世代のリーダー採用」を最重要課題と捉え、ビジネススキルを学んだ求職者の育成・輩出を継続的に行うことをミッションとしています。</p>
           <p>インターン団体への支援を通じて、実務経験を積みながら就職活動を並行展開できる環境を提供。成果に応じた特別選考の機会も用意されており、努力が直接キャリアにつながる仕組みが整っています。</p>
@@ -342,9 +510,10 @@
   </section>
 
   <!-- ===== What JOBLAB Provides ===== -->
-  <section class="what-joblab section-pad" id="what-joblab">
+  <section class="what-joblab section-pad fade-in" id="what-joblab">
     <div class="container">
       <div class="what-header">
+        <div class="section-label">Services</div>
         <h2>JOBLABの支援内容</h2>
         <p>即戦力にこだわるワンストップ型の就活支援</p>
       </div>
@@ -384,9 +553,10 @@
   </section>
 
   <!-- ===== Student Benefits ===== -->
-  <section class="benefits section-pad" id="benefits">
+  <section class="benefits section-pad fade-in" id="benefits">
     <div class="container">
       <div class="benefits-header">
+        <div class="section-label">Benefits</div>
         <h2>武道学生がJOBLABを使うメリット</h2>
         <p>武道経験 &times; JOBLAB支援で、就活を圧倒的に有利に</p>
       </div>
@@ -438,9 +608,10 @@
   </section>
 
   <!-- ===== Flow ===== -->
-  <section class="flow section-pad">
+  <section class="flow section-pad fade-in">
     <div class="container">
       <div class="flow-header">
+        <div class="section-label" style="color: #00C8FF;">Flow</div>
         <h2>ご利用の流れ</h2>
         <p>BUDO LINK を通じたJOBLAB支援の利用ステップ</p>
       </div>
@@ -470,7 +641,7 @@
   </section>
 
   <!-- ===== CTA ===== -->
-  <section class="cta-section">
+  <section class="cta-section fade-in">
     <div class="container">
       <h2>武道で培った力を、<br>キャリアの武器にしよう。</h2>
       <p>BUDO LINK &times; JOBLABの就活支援プログラムで、<br>あなたの可能性を最大限に引き出します。</p>
@@ -493,8 +664,8 @@
           <div class="footer-col">
             <h4>サービス</h4>
             <a href="index.html#services">サービス一覧</a>
-            <a href="index.html#opportunities">求人情報</a>
-            <a href="#">JOBLAB 支援</a>
+            <a href="jobs.html">求人情報</a>
+            <a href="joblab.html">JOBLAB 支援</a>
           </div>
           <div class="footer-col">
             <h4>BUDO LINK</h4>
@@ -513,18 +684,36 @@
   </footer>
 
   <script>
+    /* ===== Drawer Toggle ===== */
     const hamburger = document.getElementById('hamburger');
-    const navLinks = document.getElementById('navLinks');
-    hamburger.addEventListener('click', () => {
+    const sideDrawer = document.getElementById('sideDrawer');
+    const drawerOverlay = document.getElementById('drawerOverlay');
+
+    function toggleDrawer() {
       hamburger.classList.toggle('active');
-      navLinks.classList.toggle('active');
-    });
-    navLinks.querySelectorAll('a').forEach(link => {
+      sideDrawer.classList.toggle('active');
+      drawerOverlay.classList.toggle('active');
+      document.body.style.overflow = sideDrawer.classList.contains('active') ? 'hidden' : '';
+    }
+    hamburger.addEventListener('click', toggleDrawer);
+    drawerOverlay.addEventListener('click', toggleDrawer);
+    sideDrawer.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navLinks.classList.remove('active');
+        if (sideDrawer.classList.contains('active')) toggleDrawer();
       });
     });
+
+    /* ===== Scroll Fade-in ===== */
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    fadeEls.forEach(el => fadeObserver.observe(el));
   </script>
 </body>
 </html>
