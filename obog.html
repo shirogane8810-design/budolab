@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OB/OG検索 - BUDO LINK</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Inter", "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+      color: #0a1628; line-height: 1.8; background: #f7f8fa;
+    }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+    /* ===== Buttons ===== */
+    .btn {
+      display: inline-block; padding: 16px 40px; border-radius: 50px;
+      font-size: 0.95rem; font-weight: 600; cursor: pointer;
+      transition: all 0.4s ease; border: none; text-align: center; letter-spacing: 0.03em;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { background: linear-gradient(135deg, #0028FF, #00C8FF); color: #fff; }
+    .btn-primary:hover { box-shadow: 0 8px 32px rgba(0,40,255,0.3); }
+
+    /* ===== Header ===== */
+    .header {
+      position: fixed; top: 0; left: 0; width: 100%;
+      background: rgba(255,255,255,0.97); z-index: 1000;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+      backdrop-filter: blur(12px);
+    }
+    .header .container {
+      display: flex; align-items: center; justify-content: space-between; height: 72px;
+    }
+    .logo { font-size: 1.5rem; font-weight: 900; color: #0028FF; letter-spacing: 0.06em; }
+    .logo span { color: #00C8FF; }
+
+    .pc-nav { display: flex; gap: 28px; align-items: center; }
+    .pc-nav a {
+      font-size: 0.85rem; font-weight: 600; color: #1a2744;
+      letter-spacing: 0.03em; transition: color 0.3s; position: relative;
+    }
+    .pc-nav a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px;
+      background: linear-gradient(90deg, #0028FF, #00C8FF);
+      transition: width 0.3s;
+    }
+    .pc-nav a:hover { color: #0028FF; }
+    .pc-nav a:hover::after { width: 100%; }
+    .pc-nav a.active { color: #0028FF; }
+    .pc-nav a.active::after { width: 100%; }
+
+    .header-right { display: flex; align-items: center; gap: 16px; }
+
+    .hamburger {
+      display: none; flex-direction: column; gap: 6px;
+      cursor: pointer; background: none; border: none; padding: 6px;
+      z-index: 1100; position: relative;
+    }
+    .hamburger span {
+      display: block; width: 26px; height: 2px; background: #1a2744;
+      border-radius: 2px; transition: transform 0.4s, opacity 0.3s, background 0.3s;
+    }
+    .hamburger.active span { background: #fff; }
+    .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    /* Mobile Side Drawer */
+    .drawer-overlay {
+      position: fixed; inset: 0; z-index: 1040;
+      background: rgba(10,22,40,0.6); backdrop-filter: blur(4px);
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.4s, visibility 0.4s;
+    }
+    .drawer-overlay.active { opacity: 1; visibility: visible; }
+
+    .side-drawer {
+      position: fixed; top: 0; right: -375px; width: 375px; max-width: 85vw;
+      height: 100vh; z-index: 1050;
+      background: linear-gradient(180deg, #0a1628 0%, #0028FF 100%);
+      transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      padding: 100px 40px 40px;
+      overflow-y: auto;
+    }
+    .side-drawer.active { right: 0; }
+    .side-drawer nav { display: flex; flex-direction: column; gap: 24px; }
+    .side-drawer nav a {
+      font-size: 1.3rem; font-weight: 700; color: rgba(255,255,255,0.85);
+      letter-spacing: 0.04em; transition: color 0.3s, transform 0.3s;
+    }
+    .side-drawer nav a:hover { color: #00C8FF; transform: translateX(8px); }
+
+    /* ===== Hero ===== */
+    .page-hero {
+      margin-top: 72px;
+      background: linear-gradient(135deg, #0a1628 0%, #0028FF 50%, #00C8FF 100%);
+      padding: 56px 0 40px; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .page-hero::before {
+      content: ''; position: absolute; inset: 0; opacity: 0.06;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .page-hero h1 {
+      font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 4px;
+      position: relative; z-index: 1;
+    }
+    .page-hero p { font-size: 0.95rem; color: rgba(255,255,255,0.65); position: relative; z-index: 1; }
+
+    /* ===== Search Section (Coming Soon - disabled) ===== */
+    .search-section {
+      background: #fff; padding: 32px 0 24px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+      opacity: 0.45; pointer-events: none; position: relative;
+    }
+    .search-row {
+      display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end;
+    }
+    .search-field { flex: 1; min-width: 240px; }
+    .search-field label {
+      display: block; font-size: 0.78rem; font-weight: 700;
+      color: #5a6577; margin-bottom: 6px; letter-spacing: 0.04em;
+    }
+    .search-input {
+      width: 100%; padding: 12px 16px; border: 2px solid #e0e8ff;
+      border-radius: 12px; font-size: 0.95rem; font-family: inherit;
+      outline: none; background: #fff;
+    }
+    .search-input::placeholder { color: #b0b8c8; }
+
+    .year-range { display: flex; align-items: center; gap: 8px; }
+    .year-select {
+      padding: 10px 14px; border: 2px solid #e0e8ff; border-radius: 10px;
+      font-size: 0.9rem; font-family: inherit; background: #fff; outline: none;
+    }
+
+    .club-tags {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px;
+    }
+    .club-tag {
+      padding: 8px 18px; border-radius: 50px; border: 2px solid #e0e8ff;
+      background: #fff; font-size: 0.82rem; font-weight: 700;
+      color: #5a6577; cursor: default;
+    }
+    .club-tag.active {
+      background: linear-gradient(135deg, #0028FF, #00C8FF);
+      color: #fff; border-color: transparent;
+    }
+
+    .cat-filter-row {
+      display: flex; gap: 8px; overflow-x: auto; padding: 12px 0 0;
+      -webkit-overflow-scrolling: touch;
+    }
+    .cat-filter-row::-webkit-scrollbar { display: none; }
+    .cat-chip {
+      padding: 8px 16px; border-radius: 50px; border: 2px solid #e0e8ff;
+      background: #fff; font-size: 0.78rem; font-weight: 700;
+      color: #5a6577; white-space: nowrap;
+    }
+
+    /* ===== Coming Soon Section ===== */
+    .coming-soon {
+      padding: 80px 0 120px; text-align: center;
+    }
+    .coming-soon-icon {
+      width: 120px; height: 120px; margin: 0 auto 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #e8f0ff, #f0f4ff);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3.5rem;
+      animation: pulse 3s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,40,255,0.15); }
+      50% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(0,40,255,0); }
+    }
+    .coming-soon h2 {
+      font-size: 2rem; font-weight: 900; color: #0a1628; margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+    .coming-soon h2 span {
+      background: linear-gradient(90deg, #0028FF, #00C8FF);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .coming-soon > p {
+      font-size: 1.05rem; color: #5a6577; max-width: 520px;
+      margin: 0 auto 40px; line-height: 1.9;
+    }
+    .coming-soon-line {
+      margin-top: 20px;
+    }
+    .btn-line {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 16px 40px; border-radius: 50px;
+      background: #06C755; color: #fff; font-size: 0.95rem;
+      font-weight: 700; border: none; cursor: pointer;
+      transition: all 0.4s;
+    }
+    .btn-line:hover {
+      background: #05b04c; transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(6,199,85,0.3);
+    }
+    .btn-line svg { width: 22px; height: 22px; fill: #fff; }
+    .coming-soon-sub {
+      font-size: 0.82rem; color: #8a95a8; margin-top: 12px;
+    }
+
+    /* ===== Features Preview ===== */
+    .features-preview {
+      padding: 0 0 80px;
+    }
+    .features-header {
+      text-align: center; margin-bottom: 40px;
+    }
+    .features-header h3 {
+      font-size: 1.3rem; font-weight: 800; color: #0a1628; margin-bottom: 8px;
+    }
+    .features-header p { font-size: 0.9rem; color: #5a6577; }
+    .features-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    }
+    .feature-card {
+      background: #fff; border-radius: 16px; padding: 32px 24px;
+      text-align: center; box-shadow: 0 2px 8px rgba(0,40,255,0.04);
+      border: 1px solid rgba(0,40,255,0.06);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .feature-card:hover {
+      transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,40,255,0.08);
+    }
+    .feature-icon {
+      width: 56px; height: 56px; margin: 0 auto 16px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #0028FF, #00C8FF);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; color: #fff;
+    }
+    .feature-card h4 {
+      font-size: 1rem; font-weight: 700; color: #0a1628; margin-bottom: 8px;
+    }
+    .feature-card p {
+      font-size: 0.85rem; color: #5a6577; line-height: 1.7;
+    }
+
+    /* ===== Footer ===== */
+    .footer { background: #0a1628; color: rgba(255,255,255,0.65); padding: 64px 0 36px; }
+    .footer-inner {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      flex-wrap: wrap; gap: 32px; margin-bottom: 40px;
+    }
+    .footer-brand .logo { color: #fff; font-size: 1.3rem; }
+    .footer-brand .logo span { color: #00C8FF; }
+    .footer-brand p { font-size: 0.85rem; max-width: 280px; margin-top: 8px; line-height: 1.7; }
+    .footer-links { display: flex; gap: 56px; }
+    .footer-col h4 { color: #fff; font-size: 0.85rem; margin-bottom: 12px; font-weight: 700; }
+    .footer-col a {
+      display: block; font-size: 0.83rem; color: rgba(255,255,255,0.5);
+      margin-bottom: 8px; transition: color 0.3s;
+    }
+    .footer-col a:hover { color: #00C8FF; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 24px; text-align: center; font-size: 0.78rem;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 900px) {
+      .pc-nav { display: none; }
+      .hamburger { display: flex; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .search-row { flex-direction: column; }
+      .features-grid { grid-template-columns: 1fr; }
+      .coming-soon h2 { font-size: 1.6rem; }
+      .footer-inner { flex-direction: column; }
+      .footer-links { flex-direction: column; gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <a href="index.html" class="logo">BUDO <span>LINK</span></a>
+      <nav class="pc-nav">
+        <a href="index.html">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#services">Services</a>
+        <a href="index.html#cases">Cases</a>
+        <a href="joblab.html">JOBLAB</a>
+        <a href="obog.html" class="active">OB/OG</a>
+        <a href="jobs.html">求人情報</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <div class="header-right">
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <div class="side-drawer" id="sideDrawer">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#cases">Cases</a>
+      <a href="joblab.html">JOBLAB</a>
+      <a href="obog.html">OB/OG</a>
+      <a href="jobs.html">求人情報</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+
+  <!-- Hero -->
+  <div class="page-hero">
+    <div class="container">
+      <h1>OB/OGを探す</h1>
+      <p>武道部出身の先輩たちのキャリアを探して、OB/OG訪問につなげよう</p>
+    </div>
+  </div>
+
+  <!-- Search & Filter Section (Coming Soon - disabled) -->
+  <div class="search-section">
+    <div class="container">
+      <div class="search-row">
+        <div class="search-field">
+          <label>大学名で検索</label>
+          <input type="text" class="search-input" placeholder="例: 東京大学、日本体育大学..." disabled>
+        </div>
+        <div class="search-field" style="flex:0 0 auto; min-width:auto;">
+          <label>卒業年度</label>
+          <div class="year-range">
+            <select class="year-select" disabled>
+              <option>指定なし</option>
+            </select>
+            <span style="color:#8a95a8;">〜</span>
+            <select class="year-select" disabled>
+              <option>指定なし</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="club-tags">
+        <span class="club-tag active">すべて</span>
+        <span class="club-tag">柔道部</span>
+        <span class="club-tag">剣道部</span>
+        <span class="club-tag">空手道部</span>
+        <span class="club-tag">日本拳法部</span>
+        <span class="club-tag">弓道部</span>
+        <span class="club-tag">合気道部</span>
+        <span class="club-tag">少林寺拳法部</span>
+        <span class="club-tag">なぎなた部</span>
+      </div>
+      <div class="cat-filter-row">
+        <span class="cat-chip">すべて</span>
+        <span class="cat-chip">営業・コンサルタント</span>
+        <span class="cat-chip">企画・マーケティング</span>
+        <span class="cat-chip">エンジニア・技術職</span>
+        <span class="cat-chip">教育・人材育成</span>
+        <span class="cat-chip">金融・保険</span>
+        <span class="cat-chip">スポーツ関連</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Coming Soon -->
+  <section class="coming-soon">
+    <div class="container">
+      <div class="coming-soon-icon">&#128640;</div>
+      <h2>OB/OG情報 <span>Coming Soon</span></h2>
+      <p>現在、武道部出身OB/OGの情報を収集中です。<br>大学名や部活動で先輩を検索し、OB/OG訪問につなげられる機能を準備しています。</p>
+      <a href="https://lin.ee/yourLineLink" target="_blank" rel="noopener" class="btn-line">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 5.82 2 10.5c0 4.21 3.74 7.74 8.79 8.41.34.07.81.23.93.52.1.27.07.68.03.95l-.15.9c-.05.27-.21 1.07.94.58 1.15-.49 6.2-3.65 8.46-6.25C22.88 13.37 22 11.83 22 10.5 22 5.82 17.52 2 12 2z"/></svg>
+        LINEで最新情報を受け取る
+      </a>
+      <p class="coming-soon-sub">公開時にLINEでお知らせします。お気軽にご登録ください。</p>
+    </div>
+  </section>
+
+  <!-- Features Preview -->
+  <section class="features-preview">
+    <div class="container">
+      <div class="features-header">
+        <h3>こんな機能が使えるようになります</h3>
+        <p>OB/OG検索で、あなたのキャリア選択をサポート</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">&#127891;</div>
+          <h4>大学名で検索</h4>
+          <p>あなたの大学を卒業した先輩を即座に検索。同じ環境で過ごした先輩だからこそ分かるリアルな情報が得られます。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#129354;</div>
+          <h4>部活動で絞り込み</h4>
+          <p>柔道部・剣道部・空手道部など、同じ武道を経験した先輩に絞り込んで検索。競技特有の強みの活かし方を聞けます。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">&#128172;</div>
+          <h4>LINEでOB/OG訪問</h4>
+          <p>気になる先輩を見つけたら、LINEから簡単にOB/OG訪問を申し込み。BUDO LINKが仲介するので安心です。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="logo">BUDO <span>LINK</span></div>
+          <p>武道学生の可能性を最大化するキャリア支援プラットフォーム</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>サービス</h4>
+            <a href="index.html#services">サービス一覧</a>
+            <a href="jobs.html">求人情報</a>
+            <a href="obog.html">OB/OG検索</a>
+            <a href="joblab.html">JOBLAB 支援</a>
+          </div>
+          <div class="footer-col">
+            <h4>BUDO LINK</h4>
+            <a href="index.html#about">About</a>
+            <a href="index.html#contact">お問い合わせ</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">&copy; 2025 BUDO LINK. All Rights Reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    /* ===== Menu: Hamburger + Side Drawer ===== */
+    const hamburger = document.getElementById('hamburger');
+    const sideDrawer = document.getElementById('sideDrawer');
+    const drawerOverlay = document.getElementById('drawerOverlay');
+
+    function toggleDrawer() {
+      const isActive = sideDrawer.classList.contains('active');
+      sideDrawer.classList.toggle('active');
+      drawerOverlay.classList.toggle('active');
+      hamburger.classList.toggle('active');
+      document.body.style.overflow = isActive ? '' : 'hidden';
+    }
+    function closeDrawer() {
+      sideDrawer.classList.remove('active');
+      drawerOverlay.classList.remove('active');
+      hamburger.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    hamburger.addEventListener('click', toggleDrawer);
+    drawerOverlay.addEventListener('click', closeDrawer);
+    sideDrawer.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closeDrawer);
+    });
+  </script>
+</body>
+</html>
