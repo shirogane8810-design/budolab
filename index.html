@@ -3,1378 +3,233 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BUDO LINK - 武道学生向けキャリア支援プラットフォーム</title>
+  <title>BUDO LINK - ポータル</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    /* ========== Reset & Base ========== */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       font-family: "Inter", "游ゴシック体", YuGothic, "游ゴシック", "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
       color: #1a2744;
       line-height: 1.8;
-      background: #fff;
+      background: #0a1628;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
     }
     a { text-decoration: none; color: inherit; }
-    ul { list-style: none; }
-    img { max-width: 100%; display: block; }
 
-    /* ========== Utility ========== */
-    .container { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
-    .section-pad { padding: 120px 0; }
-
-    .btn {
-      display: inline-block; padding: 16px 40px; border-radius: 50px;
-      font-size: 0.95rem; font-weight: 600; cursor: pointer;
-      transition: all 0.4s ease; border: none; text-align: center; letter-spacing: 0.03em;
+    /* Background */
+    .portal-bg {
+      position: fixed; inset: 0;
+      background: linear-gradient(135deg, #0a1628 0%, #0d1f3c 40%, #0028FF 100%);
+      z-index: 0;
     }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,40,255,0.18); }
-    .btn-primary { background: linear-gradient(135deg, #0028FF, #00C8FF); color: #fff; }
-    .btn-primary:hover { box-shadow: 0 8px 32px rgba(0,40,255,0.3); }
-    .btn-dark { background: #0a1628; color: #fff; }
-    .btn-dark:hover { background: #111f3a; }
-    .btn-outline-dark { background: transparent; color: #0a1628; border: 2px solid #0a1628; }
-    .btn-outline-dark:hover { background: #0a1628; color: #fff; }
-    .btn-white { background: #fff; color: #0028FF; font-weight: 700; }
-    .btn-white:hover { background: #f0f4ff; box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
-    .btn-outline-white { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.7); }
-    .btn-outline-white:hover { background: rgba(255,255,255,0.15); border-color: #fff; color: #fff; }
-    .btn-gold { background: linear-gradient(135deg, #0028FF, #00C8FF); color: #fff; }
-    .btn-gold:hover { box-shadow: 0 8px 32px rgba(0,40,255,0.3); }
-
-    .heading-xl {
-      font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 900; line-height: 1.1;
-      letter-spacing: -0.03em;
-    }
-    .heading-lg {
-      font-family: "Inter", "Noto Serif JP", serif;
-      font-size: 2.6rem; font-weight: 800; line-height: 1.25; letter-spacing: -0.02em;
-    }
-    .heading-md {
-      font-family: "Inter", "Noto Serif JP", serif;
-      font-size: 1.5rem; font-weight: 700; line-height: 1.35;
-    }
-    .text-muted { color: #5a6577; }
-    .text-center { text-align: center; }
-    .section-label {
-      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em;
-      color: #0028FF; margin-bottom: 12px; text-transform: uppercase;
-    }
-
-    /* ========== Scroll Animations ========== */
-    .fade-in {
-      opacity: 0; transform: translateY(40px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-    .fade-in.visible {
-      opacity: 1; transform: translateY(0);
-    }
-
-    /* ========== 1. Header ========== */
-    .header {
-      position: fixed; top: 0; left: 0; width: 100%;
-      background: rgba(255,255,255,0.97); z-index: 1000;
-      box-shadow: 0 1px 0 rgba(0,0,0,0.06);
-      backdrop-filter: blur(12px);
-    }
-    .header .container {
-      display: flex; align-items: center; justify-content: space-between; height: 72px;
-    }
-    .logo { font-size: 1.5rem; font-weight: 900; color: #0028FF; letter-spacing: 0.06em; }
-    .logo span { color: #00C8FF; }
-
-    /* PC Nav */
-    .pc-nav { display: flex; gap: 28px; align-items: center; }
-    .pc-nav a {
-      font-size: 0.85rem; font-weight: 600; color: #1a2744;
-      letter-spacing: 0.03em; transition: color 0.3s; position: relative;
-    }
-    .pc-nav a::after {
-      content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px;
-      background: linear-gradient(90deg, #0028FF, #00C8FF);
-      transition: width 0.3s;
-    }
-    .pc-nav a:hover { color: #0028FF; }
-    .pc-nav a:hover::after { width: 100%; }
-
-    .header-right {
-      display: flex; align-items: center; gap: 16px;
-    }
-    .header-sns {
-      display: flex; align-items: center; gap: 10px;
-    }
-    .header-sns a {
-      display: flex; align-items: center; justify-content: center;
-      width: 36px; height: 36px; border-radius: 50%;
-      transition: background 0.3s, transform 0.3s;
-    }
-    .header-sns a:hover {
-      background: rgba(0,40,255,0.08); transform: scale(1.1);
-    }
-    .header-sns svg { width: 22px; height: 22px; fill: #1a2744; }
-
-    /* Hamburger */
-    .hamburger {
-      display: none; flex-direction: column; gap: 6px;
-      cursor: pointer; background: none; border: none; padding: 6px;
-      z-index: 1100; position: relative;
-    }
-    .hamburger span {
-      display: block; width: 26px; height: 2px; background: #1a2744;
-      border-radius: 2px; transition: transform 0.4s, opacity 0.3s, background 0.3s;
-    }
-    .hamburger.active span { background: #fff; }
-    .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-    .hamburger.active span:nth-child(2) { opacity: 0; }
-    .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-
-    /* Mobile Side Drawer */
-    .drawer-overlay {
-      position: fixed; inset: 0; z-index: 1040;
-      background: rgba(10,22,40,0.6); backdrop-filter: blur(4px);
-      opacity: 0; visibility: hidden;
-      transition: opacity 0.4s, visibility 0.4s;
-    }
-    .drawer-overlay.active { opacity: 1; visibility: visible; }
-
-    .side-drawer {
-      position: fixed; top: 0; right: -375px; width: 375px; max-width: 85vw;
-      height: 100vh; z-index: 1050;
-      background: linear-gradient(180deg, #0a1628 0%, #0028FF 100%);
-      transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      padding: 100px 40px 40px;
-      overflow-y: auto;
-    }
-    .side-drawer.active { right: 0; }
-    .side-drawer nav { display: flex; flex-direction: column; gap: 24px; }
-    .side-drawer nav a {
-      font-size: 1.3rem; font-weight: 700; color: rgba(255,255,255,0.85);
-      letter-spacing: 0.04em; transition: color 0.3s, transform 0.3s;
-    }
-    .side-drawer nav a:hover { color: #00C8FF; transform: translateX(8px); }
-    .side-drawer .drawer-sns {
-      display: flex; gap: 16px; margin-top: 40px; padding-top: 24px;
-      border-top: 1px solid rgba(255,255,255,0.15);
-    }
-    .side-drawer .drawer-sns a {
-      width: 44px; height: 44px; border-radius: 50%;
-      background: rgba(255,255,255,0.1); display: flex;
-      align-items: center; justify-content: center;
-      transition: background 0.3s;
-    }
-    .side-drawer .drawer-sns a:hover { background: rgba(255,255,255,0.2); }
-    .side-drawer .drawer-sns svg { width: 22px; height: 22px; fill: #fff; }
-
-    /* ========== 2. Hero ========== */
-    .hero {
-      margin-top: 72px;
-      min-height: calc(100vh - 72px);
-      display: flex; align-items: center;
-      position: relative; overflow: hidden;
-      background: linear-gradient(135deg, #0a1628 0%, #0028FF 50%, #00C8FF 100%);
-    }
-    .hero-pattern {
-      position: absolute; inset: 0; opacity: 0.08;
+    .portal-pattern {
+      position: fixed; inset: 0; opacity: 0.06; z-index: 1;
       background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     }
-    .hero .container { position: relative; z-index: 1; }
-    .hero-inner {
-      display: block; max-width: 700px;
-    }
-    .hero-text { padding: 60px 0; }
-    .hero-badge {
-      display: inline-block; font-size: 0.75rem; font-weight: 700;
-      letter-spacing: 0.14em; color: #00C8FF; margin-bottom: 24px;
-      text-transform: uppercase;
-      border: 1px solid rgba(0,200,255,0.4); padding: 6px 20px; border-radius: 50px;
-      background: rgba(0,200,255,0.08);
-    }
-    .hero-text h1 {
-      margin-bottom: 28px; color: #fff;
-      opacity: 0; transform: translateY(30px);
-      animation: heroFadeUp 1s 0.3s forwards;
-    }
-    .hero-text p {
-      font-size: 1.15rem; color: rgba(255,255,255,0.85); margin-bottom: 40px; line-height: 2;
-      opacity: 0; transform: translateY(30px);
-      animation: heroFadeUp 1s 0.6s forwards;
-    }
-    .hero-buttons {
-      display: flex; gap: 14px; flex-wrap: wrap;
-      opacity: 0; transform: translateY(30px);
-      animation: heroFadeUp 1s 0.9s forwards;
-    }
-    .hero-img { display: none; }
 
-    @keyframes heroFadeUp {
+    /* Container */
+    .portal-container {
+      position: relative; z-index: 2;
+      text-align: center;
+      padding: 40px 28px;
+      max-width: 900px;
+      width: 100%;
+    }
+
+    /* Logo */
+    .portal-logo {
+      font-size: 3rem; font-weight: 900; letter-spacing: 0.06em;
+      color: #0028FF; margin-bottom: 16px;
+      opacity: 0; transform: translateY(30px);
+      animation: portalFadeUp 0.8s 0.2s forwards;
+    }
+    .portal-logo span { color: #00C8FF; }
+
+    .portal-sub {
+      font-size: 1.1rem; color: rgba(255,255,255,0.6);
+      margin-bottom: 56px; font-weight: 500;
+      opacity: 0; transform: translateY(30px);
+      animation: portalFadeUp 0.8s 0.4s forwards;
+    }
+
+    @keyframes portalFadeUp {
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Scroll indicator */
-    .scroll-indicator {
-      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
-      z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px;
-    }
-    .scroll-indicator span {
-      font-size: 0.72rem; font-weight: 600; color: rgba(255,255,255,0.5);
-      letter-spacing: 0.1em; text-transform: uppercase;
-    }
-    .scroll-arrow {
-      width: 24px; height: 24px; border-right: 2px solid rgba(255,255,255,0.5);
-      border-bottom: 2px solid rgba(255,255,255,0.5);
-      transform: rotate(45deg);
-      animation: bounceArrow 2s infinite;
-    }
-    @keyframes bounceArrow {
-      0%, 20%, 50%, 80%, 100% { transform: rotate(45deg) translateY(0); }
-      40% { transform: rotate(45deg) translateY(8px); }
-      60% { transform: rotate(45deg) translateY(4px); }
+    /* Cards Grid */
+    .portal-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      opacity: 0; transform: translateY(30px);
+      animation: portalFadeUp 0.8s 0.6s forwards;
     }
 
-    /* ========== 3. Stats Band ========== */
-    .stats-band {
-      background: linear-gradient(135deg, #0028FF, #00C8FF);
-      padding: 64px 0;
-    }
-    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
-    .stat-item { text-align: center; }
-    .stat-num { font-size: 3.2rem; font-weight: 900; color: #fff; line-height: 1.1; margin-bottom: 4px; }
-    .stat-num span { font-size: 1rem; font-weight: 500; }
-    .stat-label { font-size: 0.9rem; color: rgba(255,255,255,0.75); }
-
-    /* ========== 4. About ========== */
-    .about {
-      background: url('66259.jpg') center center / cover no-repeat fixed;
+    /* Card Base */
+    .portal-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 48px 36px;
+      transition: all 0.4s ease;
+      cursor: pointer;
       position: relative;
-    }
-    .about::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(247,248,250,0.93) 100%);
-    }
-    .about .container { position: relative; z-index: 1; }
-    .about-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
-    }
-    .about-img-wrap {
-      position: relative;
-    }
-    .about-img-wrap img {
-      width: 100%; border-radius: 16px;
-      box-shadow: 0 20px 60px rgba(0,40,255,0.1);
-    }
-    .about-text p { font-size: 1rem; color: #5a6577; margin-bottom: 16px; line-height: 2; }
-
-    /* ========== 5. Services ========== */
-    .services { background: #f7f8fa; }
-    .services-header { text-align: center; margin-bottom: 64px; }
-    .services-header p { font-size: 1.05rem; color: #5a6577; margin-top: 14px; }
-    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
-    .service-card {
-      background: #fff; border-radius: 16px; padding: 44px 30px;
-      transition: transform 0.4s, box-shadow 0.4s;
-      box-shadow: 0 2px 12px rgba(0,40,255,0.04);
-      position: relative; overflow: hidden;
-    }
-    .service-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
-      background: linear-gradient(90deg, #0028FF, #00C8FF);
-      transform: scaleX(0); transform-origin: left;
-      transition: transform 0.4s;
-    }
-    .service-card:hover::before { transform: scaleX(1); }
-    .service-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,40,255,0.10); }
-    .service-icon {
-      width: 52px; height: 52px;
-      background: linear-gradient(135deg, #0028FF, #00C8FF);
-      border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 22px; font-size: 1.3rem; color: #fff;
-    }
-    .service-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; color: #0a1628; }
-    .service-card p { font-size: 0.9rem; color: #5a6577; line-height: 1.8; }
-
-    /* ========== Cases ========== */
-    .cases-section { background: #fff; padding: 120px 0; }
-    .cases-header { text-align: center; margin-bottom: 48px; }
-    .cases-header h2 { margin-top: 8px; }
-    .cases-header p { color: #5a6577; margin-top: 10px; font-size: 1rem; }
-
-    .marquee {
       overflow: hidden;
-      mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
     }
-    .track {
-      width: max-content; display: flex; gap: 16px;
-      animation: flow-rtl 42s linear infinite;
-      padding: 4px 0;
+    .portal-card::before {
+      content: '';
+      position: absolute; inset: -2px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #0028FF, #00C8FF);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: -1;
     }
-    @keyframes flow-rtl {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+    .portal-card:hover {
+      transform: translateY(-6px);
+      background: rgba(255,255,255,0.08);
+      border-color: transparent;
+      box-shadow: 0 20px 60px rgba(0,40,255,0.25);
+    }
+    .portal-card:hover::before { opacity: 1; }
+
+    .card-icon {
+      font-size: 2.8rem; margin-bottom: 20px;
+      display: block;
+    }
+    .card-title {
+      font-size: 1.5rem; font-weight: 800; color: #fff;
+      margin-bottom: 12px; letter-spacing: -0.01em;
+    }
+    .card-desc {
+      font-size: 0.95rem; color: rgba(255,255,255,0.55);
+      line-height: 1.7; margin-bottom: 28px;
     }
 
-    .case-card {
-      width: 260px; flex-shrink: 0;
-      background: #f7f8fa; border-radius: 16px; overflow: hidden;
-      border: 1px solid rgba(0,40,255,0.08);
-      box-shadow: 0 4px 16px rgba(0,40,255,0.05);
+    /* Sub links inside corporate card */
+    .card-links {
+      display: flex; flex-direction: column; gap: 12px;
     }
-    .case-photo { height: 140px; background: #e4e7ec; }
-    .case-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .case-body { padding: 14px 14px 16px; }
-    .case-uni { font-size: 0.95rem; font-weight: 800; margin-bottom: 5px; color: #0a1628; }
-    .case-content { font-size: 0.82rem; color: #5a6577; line-height: 1.7; }
-    .case-tag {
-      display: inline-block; margin-top: 8px;
-      padding: 2px 10px; border-radius: 999px;
-      font-size: 0.7rem; font-weight: 700;
-      color: #fff; background: linear-gradient(135deg, #0028FF, #00C8FF);
+    .card-link {
+      display: flex; align-items: center; gap: 12px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 16px 20px;
+      transition: all 0.3s ease;
+      color: #fff;
     }
+    .card-link:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(0,200,255,0.4);
+      transform: translateX(4px);
+    }
+    .card-link-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .card-link-text { text-align: left; }
+    .card-link-title { font-size: 0.95rem; font-weight: 700; }
+    .card-link-sub { font-size: 0.8rem; color: rgba(255,255,255,0.45); margin-top: 2px; }
 
-    .cases-cta {
-      margin-top: 40px;
+    /* Student card CTA */
+    .card-cta {
+      display: inline-block;
+      padding: 14px 36px;
+      border-radius: 50px;
       background: linear-gradient(135deg, #0028FF, #00C8FF);
       color: #fff;
-      border-radius: 16px; padding: 28px 32px;
-      display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: all 0.4s ease;
+      letter-spacing: 0.03em;
     }
-    .cases-cta strong { font-size: 1rem; }
-
-    /* ========== Industry Challenges ========== */
-    .issue-visual { background: #fff; }
-    .issue-head { text-align: center; margin-bottom: 64px; }
-    .issue-head p { font-size: 1rem; color: #5a6577; margin-top: 14px; line-height: 1.9; }
-
-    .issue-story { display: flex; flex-direction: column; gap: 64px; }
-    .issue-chapter { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
-    .issue-chapter.reverse { direction: rtl; }
-    .issue-chapter.reverse > * { direction: ltr; }
-    .issue-chapter-text h3 { font-size: 1.3rem; font-weight: 700; color: #0a1628; margin-bottom: 14px; }
-    .issue-chapter-text h3 .accent { color: #0028FF; }
-    .issue-chapter-text p { font-size: 0.92rem; color: #5a6577; line-height: 1.9; margin-bottom: 10px; }
-    .issue-chapter-text .source { font-size: 0.72rem; color: #8a95a8; }
-
-    .chart-card {
-      background: #f7f8fa; border-radius: 16px; padding: 36px;
-      border: 1px solid rgba(0,40,255,0.06);
-    }
-    .chart-card h4 { font-size: 0.95rem; font-weight: 700; color: #0a1628; margin-bottom: 16px; text-align: center; }
-
-    .bar-list { display: flex; flex-direction: column; gap: 12px; }
-    .bar-row { display: grid; grid-template-columns: 76px 1fr 48px; gap: 8px; align-items: center; }
-    .bar-year { font-size: 0.82rem; color: #5a6577; font-weight: 700; }
-    .bar-track { height: 10px; border-radius: 999px; background: #dfe2e8; overflow: hidden; }
-    .bar-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #00C8FF, #0028FF); width: var(--w, 0%); }
-    .bar-value { font-size: 0.8rem; font-weight: 700; color: #0a1628; text-align: right; }
-    .bar-row.highlight .bar-fill { background: linear-gradient(90deg, #e53e3e, #0028FF); }
-    .bar-row.highlight .bar-value { color: #e53e3e; }
-
-    .decline-chart { display: flex; align-items: flex-end; justify-content: center; gap: 16px; padding: 12px 0; }
-    .decline-bar { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-    .decline-bar-fill {
-      width: 48px; border-radius: 6px 6px 0 0;
-      background: linear-gradient(180deg, #00C8FF, #0028FF);
-      transition: height 0.5s;
-    }
-    .decline-bar-fill.danger { background: linear-gradient(180deg, #e53e3e, #0028FF); }
-    .decline-bar-label { font-size: 0.72rem; font-weight: 700; color: #5a6577; }
-    .decline-bar-value { font-size: 0.78rem; font-weight: 800; color: #0a1628; }
-
-    .donut-wrap { display: flex; align-items: center; gap: 20px; justify-content: center; }
-    .donut {
-      width: 120px; height: 120px; border-radius: 50%;
-      position: relative; flex-shrink: 0;
-    }
-    .donut::after {
-      content: ''; position: absolute; inset: 24px;
-      border-radius: 50%; background: #f7f8fa;
-    }
-    .donut-text { font-size: 0.88rem; font-weight: 700; color: #0a1628; line-height: 1.6; }
-
-    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .compare-box {
-      background: #fff; border-radius: 12px; padding: 20px; text-align: center;
-      border: 1px solid #dfe2e8;
-    }
-    .compare-box .label { font-size: 0.75rem; color: #5a6577; font-weight: 600; margin-bottom: 8px; }
-    .compare-box .big-num { font-size: 2rem; font-weight: 800; line-height: 1.1; }
-    .compare-box .big-num.positive { color: #0028FF; }
-    .compare-box .big-num.negative { color: #e53e3e; }
-    .compare-box .sub { font-size: 0.72rem; color: #5a6577; margin-top: 4px; }
-
-    .factor-list { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
-    .factor-item {
-      display: flex; align-items: center; gap: 12px;
-      background: #fff; border-radius: 12px; padding: 14px 16px;
-      border: 1px solid #dfe2e8;
-    }
-    .factor-icon { font-size: 1.3rem; flex-shrink: 0; }
-    .factor-item h5 { font-size: 0.88rem; font-weight: 700; color: #0a1628; margin-bottom: 2px; }
-    .factor-item p { font-size: 0.78rem; color: #5a6577; line-height: 1.6; }
-
-    .kempo-highlight {
-      background: linear-gradient(135deg, #0a1628 0%, #0028FF 100%);
-      border-radius: 16px; padding: 40px; color: #fff; text-align: center;
-    }
-    .kempo-highlight h4 { font-size: 1.1rem; color: #00C8FF; margin-bottom: 16px; }
-    .kempo-highlight .kempo-num { font-size: 3.2rem; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 4px; }
-    .kempo-highlight .kempo-unit { font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-bottom: 16px; }
-    .kempo-highlight p { font-size: 0.88rem; color: rgba(255,255,255,0.75); line-height: 1.8; }
-
-    .mini-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-    .mini-metric { background: #fff; border: 1px solid #dfe2e8; border-radius: 12px; padding: 12px; text-align: center; }
-    .mini-metric .n { font-size: 1.1rem; font-weight: 800; color: #0028FF; }
-    .mini-metric .l { font-size: 0.72rem; color: #5a6577; }
-
-    .issue-cta {
-      background: #f7f8fa; border-radius: 16px; padding: 44px; text-align: center;
-      border: 2px solid #0028FF; margin-top: 16px;
-    }
-    .issue-cta h3 { font-size: 1.3rem; color: #0a1628; margin-bottom: 12px; }
-    .issue-cta p { font-size: 0.92rem; color: #5a6577; line-height: 1.8; max-width: 700px; margin: 0 auto; }
-
-    .issue-note { margin-top: 18px; font-size: 0.74rem; color: #8a95a8; text-align: center; }
-
-    .issue-more-wrap {
-      text-align: center; padding: 8px 0 0; position: relative;
-    }
-    .issue-more-wrap::before {
-      content: ''; position: absolute; top: -48px; left: 0; right: 0; height: 48px;
-      background: linear-gradient(to bottom, transparent, #fff);
-      pointer-events: none;
-    }
-    .issue-more-btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: linear-gradient(135deg, #0028FF, #00C8FF); color: #fff;
-      border: none; border-radius: 50px;
-      padding: 14px 40px; font-size: 0.95rem; font-weight: 700;
-      cursor: pointer; transition: all 0.4s;
-      letter-spacing: 0.04em;
-    }
-    .issue-more-btn:hover {
+    .card-cta:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,40,255,0.25);
+      box-shadow: 0 8px 32px rgba(0,40,255,0.3);
     }
-    .issue-more-btn::after { content: '\25BC'; font-size: 0.7rem; }
 
-    /* ========== 6. Opportunities ========== */
-    .opportunities { background: #fff; }
-    .oppo-header { text-align: center; margin-bottom: 64px; }
-    .oppo-header p { font-size: 1.05rem; color: #5a6577; margin-top: 14px; }
-    .oppo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 48px; }
-    .oppo-card {
-      background: #f7f8fa; border-radius: 16px; padding: 36px 28px; text-align: center;
-      transition: transform 0.4s, box-shadow 0.4s;
-      position: relative; overflow: hidden;
+    /* Arrow */
+    .card-arrow {
+      display: inline-block;
+      margin-left: 8px;
+      transition: transform 0.3s;
     }
-    .oppo-card::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(0,40,255,0.03), rgba(0,200,255,0.03));
-      opacity: 0; transition: opacity 0.4s;
-    }
-    .oppo-card:hover::before { opacity: 1; }
-    .oppo-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,40,255,0.08); }
-    .oppo-card-icon { font-size: 2rem; margin-bottom: 16px; }
-    .oppo-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
-    .oppo-card p { font-size: 0.88rem; color: #5a6577; margin-bottom: 16px; line-height: 1.7; }
-    .oppo-card .tag { font-size: 0.78rem; font-weight: 700; color: #0028FF; letter-spacing: 0.05em; }
+    .portal-card:hover .card-arrow,
+    .card-link:hover .card-arrow { transform: translateX(4px); }
 
-    /* ========== Quote Band ========== */
-    .quote-band {
-      background: linear-gradient(135deg, #0028FF 0%, #00C8FF 100%);
-      color: #fff; padding: 100px 0;
-      text-align: center; position: relative; overflow: hidden;
+    /* Footer text */
+    .portal-footer {
+      margin-top: 48px;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.3);
+      opacity: 0; transform: translateY(20px);
+      animation: portalFadeUp 0.8s 0.8s forwards;
     }
-    .quote-band::before {
-      content: "\201C"; position: absolute; top: -20px; left: 50%;
-      transform: translateX(-50%); font-size: 14rem; color: rgba(255,255,255,0.08);
-      font-family: Georgia, serif; line-height: 1;
-    }
-    .quote-text {
-      font-family: "Noto Serif JP", serif;
-      font-size: 2.2rem; font-weight: 700; line-height: 1.6;
-      max-width: 720px; margin: 0 auto 24px; position: relative; z-index: 1;
-    }
-    .quote-author { font-size: 0.9rem; color: rgba(255,255,255,0.65); position: relative; z-index: 1; }
 
-    /* ========== JOBLAB Promo ========== */
-    .joblab-promo {
-      position: relative; overflow: hidden; padding: 120px 0;
-    }
-    .joblab-promo-bg {
-      position: absolute; inset: 0;
-      background: url('6257kv_article.jpg') center center / cover no-repeat;
-    }
-    .joblab-promo-bg::after {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(0,40,255,0.85) 0%, rgba(0,200,255,0.65) 100%);
-    }
-    .joblab-promo .container { position: relative; z-index: 1; }
-    .joblab-promo-inner {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center;
-    }
-    .joblab-promo-text h2 {
-      font-family: "Inter", "Noto Serif JP", serif;
-      font-size: 2.2rem; font-weight: 800; color: #fff;
-      line-height: 1.3; margin-bottom: 20px;
-    }
-    .joblab-promo-text h2 em { font-style: normal; color: #00C8FF; }
-    .joblab-promo-text p {
-      font-size: 1rem; color: rgba(255,255,255,0.8); line-height: 2; margin-bottom: 12px;
-    }
-    .joblab-promo-text .promo-btn-wrap { margin-top: 32px; display: flex; gap: 12px; flex-wrap: wrap; }
-    .joblab-promo-points {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
-    }
-    .promo-point {
-      background: rgba(255,255,255,0.1); backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.15); border-radius: 16px;
-      padding: 24px 20px; text-align: center;
-      transition: transform 0.4s, background 0.4s;
-    }
-    .promo-point:hover { transform: translateY(-3px); background: rgba(255,255,255,0.18); }
-    .promo-point-icon { font-size: 1.8rem; margin-bottom: 10px; }
-    .promo-point h4 { font-size: 0.95rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
-    .promo-point p { font-size: 0.8rem; color: rgba(255,255,255,0.65); line-height: 1.6; }
-
-    /* ========== 7. Testimonials ========== */
-    .testimonials { background: #f7f8fa; }
-    .testi-header { text-align: center; margin-bottom: 64px; }
-    .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-bottom: 64px; }
-    .testi-card {
-      background: #fff; border-radius: 16px; padding: 40px 28px;
-      text-align: center; box-shadow: 0 2px 16px rgba(0,40,255,0.05);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .testi-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,40,255,0.08); }
-    .testi-avatar {
-      width: 72px; height: 72px; border-radius: 50%;
-      background: linear-gradient(135deg, #0028FF, #00C8FF);
-      margin: 0 auto 20px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.8rem; color: #fff; font-weight: 700;
-    }
-    .testi-card blockquote {
-      font-size: 0.95rem; color: #1a2744; font-style: italic;
-      margin-bottom: 20px; line-height: 1.8;
-    }
-    .testi-name { font-size: 0.88rem; font-weight: 700; color: #0028FF; }
-    .testi-role { font-size: 0.8rem; color: #5a6577; }
-
-    .partners-section { margin-top: 16px; }
-    .partners-section h3 { text-align: center; margin-bottom: 28px; }
-    .partners-list {
-      display: flex; flex-wrap: wrap; justify-content: center;
-      gap: 20px 40px;
-    }
-    .partners-list span { font-size: 0.95rem; font-weight: 600; color: #5a6577; }
-
-    /* ========== 8. Contact ========== */
-    .contact { background: #fff; }
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
-    .contact-info h2 { margin-bottom: 16px; }
-    .contact-info p { color: #5a6577; margin-bottom: 32px; line-height: 1.9; }
-    .contact-detail { margin-bottom: 20px; }
-    .contact-detail h4 { font-size: 0.85rem; font-weight: 700; color: #0028FF; letter-spacing: 0.05em; margin-bottom: 4px; }
-    .contact-detail p { color: #0a1628; font-size: 0.95rem; margin-bottom: 0; }
-    .contact-form { background: #f7f8fa; border-radius: 16px; padding: 44px; }
-    .form-group { margin-bottom: 20px; }
-    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; color: #0a1628; }
-    .form-group input, .form-group textarea {
-      width: 100%; padding: 14px 18px; border: 1px solid #d0d5dd;
-      border-radius: 10px; font-size: 0.95rem; font-family: inherit;
-      background: #fff; transition: border-color 0.3s, box-shadow 0.3s;
-    }
-    .form-group input:focus, .form-group textarea:focus {
-      outline: none; border-color: #0028FF;
-      box-shadow: 0 0 0 3px rgba(0,40,255,0.1);
-    }
-    .form-group textarea { resize: vertical; min-height: 120px; }
-
-    /* ========== 9. Footer ========== */
-    .footer { background: #0a1628; color: rgba(255,255,255,0.65); padding: 64px 0 36px; }
-    .footer-inner { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 32px; margin-bottom: 40px; }
-    .footer-brand .logo { color: #fff; font-size: 1.3rem; }
-    .footer-brand .logo span { color: #00C8FF; }
-    .footer-brand p { font-size: 0.85rem; max-width: 280px; margin-top: 8px; line-height: 1.7; }
-    .footer-links { display: flex; gap: 56px; }
-    .footer-col h4 { color: #fff; font-size: 0.85rem; margin-bottom: 12px; font-weight: 700; }
-    .footer-col a { display: block; font-size: 0.83rem; color: rgba(255,255,255,0.5); margin-bottom: 8px; transition: color 0.3s; }
-    .footer-col a:hover { color: #00C8FF; }
-    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; text-align: center; font-size: 0.78rem; }
-
-    /* ========== Responsive ========== */
-    @media (max-width: 900px) {
-      .pc-nav { display: none; }
-      .hamburger { display: flex; }
-      .hero-inner { max-width: 100%; }
-      .about-grid { grid-template-columns: 1fr; }
-      .services-grid { grid-template-columns: repeat(2, 1fr); }
-      .oppo-grid { grid-template-columns: repeat(2, 1fr); }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .testi-grid { grid-template-columns: repeat(2, 1fr); }
-      .contact-grid { grid-template-columns: 1fr; }
-      .heading-xl { font-size: 2.6rem; }
-      .section-pad { padding: 80px 0; }
-      .cases-section { padding: 80px 0; }
-      .issue-chapter, .issue-chapter.reverse { grid-template-columns: 1fr; direction: ltr; }
-      .decline-bar-fill { width: 36px; }
-      .joblab-promo-inner { grid-template-columns: 1fr; }
-      .joblab-promo-text h2 { font-size: 1.8rem; }
-    }
-    @media (min-width: 901px) {
-      .hamburger { display: none; }
-    }
-    @media (max-width: 640px) {
-      .hero { min-height: 80vh; }
-      .hero-text h1 { font-size: 2.2rem; }
-      .hero-buttons { flex-direction: column; }
-      .services-grid, .oppo-grid, .testi-grid { grid-template-columns: 1fr; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-      .stat-num { font-size: 2.4rem; }
-      .quote-text { font-size: 1.5rem; }
-      .heading-xl { font-size: 2rem; }
-      .heading-lg { font-size: 1.8rem; }
-      .footer-inner { flex-direction: column; }
-      .footer-links { flex-direction: column; gap: 24px; }
-      .contact-form { padding: 28px 20px; }
-      .section-pad { padding: 64px 0; }
-      .cases-section { padding: 64px 0; }
-      .case-card { width: 220px; }
-      .case-photo { height: 120px; }
-      .compare-grid { grid-template-columns: 1fr; }
-      .decline-chart { gap: 10px; }
-      .decline-bar-fill { width: 28px; }
-      .joblab-promo { padding: 80px 0; }
-      .joblab-promo-points { grid-template-columns: 1fr; }
-      .scroll-indicator { display: none; }
+    /* Responsive */
+    @media (max-width: 700px) {
+      .portal-cards {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .portal-logo { font-size: 2.2rem; }
+      .portal-sub { font-size: 0.95rem; margin-bottom: 40px; }
+      .portal-card { padding: 36px 24px; }
+      .card-title { font-size: 1.3rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ===== 1. Header ===== -->
-  <header class="header">
-    <div class="container">
-      <a href="#" class="logo">BUDO <span>LINK</span></a>
-      <nav class="pc-nav">
-        <a href="#hero">Home</a>
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#cases">Cases</a>
-        <a href="joblab.html">JOBLAB</a>
-        <a href="obog.html">OB/OG</a>
-        <a href="jobs.html">求人情報</a>
-        <a href="#contact">Contact</a>
-      </nav>
-      <div class="header-right">
-        <div class="header-sns">
-          <a href="https://line.me/" target="_blank" rel="noopener" aria-label="LINE">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 5.82 2 10.5c0 4.21 3.74 7.74 8.79 8.41.34.07.81.23.93.52.1.27.07.68.03.95l-.15.9c-.05.27-.21 1.07.94.58 1.15-.49 6.2-3.65 8.46-6.25C22.88 13.37 22 11.83 22 10.5 22 5.82 17.52 2 12 2zm-3.38 11.18h-2.1a.53.53 0 01-.53-.53V8.53a.53.53 0 011.06 0v3.59h1.57a.53.53 0 010 1.06zm1.67-.53a.53.53 0 01-1.06 0V8.53a.53.53 0 011.06 0v4.12zm4.22 0a.53.53 0 01-.42.52h-.06a.53.53 0 01-.42-.21l-2.07-2.81v2.5a.53.53 0 01-1.06 0V8.53a.53.53 0 01.42-.52h.06a.53.53 0 01.42.21l2.07 2.81V8.53a.53.53 0 011.06 0v4.12zm3.12-2.53a.53.53 0 010 1.06h-1.57v1h1.57a.53.53 0 010 1.06h-2.1a.53.53 0 01-.53-.53V8.53a.53.53 0 01.53-.53h2.1a.53.53 0 010 1.06h-1.57v1h1.57z"/></svg>
+  <div class="portal-bg"></div>
+  <div class="portal-pattern"></div>
+
+  <div class="portal-container">
+    <div class="portal-logo">BUDO <span>LINK</span></div>
+    <p class="portal-sub">あなたに合ったページへ</p>
+
+    <div class="portal-cards">
+
+      <!-- 学生の方 -->
+      <a href="student.html" class="portal-card">
+        <span class="card-icon">🎓</span>
+        <div class="card-title">学生の方</div>
+        <p class="card-desc">就活支援・キャリア相談・求人情報・OB/OG訪問に加え、武道ニュースやイベント情報も配信中</p>
+        <span class="card-cta">学生ページへ <span class="card-arrow">→</span></span>
+      </a>
+
+      <!-- 企業・OB/OGの方 -->
+      <div class="portal-card">
+        <span class="card-icon">🏢</span>
+        <div class="card-title">企業・OB/OGの方</div>
+        <p class="card-desc">武道人材の採用や、後輩支援にご興味のある方はこちら</p>
+        <div class="card-links">
+          <a href="corporate.html" class="card-link">
+            <span class="card-link-icon">💼</span>
+            <div class="card-link-text">
+              <div class="card-link-title">企業の方 <span class="card-arrow">→</span></div>
+              <div class="card-link-sub">武道人材の採用をお考えの企業様</div>
+            </div>
+          </a>
+          <a href="obog-register.html" class="card-link">
+            <span class="card-link-icon">🤝</span>
+            <div class="card-link-text">
+              <div class="card-link-title">OB/OGの方 <span class="card-arrow">→</span></div>
+              <div class="card-link-sub">後輩支援・メンター登録</div>
+            </div>
           </a>
         </div>
-        <button class="hamburger" id="hamburger" aria-label="Menu">
-          <span></span><span></span><span></span>
-        </button>
       </div>
-    </div>
-  </header>
 
-  <!-- Mobile Drawer Overlay -->
-  <div class="drawer-overlay" id="drawerOverlay"></div>
-
-  <!-- Side Drawer -->
-  <div class="side-drawer" id="sideDrawer">
-    <nav>
-      <a href="#hero">Home</a>
-      <a href="#about">About</a>
-      <a href="#services">Services</a>
-      <a href="#cases">Cases</a>
-      <a href="joblab.html">JOBLAB</a>
-      <a href="obog.html">OB/OG</a>
-      <a href="jobs.html">求人情報</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <div class="drawer-sns">
-      <a href="https://line.me/" target="_blank" rel="noopener" aria-label="LINE">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 5.82 2 10.5c0 4.21 3.74 7.74 8.79 8.41.34.07.81.23.93.52.1.27.07.68.03.95l-.15.9c-.05.27-.21 1.07.94.58 1.15-.49 6.2-3.65 8.46-6.25C22.88 13.37 22 11.83 22 10.5 22 5.82 17.52 2 12 2zm-3.38 11.18h-2.1a.53.53 0 01-.53-.53V8.53a.53.53 0 011.06 0v3.59h1.57a.53.53 0 010 1.06zm1.67-.53a.53.53 0 01-1.06 0V8.53a.53.53 0 011.06 0v4.12zm4.22 0a.53.53 0 01-.42.52h-.06a.53.53 0 01-.42-.21l-2.07-2.81v2.5a.53.53 0 01-1.06 0V8.53a.53.53 0 01.42-.52h.06a.53.53 0 01.42.21l2.07 2.81V8.53a.53.53 0 011.06 0v4.12zm3.12-2.53a.53.53 0 010 1.06h-1.57v1h1.57a.53.53 0 010 1.06h-2.1a.53.53 0 01-.53-.53V8.53a.53.53 0 01.53-.53h2.1a.53.53 0 010 1.06h-1.57v1h1.57z"/></svg>
-      </a>
     </div>
+
+    <p class="portal-footer">&copy; 2025 BUDO LINK. All Rights Reserved.</p>
   </div>
 
-  <!-- ===== 2. Hero ===== -->
-  <section class="hero" id="hero">
-    <div class="hero-pattern"></div>
-    <div class="container">
-      <div class="hero-inner">
-        <div class="hero-text">
-          <div class="hero-badge">BUDO LINK</div>
-          <h1 class="heading-xl">武道で培った力を、<br>キャリアの武器に。</h1>
-          <p>BUDO LINKは、武道に打ち込む学生と、その力を求める企業をつなぐキャリア支援プラットフォームです。あなたの経験が、最大の強みになる。</p>
-          <div class="hero-buttons">
-            <a href="#services" class="btn btn-white">サービスを見る</a>
-            <a href="#contact" class="btn btn-outline-white">お問い合わせ</a>
-          </div>
-        </div>
-        <div class="hero-img">
-          <img src="budo-illustration.jpg" alt="BUDO LINK" style="border-radius:16px;">
-        </div>
-      </div>
-    </div>
-    <div class="scroll-indicator">
-      <span>Scroll</span>
-      <div class="scroll-arrow"></div>
-    </div>
-  </section>
-
-  <!-- ===== Stats Band ===== -->
-  <section class="stats-band fade-in">
-    <div class="container">
-      <div class="stats-grid">
-        <div class="stat-item">
-          <div class="stat-num" data-count="1200">0<span>+</span></div>
-          <div class="stat-label">登録学生数</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num" data-count="80">0<span>+</span></div>
-          <div class="stat-label">提携部活動数</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num" data-count="150">0<span>+</span></div>
-          <div class="stat-label">連携企業数</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num" data-count="95" data-suffix="%">0<span>%</span></div>
-          <div class="stat-label">入社後定着率</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== 3. About ===== -->
-  <section class="about section-pad fade-in" id="about">
-    <div class="container">
-      <div class="about-grid">
-        <div class="about-img-wrap">
-          <img src="66259.jpg" alt="BUDO LINK" style="width: 100%; border-radius: 16px;">
-        </div>
-        <div class="about-text">
-          <div class="section-label">About</div>
-          <h2 class="heading-lg">BUDO LINKとは</h2>
-          <p style="margin-top:20px;">武道に真剣に向き合ってきた学生には、礼儀・忍耐力・精神力・チームワークなど、社会で求められる力がすでに備わっています。しかし、その価値が就職活動で十分に伝わっていないのが現状です。</p>
-          <p>BUDO LINKは、武道経験を「強み」として正しく評価し、学生と企業の最適なマッチングを実現します。10年以上の武道教育への知見と、1,200名を超える就職支援実績をもとに、あなたのキャリアを支えます。</p>
-          <p>また、BUDO LINKは武道界が直面する競技人口の減少という深刻な課題に正面から向き合います。大学武道部への新歓支援を通じて、新たな競技者の獲得と定着をサポートし、武道文化の持続的な発展に貢献していきます。</p>
-          <p>さらに、就職活動支援を並行して行うことで、武道学生が競技に打ち込みながらも将来のキャリアに不安を抱えることなく成長できる環境を整えます。「武道を続けてきてよかった」と思える未来を、入部から就職まで一貫して支えていくことがBUDO LINKの使命です。</p>
-          <p>BUDO LINKの原点には、日本拳法を発展させたいという強い思いがあります。公式競技人口わずか約9,000人とされる日本拳法は、国体競技への採用や部活動としての確立が進んでおらず、その魅力が十分に知られていません。日本拳法で培った経験を出発点に、すべての武道に共通する課題を解決し、武道界全体の未来を切り拓いていきます。</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== 4. Services ===== -->
-  <section class="services section-pad fade-in" id="services">
-    <div class="container">
-      <div class="services-header">
-        <div class="section-label">Services</div>
-        <h2 class="heading-lg">BUDO LINKの活動</h2>
-        <p>武道学生と企業、双方の可能性を最大化するサービス</p>
-      </div>
-      <div class="services-grid">
-        <div class="service-card">
-          <div class="service-icon">&#9876;</div>
-          <h3>武道経験の可視化</h3>
-          <p>段位・戦績・役職・競技歴を体系的にプロフィール化。企業が求める人材像と正確にマッチング。</p>
-        </div>
-        <div class="service-card">
-          <div class="service-icon">&#127919;</div>
-          <h3>キャリアコンサルティング</h3>
-          <p>武道経験を理解した専任アドバイザーが、自己PR作成から面接対策まで一貫してサポート。</p>
-        </div>
-        <div class="service-card">
-          <div class="service-icon">&#127800;</div>
-          <h3>新歓支援</h3>
-          <p>大学武道部に直接赴き、新入生勧誘活動に必要な資金の補助金を提供します。今後はSNS戦略の立案や体験会の企画運営など、支援の幅を広げていく予定です。</p>
-        </div>
-        <div class="service-card">
-          <div class="service-icon">&#128188;</div>
-          <h3>就活支援（JOBLAB連携）</h3>
-          <p>JOBLABを活用し、武道学生一人ひとりに寄り添った就職活動サポートを提供。自己分析・業界研究からES添削・面接対策まで、武道経験を最大限に活かすキャリア支援を行います。</p>
-        </div>
-        <div class="service-card">
-          <div class="service-icon">&#128101;</div>
-          <h3>OB・OGネットワーク</h3>
-          <p>同じ武道出身の先輩社会人とつながるネットワーク。キャリア情報やノウハウを共有します。</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Cases Section ===== -->
-  <section class="cases-section fade-in" id="cases">
-    <div class="container">
-      <div class="cases-header">
-        <div class="section-label">Support Cases</div>
-        <h2 class="heading-lg">大学武道団体への資金支援実績</h2>
-        <p>BUDO LINKは各大学武道部の新歓活動に必要な資金を補助金として提供しています。</p>
-      </div>
-
-      <div class="marquee" aria-label="支援実績一覧">
-        <div class="track">
-          <article class="case-card">
-            <div class="case-photo"><img src="6257kv_article.jpg" alt="中央大学"></div>
-            <div class="case-body"><h3 class="case-uni">中央大学</h3><p class="case-content">新歓活動のためのビラ・ポスター制作費および体験会運営費として資金を補助。</p><span class="case-tag">資金支援</span></div>
-          </article>
-          <article class="case-card">
-            <div class="case-photo"><img src="66259.jpg" alt="明治大学"></div>
-            <div class="case-body"><h3 class="case-uni">明治大学</h3><p class="case-content">新歓ブース設営費および勧誘用パンフレット印刷費として資金を補助。</p><span class="case-tag">資金支援</span></div>
-          </article>
-          <article class="case-card">
-            <div class="case-photo"><img src="71ac0db1bfc0368c40fb40c569dc103a.webp" alt="立教大学"></div>
-            <div class="case-body"><h3 class="case-uni">立教大学</h3><p class="case-content">新入生向け体験稽古の会場費および備品購入費として資金を補助。</p><span class="case-tag">資金支援</span></div>
-          </article>
-          <article class="case-card">
-            <div class="case-photo"><img src="pixta_98470197_M.jpg" alt="法政大学"></div>
-            <div class="case-body"><h3 class="case-uni">法政大学</h3><p class="case-content">新歓期の広報活動費および説明会運営費として資金を補助。</p><span class="case-tag">資金支援</span></div>
-          </article>
-          <article class="case-card">
-            <div class="case-photo"><img src="OIP.webp" alt="青山学院大学"></div>
-            <div class="case-body"><h3 class="case-uni">青山学院大学</h3><p class="case-content">新歓イベント開催費および勧誘活動に必要な備品費として資金を補助。</p><span class="case-tag">資金支援</span></div>
-          </article>
-          <!-- duplicate set for seamless loop -->
-          <article class="case-card">
-            <div class="case-photo"><img src="6257kv_article.jpg" alt="中央大学"></div>
-            <div class="case-body"><h3 class="case-uni">中央大学</h3><p class="case-content">新歓活動のためのビラ・ポスター制作費および体験会運営費として資金を補助。</p><span class="case-tag">資金支援</span></div>
-          </article>
-          <article class="case-card">
-            <div class="case-photo"><img src="66259.jpg" alt="明治大学"></div>
-            <div class="case-body"><h3 class="case-uni">明治大学</h3><p class="case-content">新歓ブース設営費および勧誘用パンフレット印刷費として資金を補助。</p><span class="case-tag">資金支援</span></div>
-          </article>
-          <article class="case-card">
-            <div class="case-photo"><img src="71ac0db1bfc0368c40fb40c569dc103a.webp" alt="立教大学"></div>
-            <div class="case-body"><h3 class="case-uni">立教大学</h3><p class="case-content">新入生向け体験稽古の会場費および備品購入費として資金を補助。</p><span class="case-tag">資金支援</span></div>
-          </article>
-          <article class="case-card">
-            <div class="case-photo"><img src="pixta_98470197_M.jpg" alt="法政大学"></div>
-            <div class="case-body"><h3 class="case-uni">法政大学</h3><p class="case-content">新歓期の広報活動費および説明会運営費として資金を補助。</p><span class="case-tag">資金支援</span></div>
-          </article>
-          <article class="case-card">
-            <div class="case-photo"><img src="OIP.webp" alt="青山学院大学"></div>
-            <div class="case-body"><h3 class="case-uni">青山学院大学</h3><p class="case-content">新歓イベント開催費および勧誘活動に必要な備品費として資金を補助。</p><span class="case-tag">資金支援</span></div>
-          </article>
-        </div>
-      </div>
-
-      <div class="cases-cta">
-        <div>
-          <strong>各大学武道部の新歓活動に必要な資金を補助金として支援しています。お気軽にご相談ください。</strong>
-        </div>
-        <a class="btn btn-white" href="#contact">相談する</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== WHY WE ACT ===== -->
-  <section class="issue-visual section-pad fade-in" id="issues">
-    <div class="container">
-      <div class="issue-head">
-        <div class="section-label">WHY WE ACT</div>
-        <h2 class="heading-lg">私たちが活動する理由</h2>
-        <p>日本の武道界は今、競技人口の減少という深刻な課題に直面しています。<br>少子高齢化・部活動環境の変化・若い世代の武道離れ――<br>このままでは、日本が誇る武道文化そのものが失われかねません。<br>だからこそ、BUDO LINKは立ち上がりました。</p>
-      </div>
-
-      <div class="issue-story">
-
-        <!-- Chapter 1 -->
-        <div class="issue-chapter">
-          <div class="issue-chapter-text">
-            <h3><span class="accent">Chapter 1.</span> 子どもの数が2割減少</h3>
-            <p>日本武道館の報告によると、過去18年間で日本の子どもの人口は約2割減少しました。それに伴い、柔道・剣道の競技者数はほぼ半減しています。武道の入り口となる若年層が減り続ける中、競技人口の回復は年々困難になっています。</p>
-            <p class="source">出典：公益財団法人日本武道館</p>
-          </div>
-          <div class="chart-card">
-            <h4>子どもの人口と武道競技者数の推移</h4>
-            <div class="compare-grid">
-              <div class="compare-box">
-                <div class="label">子ども人口の変化</div>
-                <div class="big-num negative">&darr; 20%</div>
-                <div class="sub">過去18年間</div>
-              </div>
-              <div class="compare-box">
-                <div class="label">柔道・剣道の生徒数</div>
-                <div class="big-num negative">&darr; 約50%</div>
-                <div class="sub">ほぼ半減</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- More button -->
-        <div class="issue-more-wrap" id="issueMoreWrap">
-          <button class="issue-more-btn" id="issueMoreBtn" onclick="document.getElementById('issueHidden').style.display='flex';this.parentElement.style.display='none';">
-            もっと見る
-          </button>
-        </div>
-
-        <!-- Hidden chapters -->
-        <div class="issue-hidden" id="issueHidden" style="display:none; flex-direction:column; gap:64px;">
-
-        <!-- Chapter 2 -->
-        <div class="issue-chapter reverse">
-          <div class="issue-chapter-text">
-            <h3><span class="accent">Chapter 2.</span> 剣道初段合格者数の減少傾向</h3>
-            <p>全日本剣道連盟の基本計画によれば、剣道の初段合格者数は減少傾向にあります。かつて年間数万人が取得していた初段も、若い世代の剣道離れにより年々その数を減らしています。これは中学・高校の部活動参加者の減少を如実に反映しています。</p>
-            <p class="source">出典：全日本剣道連盟《基本計画》次世代への継承に向けて</p>
-          </div>
-          <div class="chart-card">
-            <h4>剣道初段合格者数の推移（イメージ）</h4>
-            <div class="decline-chart">
-              <div class="decline-bar">
-                <div class="decline-bar-value">4.8万</div>
-                <div class="decline-bar-fill" style="height: 160px;"></div>
-                <div class="decline-bar-label">2005</div>
-              </div>
-              <div class="decline-bar">
-                <div class="decline-bar-value">4.2万</div>
-                <div class="decline-bar-fill" style="height: 140px;"></div>
-                <div class="decline-bar-label">2010</div>
-              </div>
-              <div class="decline-bar">
-                <div class="decline-bar-value">3.5万</div>
-                <div class="decline-bar-fill" style="height: 116px;"></div>
-                <div class="decline-bar-label">2015</div>
-              </div>
-              <div class="decline-bar">
-                <div class="decline-bar-value">2.8万</div>
-                <div class="decline-bar-fill danger" style="height: 93px;"></div>
-                <div class="decline-bar-label">2020</div>
-              </div>
-              <div class="decline-bar">
-                <div class="decline-bar-value">2.3万</div>
-                <div class="decline-bar-fill danger" style="height: 76px;"></div>
-                <div class="decline-bar-label">2024</div>
-              </div>
-            </div>
-            <p class="issue-note" style="margin-top:8px;">※推移傾向を示すイメージ図です</p>
-          </div>
-        </div>
-
-        <!-- Chapter 3 -->
-        <div class="issue-chapter">
-          <div class="issue-chapter-text">
-            <h3><span class="accent">Chapter 3.</span> 人口減少を加速させる4つの要因</h3>
-            <p>武道人口の減少は、単なる少子化だけでは説明できません。複数の構造的な課題が重なり、下降スパイラルを生み出しています。</p>
-          </div>
-          <div class="chart-card">
-            <div class="factor-list">
-              <div class="factor-item">
-                <div class="factor-icon">&#128100;</div>
-                <div>
-                  <h5>若年層の人口減少</h5>
-                  <p>中学生・高校生の総数そのものが減少し、武道部への入部者が激減。</p>
-                </div>
-              </div>
-              <div class="factor-item">
-                <div class="factor-icon">&#128218;</div>
-                <div>
-                  <h5>部活動環境の変化</h5>
-                  <p>教員の働き方改革や地域移行により、武道部の運営体制が不安定に。</p>
-                </div>
-              </div>
-              <div class="factor-item">
-                <div class="factor-icon">&#128104;&#8205;&#127891;</div>
-                <div>
-                  <h5>指導者不足</h5>
-                  <p>経験ある指導者の高齢化と後継者不足が、指導の質と継続性を脅かす。</p>
-                </div>
-              </div>
-              <div class="factor-item">
-                <div class="factor-icon">&#128241;</div>
-                <div>
-                  <h5>革新的な普及戦略の欠如</h5>
-                  <p>SNS世代への訴求力が弱く、武道の魅力が若者に届いていない。</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Chapter 4 -->
-        <div class="issue-chapter reverse">
-          <div class="issue-chapter-text">
-            <h3><span class="accent">Chapter 4.</span> 日本拳法の現状と可能性</h3>
-            <p>BUDO LINKの出発点である日本拳法は、打撃・投げ・関節技を組み合わせた日本独自の総合格闘武道です。しかし、公式競技人口は約9,000人にとどまり、国体競技としての認定や部活動としての確立が十分に進んでいません。</p>
-            <p>一方で、自衛隊や警察での採用実績があり、実戦性と精神性を兼ね備えた競技としてのポテンシャルは非常に高い。この眠れる可能性を解き放つことが、BUDO LINKの挑戦の原点です。</p>
-            <p class="source">出典：Wikipedia「日本拳法」</p>
-          </div>
-          <div class="kempo-highlight">
-            <h4>日本拳法 公式競技人口</h4>
-            <div class="kempo-num">約9,000<span style="font-size:1rem;font-weight:400;">人</span></div>
-            <div class="kempo-unit">国体未採用 / 部活動としての確立途上</div>
-            <p>マイナー競技ゆえに公式大会や普及活動が少なく、競技人口の拡大が急務。BUDO LINKは日本拳法を起点に、すべての武道の発展を支援します。</p>
-          </div>
-        </div>
-
-        <!-- Chapter 5 -->
-        <div class="issue-chapter">
-          <div class="issue-chapter-text">
-            <h3><span class="accent">Chapter 5.</span> 大学武道部の新歓の現実</h3>
-            <p>大学の武道部にとって、毎年の新歓活動は部の存続に直結する最重要イベントです。しかし現場では、勧誘のためのビラ・イベント費用が不足し、指導に割くべき時間の多くが募集・広報活動に費やされています。</p>
-            <p>部員が集まらなければ活動が成立せず、活動が停滞すれば魅力が失われ、さらに新入部員が減る――この悪循環を断ち切ることが急務です。</p>
-          </div>
-          <div class="chart-card">
-            <h4>武道部の運営時間配分</h4>
-            <div class="donut-wrap">
-              <div class="donut" style="background: conic-gradient(#e53e3e 0 68%, #0028FF 68% 100%);" aria-hidden="true"></div>
-              <div class="donut-text">
-                <span style="color:#e53e3e; font-size:1.1rem;">&#9679;</span> 募集・広報 <strong>68%</strong><br>
-                <span style="color:#0028FF; font-size:1.1rem;">&#9679;</span> 指導・育成 <strong>32%</strong>
-              </div>
-            </div>
-            <div class="mini-metrics" style="margin-top: 20px;">
-              <div class="mini-metric"><div class="n">74%</div><div class="l">体験参加率</div></div>
-              <div class="mini-metric"><div class="n">48%</div><div class="l">入部転換率</div></div>
-              <div class="mini-metric"><div class="n">39%</div><div class="l">半年継続率</div></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- CTA -->
-        <div class="issue-cta">
-          <h3>この現状を変えるために、BUDO LINKは動きます。</h3>
-          <p>新歓支援による部員獲得の後押し、就活支援による「武道を続ける意味」の可視化。<br>入部から卒業後のキャリアまで一貫してサポートすることで、<br>武道界の持続的な発展を実現します。</p>
-        </div>
-
-        </div><!-- /issue-hidden -->
-
-      </div>
-
-      <p class="issue-note">※グラフ・数値は各種公開資料および現場ヒアリングをもとにした参考指標です。実数値は団体・地域により異なります。</p>
-    </div>
-  </section>
-
-  <!-- ===== 5. Opportunities ===== -->
-  <section class="opportunities section-pad fade-in" id="opportunities">
-    <div class="container">
-      <div class="oppo-header">
-        <div class="section-label">Opportunities</div>
-        <h2 class="heading-lg">あなたに合った機会を見つける</h2>
-        <p>武道学生の強みを求める企業からの厳選された機会</p>
-      </div>
-      <div class="oppo-grid">
-        <a href="jobs.html?cat=sales" class="oppo-card">
-          <div class="oppo-card-icon">&#128188;</div>
-          <h3>営業・コンサルタント</h3>
-          <p>礼儀と粘り強さを活かし、クライアントとの信頼関係を構築する。</p>
-          <div class="tag">求人を見る &rarr;</div>
-        </a>
-        <a href="jobs.html?cat=planning" class="oppo-card">
-          <div class="oppo-card-icon">&#127970;</div>
-          <h3>企画・マーケティング</h3>
-          <p>チームワークと戦略的思考で、プロジェクトを推進する。</p>
-          <div class="tag">求人を見る &rarr;</div>
-        </a>
-        <a href="jobs.html?cat=engineer" class="oppo-card">
-          <div class="oppo-card-icon">&#128736;</div>
-          <h3>エンジニア・技術職</h3>
-          <p>忍耐力と集中力で、技術課題に粘り強く取り組む。</p>
-          <div class="tag">求人を見る &rarr;</div>
-        </a>
-        <a href="jobs.html?cat=education" class="oppo-card">
-          <div class="oppo-card-icon">&#127891;</div>
-          <h3>教育・人材育成</h3>
-          <p>指導力とコミュニケーション力で、人を育てる。</p>
-          <div class="tag">求人を見る &rarr;</div>
-        </a>
-        <a href="jobs.html?cat=finance" class="oppo-card">
-          <div class="oppo-card-icon">&#128176;</div>
-          <h3>金融・保険</h3>
-          <p>精神力と信頼性で、お客様の大切な資産を守る。</p>
-          <div class="tag">求人を見る &rarr;</div>
-        </a>
-        <a href="jobs.html?cat=sports" class="oppo-card">
-          <div class="oppo-card-icon">&#127942;</div>
-          <h3>スポーツ関連</h3>
-          <p>武道の経験を直接活かし、スポーツ業界で活躍する。</p>
-          <div class="tag">求人を見る &rarr;</div>
-        </a>
-      </div>
-      <div class="text-center">
-        <a href="jobs.html" class="btn btn-primary">すべての求人を見る</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Quote Band -->
-  <section class="quote-band fade-in">
-    <div class="container">
-      <p class="quote-text">「一つひとつの出会いが、<br>単なる就職ではなく、<br>人生を変えるキャリアになる。」</p>
-      <p class="quote-author">BUDO LINK 代表</p>
-    </div>
-  </section>
-
-  <!-- ===== JOBLAB Promo ===== -->
-  <section class="joblab-promo fade-in">
-    <div class="joblab-promo-bg"></div>
-    <div class="container">
-      <div class="joblab-promo-inner">
-        <div class="joblab-promo-text">
-          <h2>株式会社ANCaの<br><em>JOBLAB</em>支援が<br>受けられます。</h2>
-          <p>BUDO LINKは、即戦力人材の育成を手がける株式会社ANCaの就活支援プログラム「JOBLAB」と提携。ビジネススキルの習得から特別選考ルートの提供まで、武道学生の就職活動を強力にバックアップします。</p>
-          <p>部活と就活の両立、自己PRの作成、面接対策まで &#8212; あなたのキャリアを全面サポート。</p>
-          <div class="promo-btn-wrap">
-            <a href="joblab.html" class="btn btn-white">JOBLAB 詳細を見る</a>
-            <a href="https://www.anca.co.jp/joblab" target="_blank" rel="noopener" class="btn btn-outline-white">JOBLAB 公式サイト</a>
-          </div>
-        </div>
-        <div class="joblab-promo-points">
-          <div class="promo-point">
-            <div class="promo-point-icon">&#128218;</div>
-            <h4>スキル育成</h4>
-            <p>実践的なビジネススキルを在学中に習得</p>
-          </div>
-          <div class="promo-point">
-            <div class="promo-point-icon">&#11088;</div>
-            <h4>特別選考</h4>
-            <p>成果に応じた特別な選考ルートを提供</p>
-          </div>
-          <div class="promo-point">
-            <div class="promo-point-icon">&#129309;</div>
-            <h4>企業マッチング</h4>
-            <p>ミスマッチのない最適な企業紹介</p>
-          </div>
-          <div class="promo-point">
-            <div class="promo-point-icon">&#127919;</div>
-            <h4>面接対策</h4>
-            <p>自己PR・ES添削から面接まで完全サポート</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== 6. Testimonials ===== -->
-  <section class="testimonials section-pad fade-in" id="testimonials">
-    <div class="container">
-      <div class="testi-header">
-        <div class="section-label">Testimonials</div>
-        <h2 class="heading-lg">利用者の声</h2>
-      </div>
-      <div class="testi-grid">
-        <div class="testi-card">
-          <div class="testi-avatar">S</div>
-          <blockquote>「JOBLABのビジネススキル育成プログラムで、面接での受け答えが格段に変わりました。武道で培った礼儀正しさに加えて、論理的に話す力がつきました。」</blockquote>
-          <div class="testi-name">S.M さん</div>
-          <div class="testi-role">柔道部 / 大学4年 / JOBLAB利用者</div>
-        </div>
-        <div class="testi-card">
-          <div class="testi-avatar">K</div>
-          <blockquote>「部活動と就活の両立は不安でしたが、JOBLABのアドバイザーがスケジュールを柔軟に調整してくれて、大会にも集中できました。」</blockquote>
-          <div class="testi-name">K.T さん</div>
-          <div class="testi-role">剣道部 / 大学3年 / JOBLAB利用者</div>
-        </div>
-        <div class="testi-card">
-          <div class="testi-avatar">A</div>
-          <blockquote>「JOBLABの特別選考ルートのおかげで、インターンでの頑張りが直接評価され、第一志望から内定をいただけました。」</blockquote>
-          <div class="testi-name">A.H さん</div>
-          <div class="testi-role">空手道部 / 大学4年 / JOBLAB利用者</div>
-        </div>
-      </div>
-
-      <div class="partners-section">
-        <h3 class="heading-md text-center">パートナー企業</h3>
-        <div class="partners-list">
-          <span>ABC商事</span>
-          <span>日本テクノロジー</span>
-          <span>グローバルHR</span>
-          <span>未来建設</span>
-          <span>サクラ不動産</span>
-          <span>ブレイン教育</span>
-          <span>スポーツライフ</span>
-          <span>ネクスト金融</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== 7. Contact ===== -->
-  <section class="contact section-pad fade-in" id="contact">
-    <div class="container">
-      <div class="contact-grid">
-        <div class="contact-info">
-          <div class="section-label">Contact</div>
-          <h2 class="heading-lg">お問い合わせ</h2>
-          <p>ご質問やご相談がございましたら、お気軽にお問い合わせください。武道学生の方も企業の方も、まずはお話をお聞かせください。</p>
-          <div class="contact-detail">
-            <h4>PHONE</h4>
-            <p>03-1234-5678</p>
-          </div>
-          <div class="contact-detail">
-            <h4>EMAIL</h4>
-            <p>info@budolink.jp</p>
-          </div>
-          <div class="contact-detail">
-            <h4>ADDRESS</h4>
-            <p>東京都渋谷区〇〇 1-2-3<br>BUDOビル 4F</p>
-          </div>
-        </div>
-        <form class="contact-form" id="contactForm">
-          <div class="form-group">
-            <label>お名前 <span style="color:#0028FF;">*</span></label>
-            <input type="text" id="cfName" placeholder="山田 太郎" required>
-          </div>
-          <div class="form-group">
-            <label>メールアドレス <span style="color:#0028FF;">*</span></label>
-            <input type="email" id="cfEmail" placeholder="taro@example.com" required>
-          </div>
-          <div class="form-group">
-            <label>メッセージ <span style="color:#0028FF;">*</span></label>
-            <textarea id="cfMessage" placeholder="お問い合わせ内容をご記入ください" required></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary" id="cfSubmit" style="width:100%;">送信する</button>
-          <div id="cfStatus" style="margin-top:12px; text-align:center; font-size:0.9rem; display:none;"></div>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== 8. Footer ===== -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-brand">
-          <div class="logo">BUDO <span>LINK</span></div>
-          <p>武道学生の可能性を最大化するキャリア支援プラットフォーム</p>
-        </div>
-        <div class="footer-links">
-          <div class="footer-col">
-            <h4>サービス</h4>
-            <a href="#services">サービス一覧</a>
-            <a href="jobs.html">求人情報</a>
-            <a href="obog.html">OB/OG検索</a>
-            <a href="joblab.html">JOBLAB 支援</a>
-            <a href="#testimonials">利用者の声</a>
-          </div>
-          <div class="footer-col">
-            <h4>BUDO LINK</h4>
-            <a href="#about">About</a>
-            <a href="#contact">お問い合わせ</a>
-          </div>
-        </div>
-      </div>
-      <div class="footer-bottom">&copy; 2025 BUDO LINK. All Rights Reserved.</div>
-    </div>
-  </footer>
-
-  <!-- ===== Scripts ===== -->
-  <script>
-    /* ===== Menu: Hamburger + Side Drawer ===== */
-    const hamburger = document.getElementById('hamburger');
-    const sideDrawer = document.getElementById('sideDrawer');
-    const drawerOverlay = document.getElementById('drawerOverlay');
-
-    function toggleDrawer() {
-      const isActive = sideDrawer.classList.contains('active');
-      sideDrawer.classList.toggle('active');
-      drawerOverlay.classList.toggle('active');
-      hamburger.classList.toggle('active');
-      document.body.style.overflow = isActive ? '' : 'hidden';
-    }
-    function closeDrawer() {
-      sideDrawer.classList.remove('active');
-      drawerOverlay.classList.remove('active');
-      hamburger.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-    hamburger.addEventListener('click', toggleDrawer);
-    drawerOverlay.addEventListener('click', closeDrawer);
-    sideDrawer.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', closeDrawer);
-    });
-
-    /* ===== Scroll Fade-In (IntersectionObserver) ===== */
-    const fadeEls = document.querySelectorAll('.fade-in');
-    const fadeObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          fadeObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
-    fadeEls.forEach(el => fadeObserver.observe(el));
-
-    /* ===== Stats Count-Up (IntersectionObserver) ===== */
-    let statsCounted = false;
-    const statsSection = document.querySelector('.stats-band');
-    const statsObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && !statsCounted) {
-          statsCounted = true;
-          document.querySelectorAll('[data-count]').forEach(el => {
-            const target = parseInt(el.getAttribute('data-count'));
-            const suffix = el.getAttribute('data-suffix') || '+';
-            const suffixSpan = el.querySelector('span');
-            let current = 0;
-            const step = Math.ceil(target / 60);
-            const timer = setInterval(() => {
-              current += step;
-              if (current >= target) {
-                current = target;
-                clearInterval(timer);
-              }
-              el.childNodes[0].textContent = current.toLocaleString();
-            }, 25);
-          });
-          statsObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.3 });
-    if (statsSection) statsObserver.observe(statsSection);
-
-    /* ===== Contact Form Submission ===== */
-    const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzH9vvLN_g4A6y8-XmflK6QK0ek24lSzqepFLGfEg55ldsWIFYRPX736uHXdh5x3I9r/exec';
-
-    document.getElementById('contactForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const btn = document.getElementById('cfSubmit');
-      const status = document.getElementById('cfStatus');
-      const name = document.getElementById('cfName').value.trim();
-      const email = document.getElementById('cfEmail').value.trim();
-      const message = document.getElementById('cfMessage').value.trim();
-
-      if (!name || !email || !message) {
-        status.style.display = 'block';
-        status.style.color = '#e53e3e';
-        status.textContent = 'すべての項目を入力してください。';
-        return;
-      }
-
-      btn.disabled = true;
-      btn.textContent = '送信中...';
-      status.style.display = 'none';
-
-      try {
-        await fetch(FORM_ENDPOINT, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, email, message })
-        });
-        status.style.display = 'block';
-        status.style.color = '#38a169';
-        status.textContent = '送信が完了しました。お問い合わせありがとうございます。';
-        document.getElementById('contactForm').reset();
-      } catch (err) {
-        status.style.display = 'block';
-        status.style.color = '#e53e3e';
-        status.textContent = '送信に失敗しました。時間をおいて再度お試しください。';
-      }
-      btn.disabled = false;
-      btn.textContent = '送信する';
-    });
-  </script>
 </body>
 </html>
