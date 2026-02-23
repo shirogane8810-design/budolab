@@ -253,7 +253,7 @@
         </div>
         <div class="reg-banner-actions">
           <button class="btn-banner-register" onclick="openModal()">今すぐ無料登録</button>
-          <a href="https://lin.ee/yourLineLink" class="btn-banner-line" target="_blank" rel="noopener">
+          <a href="https://lin.ee/KtxrF6x" class="btn-banner-line" target="_blank" rel="noopener">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967C23.418 14.218 24 12.329 24 10.304"/></svg>
             LINEで登録
           </a>
@@ -685,7 +685,7 @@
 
       <div class="sidebar-line-cta">
         <p>LINEで友達追加して<br>最新情報を受け取ろう</p>
-        <a href="https://lin.ee/yourLineLink" target="_blank" rel="noopener">
+        <a href="https://lin.ee/KtxrF6x" target="_blank" rel="noopener">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="#06C755" style="display:inline;vertical-align:middle;margin-right:4px;"><path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967C23.418 14.218 24 12.329 24 10.304"/></svg>
           LINE友達追加
         </a>
@@ -730,9 +730,17 @@
     <h2>学生マイページ登録</h2>
     <p class="modal-sub">武道経験をキャリアに活かす第一歩。登録は無料・2分で完了します。</p>
 
+    <!-- LINE連携バナー（LINEから来たときのみ表示） -->
+    <div id="lineBanner" style="display:none; background:#f0fff4; border:1px solid #9ae6b4; border-radius:10px; padding:12px 16px; margin-bottom:18px; display:none; align-items:center; gap:10px;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="#06C755"><path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967C23.418 14.218 24 12.329 24 10.304"/></svg>
+      <span style="font-size:0.85rem; color:#2d7a4f; font-weight:600;">LINEアカウント「<span id="lineNameDisplay"></span>」と連携されます</span>
+    </div>
+
     <div id="regStatus"></div>
 
     <form id="regForm">
+      <input type="hidden" name="lineUserId" id="lineUserIdInput">
+      <input type="hidden" name="lineName" id="lineNameInput">
       <div class="form-row">
         <div class="form-group">
           <label>姓<span class="req">*</span></label>
@@ -811,7 +819,7 @@
 
     <div class="modal-line-alt">
       <p>LINEからも登録できます</p>
-      <a href="https://lin.ee/yourLineLink" class="btn-line-modal" target="_blank" rel="noopener">
+      <a href="https://lin.ee/KtxrF6x" class="btn-line-modal" target="_blank" rel="noopener">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967C23.418 14.218 24 12.329 24 10.304"/></svg>
         LINEで友達追加して登録
       </a>
@@ -910,6 +918,32 @@
     el.style.display = 'block';
     el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
+
+  // ====== LINE LIFF パラメータ受け取り ======
+  (function() {
+    const params = new URLSearchParams(location.search);
+    if (params.get('lineFrom') !== '1') return;
+
+    const lineUserId = params.get('lineUserId') || '';
+    const lineName   = params.get('lineName')   || '';
+
+    // 隠しフィールドにセット
+    document.getElementById('lineUserIdInput').value = lineUserId;
+    document.getElementById('lineNameInput').value   = lineName;
+
+    // LINE連携バナーを表示
+    if (lineName) {
+      document.getElementById('lineNameDisplay').textContent = lineName;
+      const banner = document.getElementById('lineBanner');
+      banner.style.display = 'flex';
+    }
+
+    // 登録モーダルを自動で開く
+    openModal();
+
+    // URLパラメータをブラウザ履歴から除去（セキュリティ）
+    history.replaceState({}, '', location.pathname);
+  })();
 </script>
 </body>
 </html>
