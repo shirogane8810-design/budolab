@@ -196,6 +196,38 @@
     .btn-line-modal { background: #06C755; color: #fff; padding: 12px 28px; border-radius: 50px; font-size: 0.88rem; font-weight: 700; border: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s; }
     .btn-line-modal:hover { background: #05a848; transform: translateY(-1px); }
 
+    /* ====== TERMS MODAL ====== */
+    .terms-overlay { position: fixed; inset: 0; background: rgba(10,22,40,0.65); backdrop-filter: blur(4px); z-index: 2100; display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+    .terms-overlay.active { opacity: 1; visibility: visible; }
+    .terms-modal { background: #fff; border-radius: 20px; width: 100%; max-width: 480px; padding: 36px; position: relative; transform: translateY(20px); transition: transform 0.3s; }
+    .terms-overlay.active .terms-modal { transform: translateY(0); }
+    .terms-modal h3 { font-size: 1.15rem; font-weight: 800; color: #0a1628; margin-bottom: 12px; }
+    .terms-modal p { font-size: 0.88rem; color: #5a6577; line-height: 1.75; margin-bottom: 20px; }
+    .terms-doc-link { display: flex; align-items: center; gap: 10px; background: #f4f6fb; border: 1px solid #d0d5dd; border-radius: 10px; padding: 14px 18px; margin-bottom: 24px; color: #0028FF; font-size: 0.88rem; font-weight: 600; text-decoration: none; transition: background 0.2s; }
+    .terms-doc-link:hover { background: #eef0f6; }
+    .terms-btns { display: flex; gap: 12px; }
+    .btn-terms-agree { flex: 1; padding: 13px; background: linear-gradient(135deg, #0028FF, #00C8FF); color: #fff; border: none; border-radius: 50px; font-size: 0.95rem; font-weight: 700; transition: all 0.3s; }
+    .btn-terms-agree:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(0,40,255,0.25); }
+    .btn-terms-decline { flex: 1; padding: 13px; background: #f4f6fb; color: #5a6577; border: 1px solid #d0d5dd; border-radius: 50px; font-size: 0.95rem; font-weight: 600; transition: all 0.2s; }
+    .btn-terms-decline:hover { background: #eef0f6; }
+
+    /* ====== PROFILE OVERLAY ====== */
+    .profile-overlay { position: fixed; inset: 0; background: rgba(10,22,40,0.65); backdrop-filter: blur(4px); z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+    .profile-overlay.active { opacity: 1; visibility: visible; }
+    .profile-modal { background: #fff; border-radius: 20px; width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto; padding: 36px; position: relative; transform: translateY(20px); transition: transform 0.3s; }
+    .profile-overlay.active .profile-modal { transform: translateY(0); }
+    .profile-modal-close { position: absolute; top: 16px; right: 16px; background: #f4f6fb; border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 1.1rem; color: #5a6577; display: flex; align-items: center; justify-content: center; transition: background 0.3s; }
+    .profile-modal-close:hover { background: #eef0f6; }
+    .profile-modal-head { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid #eef0f6; }
+    .profile-modal-avatar { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, #0028FF, #00C8FF); display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 800; color: #fff; flex-shrink: 0; }
+    .profile-modal-name { font-size: 1.25rem; font-weight: 800; color: #0a1628; margin-bottom: 4px; }
+    .profile-modal-kana { font-size: 0.8rem; color: #8a95a8; }
+    .profile-info-row { display: flex; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid #f4f6fb; gap: 16px; }
+    .profile-info-row:last-child { border-bottom: none; }
+    .profile-info-label { font-size: 0.76rem; font-weight: 600; color: #8a95a8; width: 96px; flex-shrink: 0; padding-top: 2px; }
+    .profile-info-value { font-size: 0.88rem; color: #0a1628; font-weight: 500; flex: 1; line-height: 1.5; }
+    .profile-line-badge { display: inline-flex; align-items: center; gap: 6px; background: #f0fff4; color: #2d7a4f; font-size: 0.78rem; font-weight: 600; padding: 5px 12px; border-radius: 6px; border: 1px solid #9ae6b4; margin-top: 14px; }
+
     /* ====== RESPONSIVE ====== */
     @media (max-width: 960px) {
       .portal-grid { grid-template-columns: 1fr; }
@@ -722,6 +754,23 @@
   </div>
 </main>
 
+<!-- ====== TERMS MODAL ====== -->
+<div class="terms-overlay" id="termsOverlay">
+  <div class="terms-modal">
+    <div class="modal-logo" style="margin-bottom:16px;">BUDO <span>LINK</span></div>
+    <h3>利用規約・プライバシーポリシーへの同意</h3>
+    <p>マイページ登録の前に、以下の利用規約およびプライバシーポリシーをお読みください。個人情報の取り扱いについてご確認のうえ、同意される場合は「同意する」ボタンを押してください。</p>
+    <a href="https://docs.google.com/document/d/15VXbHOm9T1PKAzuKUFRcbwInjlmfOc0klHZ2-WYQyxo/edit?usp=drive_link" target="_blank" rel="noopener" class="terms-doc-link">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0028FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg>
+      利用規約・プライバシーポリシーを確認する（別タブで開く）
+    </a>
+    <div class="terms-btns">
+      <button class="btn-terms-decline" onclick="declineTerms()">同意しない</button>
+      <button class="btn-terms-agree" onclick="agreeTerms()">同意する</button>
+    </div>
+  </div>
+</div>
+
 <!-- ====== REGISTRATION MODAL ====== -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
@@ -827,7 +876,48 @@
   </div>
 </div>
 
+<!-- ====== PROFILE MODAL ====== -->
+<div class="profile-overlay" id="profileOverlay">
+  <div class="profile-modal">
+    <button class="profile-modal-close" onclick="closeProfile()">✕</button>
+    <div id="profileContent"></div>
+  </div>
+</div>
+
 <script>
+  // ====== ユーザー状態管理 ======
+  let currentUser = JSON.parse(localStorage.getItem('budolink_user') || 'null');
+  let termsAgreed = sessionStorage.getItem('budolink_terms') === '1';
+
+  // ====== HTMLエスケープ ======
+  function escHtml(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  // ====== ログイン済みUI更新 ======
+  function updateUIForLoggedIn(user) {
+    const headerRight = document.querySelector('.portal-header-right');
+    if (headerRight) {
+      headerRight.innerHTML = `
+        <span style="font-size:0.85rem;color:#5a6577;">こんにちは、<strong style="color:#0028FF;">${escHtml(user.lastName)} さん</strong></span>
+        <button class="btn-login" onclick="showProfile()">マイページ</button>
+      `;
+    }
+    const regBanner = document.querySelector('.reg-banner');
+    if (regBanner) regBanner.style.display = 'none';
+    const avatarEl = document.querySelector('.profile-avatar');
+    if (avatarEl) avatarEl.textContent = (user.lastName || '武').charAt(0);
+    const nameEl = document.querySelector('.profile-name');
+    if (nameEl) nameEl.textContent = user.lastName + ' ' + user.firstName;
+    const subEl = document.querySelector('.profile-sub');
+    if (subEl) subEl.textContent = user.university;
+    const editBtn = document.querySelector('.btn-edit-profile');
+    if (editBtn) { editBtn.textContent = 'マイページを見る'; editBtn.onclick = showProfile; }
+  }
+
+  // ====== 初期化 ======
+  if (currentUser) updateUIForLoggedIn(currentUser);
+
   // ====== Tab switching ======
   const tabs = document.querySelectorAll('.portal-tab');
   const sections = document.querySelectorAll('.tab-section');
@@ -852,8 +942,27 @@
     }
   }
 
-  // ====== Modal ======
+  // ====== 利用規約モーダル ======
+  function agreeTerms() {
+    termsAgreed = true;
+    sessionStorage.setItem('budolink_terms', '1');
+    document.getElementById('termsOverlay').classList.remove('active');
+    document.getElementById('modalOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function declineTerms() {
+    document.getElementById('termsOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // ====== 登録モーダル ======
   function openModal() {
+    if (currentUser) { showProfile(); return; }
+    if (!termsAgreed) {
+      document.getElementById('termsOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+      return;
+    }
     document.getElementById('modalOverlay').classList.add('active');
     document.body.style.overflow = 'hidden';
   }
@@ -865,8 +974,54 @@
     if (e.target === this) closeModal();
   });
 
+  // ====== プロフィール表示 ======
+  function showProfile(justRegistered = false) {
+    if (!currentUser) { openModal(); return; }
+    const lineBadge = currentUser.lineName
+      ? `<div style="margin-top:16px;"><span class="profile-line-badge">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="#06C755"><path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967C23.418 14.218 24 12.329 24 10.304"/></svg>
+          LINE連携済み：${escHtml(currentUser.lineName)}
+        </span></div>`
+      : '';
+    const successBanner = justRegistered
+      ? `<div style="background:#f0fff4;border:1px solid #9ae6b4;border-radius:10px;padding:14px 16px;margin-bottom:20px;display:flex;align-items:center;gap:12px;">
+          <span style="font-size:1.4rem;">✅</span>
+          <div>
+            <div style="font-size:0.9rem;font-weight:700;color:#2d7a4f;">登録が完了しました！</div>
+            <div style="font-size:0.8rem;color:#5a6577;margin-top:2px;">ご登録のメールアドレスに確認メールをお送りしました。</div>
+          </div>
+        </div>`
+      : '';
+    document.getElementById('profileContent').innerHTML = `
+      ${successBanner}
+      <div class="modal-logo" style="margin-bottom:14px;">BUDO <span>LINK</span></div>
+      <div class="profile-modal-head">
+        <div class="profile-modal-avatar">${escHtml((currentUser.lastName || '武').charAt(0))}</div>
+        <div>
+          <div class="profile-modal-name">${escHtml(currentUser.lastName)} ${escHtml(currentUser.firstName)}</div>
+          <div class="profile-modal-kana">${escHtml(currentUser.lastNameKana)} ${escHtml(currentUser.firstNameKana)}</div>
+        </div>
+      </div>
+      <div class="profile-info-row"><div class="profile-info-label">大学</div><div class="profile-info-value">${escHtml(currentUser.university)}</div></div>
+      <div class="profile-info-row"><div class="profile-info-label">学部・学科</div><div class="profile-info-value">${escHtml(currentUser.faculty)}${currentUser.department ? '　' + escHtml(currentUser.department) : ''}</div></div>
+      <div class="profile-info-row"><div class="profile-info-label">卒業予定</div><div class="profile-info-value">${escHtml(currentUser.graduationYear)}年卒</div></div>
+      <div class="profile-info-row"><div class="profile-info-label">所属団体</div><div class="profile-info-value">${escHtml(currentUser.club)}${currentUser.role ? '　' + escHtml(currentUser.role) : ''}</div></div>
+      <div class="profile-info-row"><div class="profile-info-label">メール</div><div class="profile-info-value">${escHtml(currentUser.email)}</div></div>
+      <div class="profile-info-row"><div class="profile-info-label">電話番号</div><div class="profile-info-value">${escHtml(currentUser.phone)}</div></div>
+      ${lineBadge}
+    `;
+    document.getElementById('profileOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeProfile() {
+    document.getElementById('profileOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('profileOverlay').addEventListener('click', function(e) {
+    if (e.target === this) closeProfile();
+  });
+
   // ====== Registration form → Google Sheets ======
-  // ※ Google Apps Script をデプロイ後、下記URLを差し替えてください
   const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwcQUx-garVxvfyhhf16LuJLTV1x-m5Knr1V6rKwnzTxkzKXxq_vRfeAm0_TZGt8pLZ7A/exec';
 
   document.getElementById('regForm').addEventListener('submit', async function(e) {
@@ -877,13 +1032,9 @@
     const data = {};
     fd.forEach((v, k) => { data[k] = v.trim(); });
 
-    // Simple validation
     const required = ['lastName','firstName','lastNameKana','firstNameKana','university','faculty','graduationYear','club','email','phone'];
     for (const f of required) {
-      if (!data[f]) {
-        showStatus('error', '必須項目をすべて入力してください。');
-        return;
-      }
+      if (!data[f]) { showStatus('error', '必須項目をすべて入力してください。'); return; }
     }
 
     btn.disabled = true;
@@ -895,20 +1046,19 @@
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          type: 'student_registration',
-          ...data,
-          registeredAt: new Date().toLocaleString('ja-JP')
-        })
+        body: JSON.stringify({ type: 'student_registration', ...data, registeredAt: new Date().toLocaleString('ja-JP') })
       });
-      showStatus('success', '✅ 登録が完了しました！ご登録いただいたメールアドレスに確認メールをお送りします。');
-      this.reset();
+      // ローカルに保存
+      currentUser = { ...data };
+      localStorage.setItem('budolink_user', JSON.stringify(currentUser));
+      updateUIForLoggedIn(currentUser);
+      closeModal();
+      setTimeout(() => showProfile(true), 320);
     } catch (err) {
       showStatus('error', '送信に失敗しました。時間をおいて再度お試しください。');
+      btn.disabled = false;
+      btn.textContent = '無料で登録する';
     }
-
-    btn.disabled = false;
-    btn.textContent = '無料で登録する';
   });
 
   function showStatus(type, msg) {
@@ -923,25 +1073,15 @@
   (function() {
     const params = new URLSearchParams(location.search);
     if (params.get('lineFrom') !== '1') return;
-
     const lineUserId = params.get('lineUserId') || '';
     const lineName   = params.get('lineName')   || '';
-
-    // 隠しフィールドにセット
     document.getElementById('lineUserIdInput').value = lineUserId;
     document.getElementById('lineNameInput').value   = lineName;
-
-    // LINE連携バナーを表示
     if (lineName) {
       document.getElementById('lineNameDisplay').textContent = lineName;
-      const banner = document.getElementById('lineBanner');
-      banner.style.display = 'flex';
+      document.getElementById('lineBanner').style.display = 'flex';
     }
-
-    // 登録モーダルを自動で開く
     openModal();
-
-    // URLパラメータをブラウザ履歴から除去（セキュリティ）
     history.replaceState({}, '', location.pathname);
   })();
 </script>
