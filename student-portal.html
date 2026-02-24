@@ -228,6 +228,94 @@
     .profile-info-value { font-size: 0.88rem; color: #0a1628; font-weight: 500; flex: 1; line-height: 1.5; }
     .profile-line-badge { display: inline-flex; align-items: center; gap: 6px; background: #f0fff4; color: #2d7a4f; font-size: 0.78rem; font-weight: 600; padding: 5px 12px; border-radius: 6px; border: 1px solid #9ae6b4; margin-top: 14px; }
 
+    /* ====== AUTH MODAL TABS ====== */
+    .auth-tabs { display: flex; border-bottom: 2px solid #eef0f6; margin-bottom: 24px; gap: 0; }
+    .auth-tab { flex: 1; padding: 12px; font-size: 0.9rem; font-weight: 700; color: #8a95a8; background: none; border: none; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.2s; cursor: pointer; }
+    .auth-tab.active { color: #0028FF; border-bottom-color: #0028FF; }
+    .auth-section { }
+    .auth-section.hidden { display: none; }
+
+    /* ====== SEARCH BAR ====== */
+    .search-bar { position: relative; margin-bottom: 20px; }
+    .search-input { width: 100%; padding: 11px 16px 11px 44px; border: 1px solid #d0d5dd; border-radius: 12px; font-size: 0.9rem; font-family: inherit; background: #fff; transition: border-color 0.3s, box-shadow 0.3s; color: #1a2744; }
+    .search-input:focus { outline: none; border-color: #0028FF; box-shadow: 0 0 0 3px rgba(0,40,255,0.1); }
+    .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #8a95a8; font-size: 1rem; pointer-events: none; }
+
+    /* ====== JOBLAB BANNER ====== */
+    .joblab-banner { background: linear-gradient(135deg, #0a1628 0%, #0028FF 60%, #00C8FF 100%); border-radius: 20px; padding: 40px 40px; margin-bottom: 28px; color: #fff; position: relative; overflow: hidden; }
+    .joblab-banner::before { content: ''; position: absolute; inset: 0; opacity: 0.06; background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E"); }
+    .joblab-banner-inner { position: relative; z-index: 1; }
+    .joblab-badge { display: inline-block; background: rgba(0,200,255,0.2); border: 1px solid rgba(0,200,255,0.5); color: #00C8FF; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; padding: 4px 14px; border-radius: 999px; margin-bottom: 16px; }
+    .joblab-banner h2 { font-size: 1.6rem; font-weight: 900; margin-bottom: 10px; color: #fff; }
+    .joblab-banner p { font-size: 0.9rem; opacity: 0.85; line-height: 1.8; margin-bottom: 24px; color: rgba(255,255,255,0.85); }
+    .btn-joblab { background: #fff; color: #0028FF; padding: 13px 32px; border-radius: 50px; font-size: 0.9rem; font-weight: 700; border: none; display: inline-block; cursor: pointer; transition: all 0.3s; text-decoration: none; }
+    .btn-joblab:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+
+    /* ====== ARTICLE CARDS ====== */
+    .article-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 32px; }
+    .article-card { background: #fff; border-radius: 14px; border: 1px solid #eef0f6; padding: 20px; transition: box-shadow 0.3s, transform 0.3s; display: flex; flex-direction: column; gap: 10px; }
+    .article-card:hover { box-shadow: 0 8px 28px rgba(0,40,255,0.08); transform: translateY(-2px); }
+    .article-tag { font-size: 0.7rem; font-weight: 700; color: #0028FF; background: rgba(0,40,255,0.07); padding: 3px 10px; border-radius: 999px; display: inline-block; width: fit-content; }
+    .article-title { font-size: 0.95rem; font-weight: 700; color: #0a1628; line-height: 1.5; }
+    .article-excerpt { font-size: 0.82rem; color: #5a6577; line-height: 1.7; flex: 1; }
+    .btn-article-line { display: flex; align-items: center; justify-content: center; gap: 6px; background: #06C755; color: #fff; padding: 9px 16px; border-radius: 8px; font-size: 0.82rem; font-weight: 700; border: none; cursor: pointer; transition: all 0.3s; width: 100%; text-decoration: none; margin-top: 4px; }
+    .btn-article-line:hover { background: #05a848; transform: translateY(-1px); }
+
+    /* ====== MYPAGE MODAL ====== */
+    .mypage-overlay { position: fixed; inset: 0; background: rgba(10,22,40,0.65); backdrop-filter: blur(4px); z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+    .mypage-overlay.active { opacity: 1; visibility: visible; }
+    .mypage-modal { background: #fff; border-radius: 20px; width: 100%; max-width: 720px; max-height: 90vh; overflow: hidden; display: flex; flex-direction: column; position: relative; transform: translateY(20px); transition: transform 0.3s; }
+    .mypage-overlay.active .mypage-modal { transform: translateY(0); }
+    .mypage-close { position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.2); border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 1rem; color: #fff; display: flex; align-items: center; justify-content: center; z-index: 10; transition: background 0.3s; cursor: pointer; }
+    .mypage-close:hover { background: rgba(255,255,255,0.35); }
+    .mypage-header { background: linear-gradient(135deg, #0028FF, #00C8FF); padding: 28px 36px; display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
+    .mypage-avatar-big { width: 60px; height: 60px; border-radius: 50%; background: rgba(255,255,255,0.2); border: 3px solid rgba(255,255,255,0.6); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 800; color: #fff; flex-shrink: 0; }
+    .mypage-header-info { flex: 1; min-width: 0; }
+    .mypage-header-name { font-size: 1.15rem; font-weight: 800; color: #fff; margin-bottom: 4px; }
+    .mypage-header-sub { font-size: 0.82rem; color: rgba(255,255,255,0.8); }
+    .btn-logout { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4); color: #fff; padding: 8px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.3s; flex-shrink: 0; }
+    .btn-logout:hover { background: rgba(255,255,255,0.28); }
+    .mypage-tabs-bar { display: flex; overflow-x: auto; border-bottom: 1px solid #eef0f6; background: #fff; flex-shrink: 0; -webkit-overflow-scrolling: touch; }
+    .mypage-tabs-bar::-webkit-scrollbar { display: none; }
+    .mypage-tab-btn { padding: 13px 14px; font-size: 0.82rem; font-weight: 600; color: #5a6577; border: none; background: none; border-bottom: 3px solid transparent; white-space: nowrap; transition: all 0.2s; cursor: pointer; }
+    .mypage-tab-btn:hover { color: #0028FF; }
+    .mypage-tab-btn.active { color: #0028FF; border-bottom-color: #0028FF; }
+    .mypage-body { flex: 1; overflow-y: auto; padding: 28px 36px; }
+    .mypage-panel { display: none; }
+    .mypage-panel.active { display: block; }
+    .mypage-panel h3 { font-size: 1rem; font-weight: 800; color: #0a1628; margin-bottom: 16px; }
+    .mypage-success-banner { background: #f0fff4; border: 1px solid #9ae6b4; border-radius: 10px; padding: 14px 16px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .mypage-success-banner .banner-icon { font-size: 1.4rem; }
+    .mypage-success-banner .banner-text { font-size: 0.88rem; font-weight: 700; color: #2d7a4f; }
+
+    /* ====== CHECKBOX GRID ====== */
+    .check-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-bottom: 20px; }
+    .check-label { display: flex; align-items: center; gap: 8px; padding: 10px 12px; background: #f4f6fb; border: 1.5px solid #eef0f6; border-radius: 10px; cursor: pointer; font-size: 0.83rem; color: #5a6577; transition: all 0.2s; line-height: 1.4; }
+    .check-label:hover { border-color: #0028FF; color: #0028FF; background: rgba(0,40,255,0.04); }
+    .check-label input[type="checkbox"] { width: 15px; height: 15px; accent-color: #0028FF; flex-shrink: 0; }
+    .check-label.checked { border-color: #0028FF; color: #0028FF; background: rgba(0,40,255,0.06); font-weight: 600; }
+
+    /* ====== TEXTAREA / CHAR COUNT ====== */
+    .mypage-textarea { width: 100%; padding: 14px; border: 1px solid #d0d5dd; border-radius: 10px; font-size: 0.9rem; font-family: inherit; line-height: 1.8; resize: vertical; min-height: 200px; color: #1a2744; transition: border-color 0.3s; }
+    .mypage-textarea:focus { outline: none; border-color: #0028FF; box-shadow: 0 0 0 3px rgba(0,40,255,0.1); }
+    .char-count { text-align: right; font-size: 0.78rem; color: #8a95a8; margin-top: 6px; margin-bottom: 16px; }
+
+    /* ====== SAVE BUTTON / STATUS ====== */
+    .btn-save { width: 100%; padding: 13px; background: linear-gradient(135deg, #0028FF, #00C8FF); color: #fff; border: none; border-radius: 50px; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: all 0.3s; }
+    .btn-save:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,40,255,0.25); }
+    .btn-save:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+    .save-status { padding: 10px 14px; border-radius: 8px; font-size: 0.85rem; margin-bottom: 14px; display: none; }
+    .save-status.success { background: #f0fff4; color: #2d7a4f; border: 1px solid #9ae6b4; display: block; }
+    .save-status.error { background: #fff5f5; color: #c53030; border: 1px solid #fc8181; display: block; }
+
+    /* ====== PROFILE INFO TABLE ====== */
+    .profile-info-table { width: 100%; border-collapse: collapse; }
+    .profile-info-table tr { border-bottom: 1px solid #f4f6fb; }
+    .profile-info-table tr:last-child { border-bottom: none; }
+    .profile-info-table td { padding: 11px 0; vertical-align: top; }
+    .profile-info-table td:first-child { width: 100px; font-size: 0.76rem; font-weight: 600; color: #8a95a8; padding-right: 12px; padding-top: 13px; }
+    .profile-info-table td:last-child { font-size: 0.88rem; color: #0a1628; font-weight: 500; }
+
     /* ====== RESPONSIVE ====== */
     @media (max-width: 960px) {
       .portal-grid { grid-template-columns: 1fr; }
@@ -246,6 +334,12 @@
       .btn-banner-register, .btn-banner-line { width: 100%; justify-content: center; }
       .form-row { grid-template-columns: 1fr; }
       .modal { padding: 24px 20px; }
+      .article-grid { grid-template-columns: 1fr; }
+      .check-grid { grid-template-columns: repeat(2, 1fr); }
+      .mypage-body { padding: 20px; }
+      .mypage-header { padding: 20px; }
+      .joblab-banner { padding: 28px 24px; }
+      .joblab-banner h2 { font-size: 1.3rem; }
     }
   </style>
 </head>
@@ -256,8 +350,8 @@
   <div class="portal-header-top">
     <a href="index.html" class="portal-logo">BUDO <span>LINK</span></a>
     <div class="portal-header-right">
-      <button class="btn-login" onclick="openModal()">ログイン</button>
-      <button class="btn-signup" onclick="openModal()">新規登録</button>
+      <button class="btn-login" onclick="openModal('login')">ログイン</button>
+      <button class="btn-signup" onclick="openModal('signup')">新規登録</button>
     </div>
   </div>
   <div class="portal-tabs">
@@ -265,8 +359,8 @@
       <button class="portal-tab active" data-tab="companies">🏢 企業一覧</button>
       <button class="portal-tab" data-tab="jobs">💼 求人・インターン</button>
       <button class="portal-tab" data-tab="obog">👥 OB/OG訪問</button>
-      <button class="portal-tab" data-tab="scouts">📩 スカウト <span class="tab-badge">3</span></button>
       <button class="portal-tab" data-tab="benefits">🎁 お得情報 <span class="new-badge">NEW</span></button>
+      <button class="portal-tab" data-tab="career">📋 就活対策</button>
     </div>
   </div>
 </header>
@@ -284,7 +378,7 @@
           <p>武道経験を武器に、理想のキャリアへ。登録は無料・2分で完了。</p>
         </div>
         <div class="reg-banner-actions">
-          <button class="btn-banner-register" onclick="openModal()">今すぐ無料登録</button>
+          <button class="btn-banner-register" onclick="openModal('signup')">今すぐ無料登録</button>
           <a href="https://lin.ee/KtxrF6x" class="btn-banner-line" target="_blank" rel="noopener">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967C23.418 14.218 24 12.329 24 10.304"/></svg>
             LINEで登録
@@ -294,12 +388,16 @@
 
       <!-- ===== TAB: 企業一覧 ===== -->
       <div class="tab-section active" id="tab-companies">
+        <div class="search-bar">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="search-input" placeholder="企業名・業界で検索..." oninput="filterCompanies(this.value)">
+        </div>
         <div class="sec-header">
           <h2>公認企業 <span style="font-size:0.8rem;color:#5a6577;font-weight:400;">全 24 社</span></h2>
           <a href="#">すべて見る →</a>
         </div>
-        <div class="company-grid">
-          <div class="company-card">
+        <div class="company-grid" id="companyGrid">
+          <div class="company-card" data-name="株式会社ANCa" data-industry="人材育成・就活支援">
             <div class="company-cover" style="background:linear-gradient(135deg,#0028FF,#00C8FF);"></div>
             <div class="company-logo-wrap"><div class="company-logo">A</div></div>
             <div class="company-body">
@@ -312,7 +410,7 @@
               <button class="btn-follow" onclick="toggleFollow(this)">フォローする</button>
             </div>
           </div>
-          <div class="company-card">
+          <div class="company-card" data-name="丸紅株式会社" data-industry="総合商社">
             <div class="company-cover" style="background:linear-gradient(135deg,#1a1a2e,#16213e);"></div>
             <div class="company-logo-wrap"><div class="company-logo">丸</div></div>
             <div class="company-body">
@@ -325,7 +423,7 @@
               <button class="btn-follow" onclick="toggleFollow(this)">フォローする</button>
             </div>
           </div>
-          <div class="company-card">
+          <div class="company-card" data-name="三菱商事" data-industry="総合商社">
             <div class="company-cover" style="background:linear-gradient(135deg,#e53e3e,#fc8181);"></div>
             <div class="company-logo-wrap"><div class="company-logo">三</div></div>
             <div class="company-body">
@@ -338,7 +436,7 @@
               <button class="btn-follow" onclick="toggleFollow(this)">フォローする</button>
             </div>
           </div>
-          <div class="company-card">
+          <div class="company-card" data-name="野村証券" data-industry="金融・証券">
             <div class="company-cover" style="background:linear-gradient(135deg,#06C755,#00a844);"></div>
             <div class="company-logo-wrap"><div class="company-logo">N</div></div>
             <div class="company-body">
@@ -351,7 +449,7 @@
               <button class="btn-follow" onclick="toggleFollow(this)">フォローする</button>
             </div>
           </div>
-          <div class="company-card">
+          <div class="company-card" data-name="電通グループ" data-industry="広告・PR・イベント">
             <div class="company-cover" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa);"></div>
             <div class="company-logo-wrap"><div class="company-logo">D</div></div>
             <div class="company-body">
@@ -364,7 +462,7 @@
               <button class="btn-follow" onclick="toggleFollow(this)">フォローする</button>
             </div>
           </div>
-          <div class="company-card">
+          <div class="company-card" data-name="スポーツライフ株式会社" data-industry="スポーツ・フィットネス">
             <div class="company-cover" style="background:linear-gradient(135deg,#f59e0b,#fbbf24);"></div>
             <div class="company-logo-wrap"><div class="company-logo">S</div></div>
             <div class="company-body">
@@ -384,7 +482,7 @@
           <a href="#">すべて見る →</a>
         </div>
         <div class="company-grid">
-          <div class="company-card">
+          <div class="company-card" data-name="テックプラス株式会社" data-industry="IT・テクノロジー">
             <div class="company-cover" style="background:linear-gradient(135deg,#0ea5e9,#38bdf8);"></div>
             <div class="company-logo-wrap"><div class="company-logo">IT</div></div>
             <div class="company-body">
@@ -397,7 +495,7 @@
               <button class="btn-follow" onclick="toggleFollow(this)">フォローする</button>
             </div>
           </div>
-          <div class="company-card">
+          <div class="company-card" data-name="コンサルアドバイザーズ" data-industry="コンサルティング">
             <div class="company-cover" style="background:linear-gradient(135deg,#0a1628,#0028FF);"></div>
             <div class="company-logo-wrap"><div class="company-logo">C</div></div>
             <div class="company-body">
@@ -410,7 +508,7 @@
               <button class="btn-follow" onclick="toggleFollow(this)">フォローする</button>
             </div>
           </div>
-          <div class="company-card">
+          <div class="company-card" data-name="未来教育グループ" data-industry="教育・人材育成">
             <div class="company-cover" style="background:linear-gradient(135deg,#be185d,#ec4899);"></div>
             <div class="company-logo-wrap"><div class="company-logo">教</div></div>
             <div class="company-body">
@@ -428,12 +526,16 @@
 
       <!-- ===== TAB: 求人・インターン ===== -->
       <div class="tab-section" id="tab-jobs">
+        <div class="search-bar">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="search-input" placeholder="求人タイトル・企業名・タグで検索..." oninput="filterJobs(this.value)">
+        </div>
         <div class="sec-header">
           <h2>武道経験者歓迎の求人 <span style="font-size:0.8rem;color:#5a6577;font-weight:400;">全 18 件</span></h2>
           <a href="jobs.html">すべて見る →</a>
         </div>
-        <div class="job-list">
-          <div class="job-card">
+        <div class="job-list" id="jobList">
+          <div class="job-card" data-title="夏期インターンシップ 総合商社営業コース" data-company="丸紅株式会社" data-tags="武道経験優遇 インターン">
             <div class="job-logo">丸</div>
             <div class="job-body">
               <div class="job-title">【武道経験者歓迎】夏期インターンシップ 総合商社営業コース</div>
@@ -446,11 +548,11 @@
               <div class="job-detail">開催日程：2025年8月5日〜9日｜場所：東京本社｜報酬：あり</div>
             </div>
             <div class="job-action">
-              <button class="btn-apply" onclick="openModal()">応募する</button>
+              <button class="btn-apply" onclick="openModal('signup')">応募する</button>
               <button class="btn-bookmark">🔖 保存</button>
             </div>
           </div>
-          <div class="job-card">
+          <div class="job-card" data-title="金融・証券 営業職 新卒採用 2026卒" data-company="野村証券" data-tags="武道経験優遇 正社員">
             <div class="job-logo">N</div>
             <div class="job-body">
               <div class="job-title">【体育会・武道部歓迎】金融・証券 営業職 新卒採用 2026卒</div>
@@ -463,11 +565,11 @@
               <div class="job-detail">職種：営業職｜勤務地：全国各支店｜給与：月給25万円〜</div>
             </div>
             <div class="job-action">
-              <button class="btn-apply" onclick="openModal()">応募する</button>
+              <button class="btn-apply" onclick="openModal('signup')">応募する</button>
               <button class="btn-bookmark">🔖 保存</button>
             </div>
           </div>
-          <div class="job-card">
+          <div class="job-card" data-title="JOBLAB ビジネススキル育成インターン（長期）" data-company="株式会社ANCa JOBLAB" data-tags="武道経験優遇 長期インターン リモート">
             <div class="job-logo">A</div>
             <div class="job-body">
               <div class="job-title">JOBLAB ビジネススキル育成インターン（長期）</div>
@@ -480,11 +582,11 @@
               <div class="job-detail">期間：3ヶ月〜｜週3日〜｜時給1,200円〜｜スキル習得後の特別選考あり</div>
             </div>
             <div class="job-action">
-              <button class="btn-apply" onclick="openModal()">応募する</button>
+              <button class="btn-apply" onclick="openModal('signup')">応募する</button>
               <button class="btn-bookmark">🔖 保存</button>
             </div>
           </div>
-          <div class="job-card">
+          <div class="job-card" data-title="スポーツ・フィットネス業界 体育会学生向け新卒採用" data-company="スポーツライフ株式会社" data-tags="体育会系歓迎 正社員">
             <div class="job-logo">S</div>
             <div class="job-body">
               <div class="job-title">スポーツ・フィットネス業界 体育会学生向け新卒採用</div>
@@ -497,7 +599,7 @@
               <div class="job-detail">職種：インストラクター・店舗運営｜給与：月給22万円〜</div>
             </div>
             <div class="job-action">
-              <button class="btn-apply" onclick="openModal()">応募する</button>
+              <button class="btn-apply" onclick="openModal('signup')">応募する</button>
               <button class="btn-bookmark">🔖 保存</button>
             </div>
           </div>
@@ -506,12 +608,16 @@
 
       <!-- ===== TAB: OB/OG訪問 ===== -->
       <div class="tab-section" id="tab-obog">
+        <div class="search-bar">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="search-input" placeholder="名前・大学・業界で検索..." oninput="filterObog(this.value)">
+        </div>
         <div class="sec-header">
           <h2>あなたへのおすすめOB/OG</h2>
           <a href="obog.html">すべて見る →</a>
         </div>
-        <div class="obog-grid">
-          <div class="obog-card">
+        <div class="obog-grid" id="obogGrid">
+          <div class="obog-card" data-name="K.Tanaka" data-uni="中央大学" data-industry="総合商社">
             <div class="obog-top">
               <div class="obog-avatar">K</div>
               <div class="obog-info">
@@ -525,9 +631,9 @@
               <span class="obog-tag">中央大学</span>
               <span class="obog-tag">総合商社</span>
             </div>
-            <button class="btn-obog" onclick="openModal()">訪問リクエスト</button>
+            <button class="btn-obog" onclick="openModal('signup')">訪問リクエスト</button>
           </div>
-          <div class="obog-card">
+          <div class="obog-card" data-name="S.Miyamoto" data-uni="明治大学" data-industry="金融・証券">
             <div class="obog-top">
               <div class="obog-avatar">S</div>
               <div class="obog-info">
@@ -541,9 +647,9 @@
               <span class="obog-tag">明治大学</span>
               <span class="obog-tag">金融・証券</span>
             </div>
-            <button class="btn-obog" onclick="openModal()">訪問リクエスト</button>
+            <button class="btn-obog" onclick="openModal('signup')">訪問リクエスト</button>
           </div>
-          <div class="obog-card">
+          <div class="obog-card" data-name="A.Yamada" data-uni="立教大学" data-industry="コンサルティング">
             <div class="obog-top">
               <div class="obog-avatar">A</div>
               <div class="obog-info">
@@ -557,9 +663,9 @@
               <span class="obog-tag">立教大学</span>
               <span class="obog-tag">コンサル</span>
             </div>
-            <button class="btn-obog" onclick="openModal()">訪問リクエスト</button>
+            <button class="btn-obog" onclick="openModal('signup')">訪問リクエスト</button>
           </div>
-          <div class="obog-card">
+          <div class="obog-card" data-name="R.Suzuki" data-uni="法政大学" data-industry="広告・メディア">
             <div class="obog-top">
               <div class="obog-avatar">R</div>
               <div class="obog-info">
@@ -573,51 +679,63 @@
               <span class="obog-tag">法政大学</span>
               <span class="obog-tag">広告・メディア</span>
             </div>
-            <button class="btn-obog" onclick="openModal()">訪問リクエスト</button>
+            <button class="btn-obog" onclick="openModal('signup')">訪問リクエスト</button>
           </div>
         </div>
       </div>
 
-      <!-- ===== TAB: スカウト ===== -->
-      <div class="tab-section" id="tab-scouts">
+      <!-- ===== TAB: 就活対策 ===== -->
+      <div class="tab-section" id="tab-career">
+        <!-- JOBLAB バナー -->
+        <div class="joblab-banner">
+          <div class="joblab-banner-inner">
+            <div class="joblab-badge">BUDO LINK × ANCa</div>
+            <h2>JOBLAB — 武道学生のための<br>就活支援プログラム</h2>
+            <p>武道で培った精神力・礼節・チームワークをビジネスに活かす。<br>JOBLAB では実践的なビジネス研修・長期インターン・特別選考を提供しています。</p>
+            <a href="joblab.html" class="btn-joblab">JOBLAB公式サイトへ →</a>
+          </div>
+        </div>
+        <!-- 就活対策記事 -->
         <div class="sec-header">
-          <h2>受信スカウト <span style="font-size:0.8rem;color:#5a6577;font-weight:400;">3件 未読</span></h2>
+          <h2>就活対策コンテンツ</h2>
         </div>
-        <div class="scout-list">
-          <div class="scout-card unread">
-            <div class="scout-logo">丸</div>
-            <div class="scout-body">
-              <div class="scout-from"><strong>丸紅株式会社</strong> からスカウトが届いています</div>
-              <div class="scout-title">【武道経験者限定スカウト】あなたの行動力・粘り強さを営業で活かしてみませんか？</div>
-              <div class="scout-preview">弊社の営業部門では、武道を通じて培った礼節・忍耐力・チームワークを高く評価しています。ぜひ一度お話させてください。インターンシップへの特別ご招待も可能です。</div>
-              <div class="scout-date">2025年2月20日</div>
-            </div>
-            <div class="scout-unread-dot"></div>
+        <div class="article-grid">
+          <div class="article-card">
+            <span class="article-tag">就活ノウハウ</span>
+            <div class="article-title">武道学生が就活で有利な理由</div>
+            <div class="article-excerpt">礼節・忍耐力・精神力・チームワーク——企業が武道経験者を高く評価する理由と、その強みを最大限アピールする方法を解説します。</div>
+            <a href="https://lin.ee/KtxrF6x" class="btn-article-line" target="_blank" rel="noopener">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967C23.418 14.218 24 12.329 24 10.304"/></svg>
+              続きはLINEで →
+            </a>
           </div>
-          <div class="scout-card unread">
-            <div class="scout-logo">A</div>
-            <div class="scout-body">
-              <div class="scout-from"><strong>株式会社ANCa / JOBLAB</strong> からスカウトが届いています</div>
-              <div class="scout-title">JOBLAB ビジネススキル育成プログラムへのご招待</div>
-              <div class="scout-preview">武道で培ったストイックさを、ビジネスにも活かしませんか？JOBLABでは週3日から参加できる長期インターンを通じ、実践的なビジネススキルを身につけていただけます。</div>
-              <div class="scout-date">2025年2月18日</div>
-            </div>
-            <div class="scout-unread-dot"></div>
+          <div class="article-card">
+            <span class="article-tag">面接対策</span>
+            <div class="article-title">面接で武道経験をアピールする方法</div>
+            <div class="article-excerpt">「武道を続けてきてよかった」と思える面接の答え方。STARメソッドを使って武道経験を具体的なエピソードに変換するテクニックを紹介。</div>
+            <a href="https://lin.ee/KtxrF6x" class="btn-article-line" target="_blank" rel="noopener">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967C23.418 14.218 24 12.329 24 10.304"/></svg>
+              続きはLINEで →
+            </a>
           </div>
-          <div class="scout-card unread">
-            <div class="scout-logo">N</div>
-            <div class="scout-body">
-              <div class="scout-from"><strong>野村証券</strong> からスカウトが届いています</div>
-              <div class="scout-title">【体育会系学生歓迎】2026年卒 早期選考のご案内</div>
-              <div class="scout-preview">野村証券では体育会系・武道経験者を積極的に採用しています。精神的なタフさと誠実さが、金融業界で必ず活きます。早期選考の特別枠にご招待いたします。</div>
-              <div class="scout-date">2025年2月15日</div>
-            </div>
-            <div class="scout-unread-dot"></div>
+          <div class="article-card">
+            <span class="article-tag">キャリア戦略</span>
+            <div class="article-title">体育会系学生のキャリア戦略</div>
+            <div class="article-excerpt">体育会・武道学生が活躍しやすい業界・職種の選び方。内定を勝ち取った先輩たちの就活スケジュールと対策方法を完全ガイド。</div>
+            <a href="https://lin.ee/KtxrF6x" class="btn-article-line" target="_blank" rel="noopener">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967C23.418 14.218 24 12.329 24 10.304"/></svg>
+              続きはLINEで →
+            </a>
           </div>
-        </div>
-        <div style="text-align:center;padding:16px 0;">
-          <p style="font-size:0.88rem;color:#5a6577;margin-bottom:12px;">スカウトを確認するには登録が必要です</p>
-          <button class="btn-signup" onclick="openModal()">無料登録してスカウトを見る</button>
+          <div class="article-card">
+            <span class="article-tag">OB/OG訪問</span>
+            <div class="article-title">OB/OG訪問の進め方と質問リスト</div>
+            <div class="article-excerpt">OB/OG訪問で聞くべき20の質問と、訪問前後のマナー。武道出身の先輩社会人から本音を引き出すコミュニケーション術を解説します。</div>
+            <a href="https://lin.ee/KtxrF6x" class="btn-article-line" target="_blank" rel="noopener">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967C23.418 14.218 24 12.329 24 10.304"/></svg>
+              続きはLINEで →
+            </a>
+          </div>
         </div>
       </div>
 
@@ -641,7 +759,7 @@
             </div>
             <div class="benefit-footer">
               <span class="benefit-limit">有効期限：2025年3月31日</span>
-              <button class="btn-benefit" onclick="openModal()">クーポンを見る</button>
+              <button class="btn-benefit" onclick="openModal('signup')">クーポンを見る</button>
             </div>
           </div>
           <div class="benefit-card">
@@ -658,7 +776,7 @@
             </div>
             <div class="benefit-footer">
               <span class="benefit-limit">全国 約50店舗</span>
-              <button class="btn-benefit" onclick="openModal()">対象ジムを見る</button>
+              <button class="btn-benefit" onclick="openModal('signup')">対象ジムを見る</button>
             </div>
           </div>
           <div class="benefit-card">
@@ -675,7 +793,7 @@
             </div>
             <div class="benefit-footer">
               <span class="benefit-limit">申込：随時受付中</span>
-              <button class="btn-benefit" onclick="openModal()">申し込む</button>
+              <button class="btn-benefit" onclick="openModal('signup')">申し込む</button>
             </div>
           </div>
           <div class="benefit-card">
@@ -692,13 +810,13 @@
             </div>
             <div class="benefit-footer">
               <span class="benefit-limit">会員限定オンラインショップ</span>
-              <button class="btn-benefit" onclick="openModal()">購入する</button>
+              <button class="btn-benefit" onclick="openModal('signup')">購入する</button>
             </div>
           </div>
         </div>
         <div style="background:#fff;border-radius:14px;border:1px solid #eef0f6;padding:24px;text-align:center;">
           <p style="font-size:0.9rem;color:#5a6577;margin-bottom:16px;">※ 特典・クーポンの利用には会員登録（無料）が必要です</p>
-          <button class="btn-signup" onclick="openModal()">無料登録して特典を使う</button>
+          <button class="btn-signup" onclick="openModal('signup')">無料登録して特典を使う</button>
         </div>
       </div>
 
@@ -711,7 +829,7 @@
           <div class="profile-avatar">👤</div>
           <div class="profile-name">ゲストユーザー</div>
           <div class="profile-sub">登録して機能をフル活用</div>
-          <button class="btn-edit-profile" onclick="openModal()">プロフィール登録</button>
+          <button class="btn-edit-profile" onclick="openModal('signup')">プロフィール登録</button>
         </div>
       </div>
 
@@ -771,120 +889,316 @@
   </div>
 </div>
 
-<!-- ====== REGISTRATION MODAL ====== -->
+<!-- ====== AUTH MODAL (新規登録/ログイン) ====== -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
     <button class="modal-close" onclick="closeModal()">✕</button>
     <div class="modal-logo">BUDO <span>LINK</span></div>
-    <h2>学生マイページ登録</h2>
-    <p class="modal-sub">武道経験をキャリアに活かす第一歩。登録は無料・2分で完了します。</p>
 
-    <!-- LINE連携バナー（LINEから来たときのみ表示） -->
-    <div id="lineBanner" style="display:none; background:#f0fff4; border:1px solid #9ae6b4; border-radius:10px; padding:12px 16px; margin-bottom:18px; display:none; align-items:center; gap:10px;">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="#06C755"><path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967C23.418 14.218 24 12.329 24 10.304"/></svg>
-      <span style="font-size:0.85rem; color:#2d7a4f; font-weight:600;">LINEアカウント「<span id="lineNameDisplay"></span>」と連携されます</span>
+    <!-- Auth tab switcher -->
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="authTabSignup" onclick="switchAuthTab('signup')">新規登録</button>
+      <button class="auth-tab" id="authTabLogin" onclick="switchAuthTab('login')">ログイン</button>
     </div>
 
-    <div id="regStatus"></div>
+    <!-- ===== 新規登録フォーム ===== -->
+    <div id="signupSection" class="auth-section">
+      <h2 style="font-size:1.3rem;font-weight:800;color:#0a1628;margin-bottom:6px;">学生マイページ登録</h2>
+      <p class="modal-sub">武道経験をキャリアに活かす第一歩。登録は無料・2分で完了します。</p>
 
-    <form id="regForm">
-      <input type="hidden" name="lineUserId" id="lineUserIdInput">
-      <input type="hidden" name="lineName" id="lineNameInput">
-      <div class="form-row">
-        <div class="form-group">
-          <label>姓<span class="req">*</span></label>
-          <input type="text" name="lastName" placeholder="山田" required>
-        </div>
-        <div class="form-group">
-          <label>名<span class="req">*</span></label>
-          <input type="text" name="firstName" placeholder="太郎" required>
-        </div>
+      <div id="lineBanner" style="display:none; background:#f0fff4; border:1px solid #9ae6b4; border-radius:10px; padding:12px 16px; margin-bottom:18px; align-items:center; gap:10px;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="#06C755"><path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967C23.418 14.218 24 12.329 24 10.304"/></svg>
+        <span style="font-size:0.85rem; color:#2d7a4f; font-weight:600;">LINEアカウント「<span id="lineNameDisplay"></span>」と連携されます</span>
       </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label>姓（ふりがな）<span class="req">*</span></label>
-          <input type="text" name="lastNameKana" placeholder="やまだ" required>
-        </div>
-        <div class="form-group">
-          <label>名（ふりがな）<span class="req">*</span></label>
-          <input type="text" name="firstNameKana" placeholder="たろう" required>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>大学名<span class="req">*</span></label>
-        <input type="text" name="university" placeholder="例：明治大学" required>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label>学部<span class="req">*</span></label>
-          <input type="text" name="faculty" placeholder="例：法学部" required>
-        </div>
-        <div class="form-group">
-          <label>学科</label>
-          <input type="text" name="department" placeholder="例：法律学科">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label>卒業予定年度<span class="req">*</span></label>
-          <select name="graduationYear" required>
-            <option value="">選択してください</option>
-            <option value="2025">2025年卒</option>
-            <option value="2026">2026年卒</option>
-            <option value="2027">2027年卒</option>
-            <option value="2028">2028年卒</option>
-            <option value="2029">2029年卒以降</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>役職</label>
-          <select name="role">
-            <option value="">選択してください</option>
-            <option value="部長">部長</option>
-            <option value="副部長">副部長</option>
-            <option value="主将">主将</option>
-            <option value="副将">副将</option>
-            <option value="マネージャー">マネージャー</option>
-            <option value="選手">選手・部員</option>
-            <option value="その他">その他</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>所属武道部・団体<span class="req">*</span></label>
-        <input type="text" name="club" placeholder="例：明治大学 柔道部" required>
-      </div>
-      <hr class="form-divider">
-      <div class="form-group">
-        <label>メールアドレス<span class="req">*</span></label>
-        <input type="email" name="email" placeholder="example@university.ac.jp" required>
-      </div>
-      <div class="form-group">
-        <label>電話番号<span class="req">*</span></label>
-        <input type="tel" name="phone" placeholder="080-0000-0000" required>
-      </div>
-      <button type="submit" class="btn-submit" id="regSubmit">無料で登録する</button>
-    </form>
 
-    <div class="modal-line-alt">
-      <p>LINEからも登録できます</p>
-      <a href="https://lin.ee/KtxrF6x" class="btn-line-modal" target="_blank" rel="noopener">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967C23.418 14.218 24 12.329 24 10.304"/></svg>
-        LINEで友達追加して登録
-      </a>
+      <div id="regStatus"></div>
+
+      <form id="regForm">
+        <input type="hidden" name="lineUserId" id="lineUserIdInput">
+        <input type="hidden" name="lineName" id="lineNameInput">
+        <div class="form-row">
+          <div class="form-group">
+            <label>姓<span class="req">*</span></label>
+            <input type="text" name="lastName" placeholder="山田" required>
+          </div>
+          <div class="form-group">
+            <label>名<span class="req">*</span></label>
+            <input type="text" name="firstName" placeholder="太郎" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>姓（ふりがな）<span class="req">*</span></label>
+            <input type="text" name="lastNameKana" placeholder="やまだ" required>
+          </div>
+          <div class="form-group">
+            <label>名（ふりがな）<span class="req">*</span></label>
+            <input type="text" name="firstNameKana" placeholder="たろう" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>大学名<span class="req">*</span></label>
+          <input type="text" name="university" placeholder="例：明治大学" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>学部<span class="req">*</span></label>
+            <input type="text" name="faculty" placeholder="例：法学部" required>
+          </div>
+          <div class="form-group">
+            <label>学科</label>
+            <input type="text" name="department" placeholder="例：法律学科">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>卒業予定年度<span class="req">*</span></label>
+            <select name="graduationYear" required>
+              <option value="">選択してください</option>
+              <option value="2025">2025年卒</option>
+              <option value="2026">2026年卒</option>
+              <option value="2027">2027年卒</option>
+              <option value="2028">2028年卒</option>
+              <option value="2029">2029年卒以降</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>役職</label>
+            <select name="role">
+              <option value="">選択してください</option>
+              <option value="部長">部長</option>
+              <option value="副部長">副部長</option>
+              <option value="主将">主将</option>
+              <option value="副将">副将</option>
+              <option value="マネージャー">マネージャー</option>
+              <option value="選手">選手・部員</option>
+              <option value="その他">その他</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>所属武道部・団体<span class="req">*</span></label>
+          <input type="text" name="club" placeholder="例：明治大学 柔道部" required>
+        </div>
+        <hr class="form-divider">
+        <div class="form-group">
+          <label>メールアドレス<span class="req">*</span></label>
+          <input type="email" name="email" placeholder="example@university.ac.jp" required>
+        </div>
+        <div class="form-group">
+          <label>電話番号<span class="req">*</span></label>
+          <input type="tel" name="phone" placeholder="080-0000-0000" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>パスワード<span class="req">*</span></label>
+            <input type="password" name="password" id="regPassword" placeholder="8文字以上" minlength="8" required>
+          </div>
+          <div class="form-group">
+            <label>パスワード（確認）<span class="req">*</span></label>
+            <input type="password" name="passwordConfirm" id="regPasswordConfirm" placeholder="再入力" minlength="8" required>
+          </div>
+        </div>
+        <button type="submit" class="btn-submit" id="regSubmit">無料で登録する</button>
+      </form>
+
+      <div class="modal-line-alt">
+        <p>LINEからも登録できます</p>
+        <a href="https://lin.ee/KtxrF6x" class="btn-line-modal" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967C23.418 14.218 24 12.329 24 10.304"/></svg>
+          LINEで友達追加して登録
+        </a>
+      </div>
+    </div>
+
+    <!-- ===== ログインフォーム ===== -->
+    <div id="loginSection" class="auth-section hidden">
+      <h2 style="font-size:1.3rem;font-weight:800;color:#0a1628;margin-bottom:6px;">ログイン</h2>
+      <p class="modal-sub">登録済みのメールアドレスとパスワードでログインしてください。</p>
+      <div id="loginStatus"></div>
+      <form id="loginForm">
+        <div class="form-group">
+          <label>メールアドレス<span class="req">*</span></label>
+          <input type="email" id="loginEmail" placeholder="example@university.ac.jp" required>
+        </div>
+        <div class="form-group">
+          <label>パスワード<span class="req">*</span></label>
+          <input type="password" id="loginPassword" placeholder="パスワードを入力" required>
+        </div>
+        <button type="submit" class="btn-submit" id="loginSubmit">ログイン</button>
+      </form>
+      <p style="text-align:center;font-size:0.82rem;color:#8a95a8;margin-top:16px;">まだ登録していない方は「新規登録」タブへ</p>
     </div>
   </div>
 </div>
 
-<!-- ====== PROFILE MODAL ====== -->
-<div class="profile-overlay" id="profileOverlay">
-  <div class="profile-modal">
-    <button class="profile-modal-close" onclick="closeProfile()">✕</button>
-    <div id="profileContent"></div>
+<!-- ====== MYPAGE MODAL ====== -->
+<div class="mypage-overlay" id="mypageOverlay">
+  <div class="mypage-modal">
+    <button class="mypage-close" onclick="closeMypage()">✕</button>
+    <!-- Header -->
+    <div class="mypage-header">
+      <div class="mypage-avatar-big" id="mypageAvatar">武</div>
+      <div class="mypage-header-info">
+        <div class="mypage-header-name" id="mypageName">—</div>
+        <div class="mypage-header-sub" id="mypageUni">—</div>
+      </div>
+      <button class="btn-logout" onclick="doLogout()">ログアウト</button>
+    </div>
+    <!-- Internal tabs -->
+    <div class="mypage-tabs-bar">
+      <button class="mypage-tab-btn active" data-panel="profile" onclick="switchMypageTab('profile')">👤 プロフィール</button>
+      <button class="mypage-tab-btn" data-panel="gakuchika" onclick="switchMypageTab('gakuchika')">📝 ガクチカ</button>
+      <button class="mypage-tab-btn" data-panel="industries" onclick="switchMypageTab('industries')">🏭 気になる業界</button>
+      <button class="mypage-tab-btn" data-panel="occupations" onclick="switchMypageTab('occupations')">💼 気になる職種</button>
+      <button class="mypage-tab-btn" data-panel="scouts" onclick="switchMypageTab('scouts')">📩 スカウト</button>
+      <button class="mypage-tab-btn" data-panel="contact" onclick="switchMypageTab('contact')">📧 お問い合わせ</button>
+    </div>
+    <!-- Body -->
+    <div class="mypage-body">
+
+      <!-- プロフィールパネル -->
+      <div class="mypage-panel active" id="panel-profile">
+        <div class="mypage-success-banner" id="mypageSuccessBanner" style="display:none;">
+          <div class="banner-icon">✅</div>
+          <div>
+            <div class="banner-text">登録が完了しました！</div>
+            <div style="font-size:0.8rem;color:#5a6577;margin-top:2px;">ご登録のメールアドレスに確認メールをお送りしました。</div>
+          </div>
+        </div>
+        <h3>プロフィール情報</h3>
+        <table class="profile-info-table" id="profileTable">
+          <tr><td>氏名</td><td id="pi-name">—</td></tr>
+          <tr><td>よみがな</td><td id="pi-kana">—</td></tr>
+          <tr><td>大学</td><td id="pi-university">—</td></tr>
+          <tr><td>学部・学科</td><td id="pi-faculty">—</td></tr>
+          <tr><td>卒業予定</td><td id="pi-grad">—</td></tr>
+          <tr><td>所属団体</td><td id="pi-club">—</td></tr>
+          <tr><td>メール</td><td id="pi-email">—</td></tr>
+          <tr><td>電話番号</td><td id="pi-phone">—</td></tr>
+        </table>
+        <div id="pi-line-badge" style="margin-top:12px;"></div>
+      </div>
+
+      <!-- ガクチカパネル -->
+      <div class="mypage-panel" id="panel-gakuchika">
+        <h3>ガクチカ（学生時代に力を入れたこと）</h3>
+        <p style="font-size:0.83rem;color:#5a6577;margin-bottom:14px;">武道を通じての経験・成長・学びを自由に記述してください（500字程度）。企業のスカウト担当者が閲覧します。</p>
+        <textarea class="mypage-textarea" id="gakuchikaText" placeholder="例：大学3年間、剣道部で主将を務めました。部員20名をまとめるにあたり…" maxlength="600" oninput="updateCharCount()"></textarea>
+        <div class="char-count"><span id="charCountNum">0</span> / 600 字</div>
+        <div class="save-status" id="gakuchikaSaveStatus"></div>
+        <button class="btn-save" onclick="saveGakuchika()">保存する</button>
+      </div>
+
+      <!-- 気になる業界パネル -->
+      <div class="mypage-panel" id="panel-industries">
+        <h3>気になる業界（複数選択可）</h3>
+        <p style="font-size:0.83rem;color:#5a6577;margin-bottom:14px;">興味のある業界を選択してください。スカウトや求人レコメンドに活用されます。</p>
+        <div class="check-grid" id="industryGrid">
+          <label class="check-label"><input type="checkbox" class="industry-check" value="商社・流通"> 商社・流通</label>
+          <label class="check-label"><input type="checkbox" class="industry-check" value="製造業"> 製造業</label>
+          <label class="check-label"><input type="checkbox" class="industry-check" value="金融・保険"> 金融・保険</label>
+          <label class="check-label"><input type="checkbox" class="industry-check" value="IT・テクノロジー"> IT・テクノロジー</label>
+          <label class="check-label"><input type="checkbox" class="industry-check" value="コンサルティング"> コンサルティング</label>
+          <label class="check-label"><input type="checkbox" class="industry-check" value="広告・メディア"> 広告・メディア</label>
+          <label class="check-label"><input type="checkbox" class="industry-check" value="教育"> 教育</label>
+          <label class="check-label"><input type="checkbox" class="industry-check" value="医療・介護"> 医療・介護</label>
+          <label class="check-label"><input type="checkbox" class="industry-check" value="不動産"> 不動産</label>
+          <label class="check-label"><input type="checkbox" class="industry-check" value="建設・インフラ"> 建設・インフラ</label>
+          <label class="check-label"><input type="checkbox" class="industry-check" value="公務員・官公庁"> 公務員・官公庁</label>
+          <label class="check-label"><input type="checkbox" class="industry-check" value="スポーツ・エンタメ"> スポーツ・エンタメ</label>
+          <label class="check-label"><input type="checkbox" class="industry-check" value="飲食・サービス"> 飲食・サービス</label>
+          <label class="check-label"><input type="checkbox" class="industry-check" value="物流・運輸"> 物流・運輸</label>
+          <label class="check-label"><input type="checkbox" class="industry-check" value="その他"> その他</label>
+        </div>
+        <div class="save-status" id="industriesSaveStatus"></div>
+        <button class="btn-save" onclick="saveIndustries()">保存する</button>
+      </div>
+
+      <!-- 気になる職種パネル -->
+      <div class="mypage-panel" id="panel-occupations">
+        <h3>気になる職種（複数選択可）</h3>
+        <p style="font-size:0.83rem;color:#5a6577;margin-bottom:14px;">興味のある職種を選択してください。スカウトや求人レコメンドに活用されます。</p>
+        <div class="check-grid" id="occupationGrid">
+          <label class="check-label"><input type="checkbox" class="occupation-check" value="営業職"> 営業職</label>
+          <label class="check-label"><input type="checkbox" class="occupation-check" value="マーケティング"> マーケティング</label>
+          <label class="check-label"><input type="checkbox" class="occupation-check" value="エンジニア・技術職"> エンジニア・技術職</label>
+          <label class="check-label"><input type="checkbox" class="occupation-check" value="企画・経営"> 企画・経営</label>
+          <label class="check-label"><input type="checkbox" class="occupation-check" value="人事・総務"> 人事・総務</label>
+          <label class="check-label"><input type="checkbox" class="occupation-check" value="財務・会計"> 財務・会計</label>
+          <label class="check-label"><input type="checkbox" class="occupation-check" value="研究・開発"> 研究・開発</label>
+          <label class="check-label"><input type="checkbox" class="occupation-check" value="生産・品質管理"> 生産・品質管理</label>
+          <label class="check-label"><input type="checkbox" class="occupation-check" value="デザイン・クリエイティブ"> デザイン・クリエイティブ</label>
+          <label class="check-label"><input type="checkbox" class="occupation-check" value="コンサルタント"> コンサルタント</label>
+          <label class="check-label"><input type="checkbox" class="occupation-check" value="教育・インストラクター"> 教育・インストラクター</label>
+          <label class="check-label"><input type="checkbox" class="occupation-check" value="その他"> その他</label>
+        </div>
+        <div class="save-status" id="occupationsSaveStatus"></div>
+        <button class="btn-save" onclick="saveOccupations()">保存する</button>
+      </div>
+
+      <!-- スカウトパネル -->
+      <div class="mypage-panel" id="panel-scouts">
+        <h3>受信スカウト</h3>
+        <div class="scout-list">
+          <div class="scout-card unread">
+            <div class="scout-logo">丸</div>
+            <div class="scout-body">
+              <div class="scout-from"><strong>丸紅株式会社</strong> からスカウトが届いています</div>
+              <div class="scout-title">【武道経験者限定スカウト】あなたの行動力・粘り強さを営業で活かしてみませんか？</div>
+              <div class="scout-preview">弊社の営業部門では、武道を通じて培った礼節・忍耐力・チームワークを高く評価しています。インターンシップへの特別ご招待も可能です。</div>
+              <div class="scout-date">2025年2月20日</div>
+            </div>
+            <div class="scout-unread-dot"></div>
+          </div>
+          <div class="scout-card unread">
+            <div class="scout-logo">A</div>
+            <div class="scout-body">
+              <div class="scout-from"><strong>株式会社ANCa / JOBLAB</strong> からスカウトが届いています</div>
+              <div class="scout-title">JOBLAB ビジネススキル育成プログラムへのご招待</div>
+              <div class="scout-preview">武道で培ったストイックさを、ビジネスにも活かしませんか？週3日から参加できる長期インターンを通じ、実践的なビジネススキルを身につけていただけます。</div>
+              <div class="scout-date">2025年2月18日</div>
+            </div>
+            <div class="scout-unread-dot"></div>
+          </div>
+          <div class="scout-card unread">
+            <div class="scout-logo">N</div>
+            <div class="scout-body">
+              <div class="scout-from"><strong>野村証券</strong> からスカウトが届いています</div>
+              <div class="scout-title">【体育会系学生歓迎】2026年卒 早期選考のご案内</div>
+              <div class="scout-preview">野村証券では体育会系・武道経験者を積極的に採用しています。早期選考の特別枠にご招待いたします。</div>
+              <div class="scout-date">2025年2月15日</div>
+            </div>
+            <div class="scout-unread-dot"></div>
+          </div>
+        </div>
+        <p style="font-size:0.82rem;color:#8a95a8;text-align:center;padding-top:8px;">※ スカウト機能は現在準備中です。本格開始後は通知が届きます。</p>
+      </div>
+
+      <!-- お問い合わせパネル -->
+      <div class="mypage-panel" id="panel-contact">
+        <h3>お問い合わせ</h3>
+        <p style="font-size:0.83rem;color:#5a6577;margin-bottom:20px;">サービスに関するご質問・ご要望はこちらからお送りください。</p>
+        <div class="form-group">
+          <label>件名<span class="req">*</span></label>
+          <input type="text" id="contactSubject" placeholder="例：スカウト機能について" style="width:100%;padding:11px 14px;border:1px solid #d0d5dd;border-radius:10px;font-size:0.9rem;font-family:inherit;color:#1a2744;transition:border-color 0.3s;">
+        </div>
+        <div class="form-group">
+          <label>内容<span class="req">*</span></label>
+          <textarea class="mypage-textarea" id="contactBody" placeholder="お問い合わせ内容を入力してください" style="min-height:140px;"></textarea>
+        </div>
+        <div class="save-status" id="contactStatus"></div>
+        <button class="btn-save" onclick="submitContact()">送信する</button>
+      </div>
+
+    </div><!-- end mypage-body -->
   </div>
 </div>
 
 <script>
+  // ====== GAS エンドポイント ======
+  const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwcQUx-garVxvfyhhf16LuJLTV1x-m5Knr1V6rKwnzTxkzKXxq_vRfeAm0_TZGt8pLZ7A/exec';
+
   // ====== ユーザー状態管理 ======
   let currentUser = JSON.parse(localStorage.getItem('budolink_user') || 'null');
   let termsAgreed = sessionStorage.getItem('budolink_terms') === '1';
@@ -894,13 +1208,29 @@
     return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   }
 
+  // ====== SHA-256 ハッシュ (WebCrypto) ======
+  async function sha256(str) {
+    const enc = new TextEncoder().encode(str);
+    const buf = await crypto.subtle.digest('SHA-256', enc);
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+  }
+
+  // ====== UUID v4 生成 ======
+  function generateUUID() {
+    if (typeof crypto.randomUUID === 'function') return crypto.randomUUID();
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+      const r = Math.random() * 16 | 0;
+      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
+  }
+
   // ====== ログイン済みUI更新 ======
   function updateUIForLoggedIn(user) {
     const headerRight = document.querySelector('.portal-header-right');
     if (headerRight) {
       headerRight.innerHTML = `
         <span style="font-size:0.85rem;color:#5a6577;">こんにちは、<strong style="color:#0028FF;">${escHtml(user.lastName)} さん</strong></span>
-        <button class="btn-login" onclick="showProfile()">マイページ</button>
+        <button class="btn-login" onclick="showMypage()">マイページ</button>
       `;
     }
     const regBanner = document.querySelector('.reg-banner');
@@ -908,17 +1238,17 @@
     const avatarEl = document.querySelector('.profile-avatar');
     if (avatarEl) avatarEl.textContent = (user.lastName || '武').charAt(0);
     const nameEl = document.querySelector('.profile-name');
-    if (nameEl) nameEl.textContent = user.lastName + ' ' + user.firstName;
+    if (nameEl) nameEl.textContent = (user.lastName || '') + ' ' + (user.firstName || '');
     const subEl = document.querySelector('.profile-sub');
-    if (subEl) subEl.textContent = user.university;
+    if (subEl) subEl.textContent = user.university || '';
     const editBtn = document.querySelector('.btn-edit-profile');
-    if (editBtn) { editBtn.textContent = 'マイページを見る'; editBtn.onclick = showProfile; }
+    if (editBtn) { editBtn.textContent = 'マイページを見る'; editBtn.onclick = showMypage; }
   }
 
   // ====== 初期化 ======
   if (currentUser) updateUIForLoggedIn(currentUser);
 
-  // ====== Tab switching ======
+  // ====== ポータルタブ切り替え ======
   const tabs = document.querySelectorAll('.portal-tab');
   const sections = document.querySelectorAll('.tab-section');
   tabs.forEach(tab => {
@@ -931,7 +1261,7 @@
     });
   });
 
-  // ====== Follow toggle ======
+  // ====== フォローボタン ======
   function toggleFollow(btn) {
     if (btn.classList.contains('following')) {
       btn.classList.remove('following');
@@ -955,14 +1285,16 @@
     document.body.style.overflow = '';
   }
 
-  // ====== 登録モーダル ======
-  function openModal() {
-    if (currentUser) { showProfile(); return; }
+  // ====== 認証モーダル ======
+  function openModal(mode) {
+    if (currentUser) { showMypage(); return; }
     if (!termsAgreed) {
       document.getElementById('termsOverlay').classList.add('active');
       document.body.style.overflow = 'hidden';
       return;
     }
+    if (mode === 'login') switchAuthTab('login');
+    else switchAuthTab('signup');
     document.getElementById('modalOverlay').classList.add('active');
     document.body.style.overflow = 'hidden';
   }
@@ -974,72 +1306,44 @@
     if (e.target === this) closeModal();
   });
 
-  // ====== プロフィール表示 ======
-  function showProfile(justRegistered = false) {
-    if (!currentUser) { openModal(); return; }
-    const lineBadge = currentUser.lineName
-      ? `<div style="margin-top:16px;"><span class="profile-line-badge">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="#06C755"><path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967C23.418 14.218 24 12.329 24 10.304"/></svg>
-          LINE連携済み：${escHtml(currentUser.lineName)}
-        </span></div>`
-      : '';
-    const successBanner = justRegistered
-      ? `<div style="background:#f0fff4;border:1px solid #9ae6b4;border-radius:10px;padding:14px 16px;margin-bottom:20px;display:flex;align-items:center;gap:12px;">
-          <span style="font-size:1.4rem;">✅</span>
-          <div>
-            <div style="font-size:0.9rem;font-weight:700;color:#2d7a4f;">登録が完了しました！</div>
-            <div style="font-size:0.8rem;color:#5a6577;margin-top:2px;">ご登録のメールアドレスに確認メールをお送りしました。</div>
-          </div>
-        </div>`
-      : '';
-    document.getElementById('profileContent').innerHTML = `
-      ${successBanner}
-      <div class="modal-logo" style="margin-bottom:14px;">BUDO <span>LINK</span></div>
-      <div class="profile-modal-head">
-        <div class="profile-modal-avatar">${escHtml((currentUser.lastName || '武').charAt(0))}</div>
-        <div>
-          <div class="profile-modal-name">${escHtml(currentUser.lastName)} ${escHtml(currentUser.firstName)}</div>
-          <div class="profile-modal-kana">${escHtml(currentUser.lastNameKana)} ${escHtml(currentUser.firstNameKana)}</div>
-        </div>
-      </div>
-      <div class="profile-info-row"><div class="profile-info-label">大学</div><div class="profile-info-value">${escHtml(currentUser.university)}</div></div>
-      <div class="profile-info-row"><div class="profile-info-label">学部・学科</div><div class="profile-info-value">${escHtml(currentUser.faculty)}${currentUser.department ? '　' + escHtml(currentUser.department) : ''}</div></div>
-      <div class="profile-info-row"><div class="profile-info-label">卒業予定</div><div class="profile-info-value">${escHtml(currentUser.graduationYear)}年卒</div></div>
-      <div class="profile-info-row"><div class="profile-info-label">所属団体</div><div class="profile-info-value">${escHtml(currentUser.club)}${currentUser.role ? '　' + escHtml(currentUser.role) : ''}</div></div>
-      <div class="profile-info-row"><div class="profile-info-label">メール</div><div class="profile-info-value">${escHtml(currentUser.email)}</div></div>
-      <div class="profile-info-row"><div class="profile-info-label">電話番号</div><div class="profile-info-value">${escHtml(currentUser.phone)}</div></div>
-      ${lineBadge}
-    `;
-    document.getElementById('profileOverlay').classList.add('active');
-    document.body.style.overflow = 'hidden';
+  function switchAuthTab(mode) {
+    const isSignup = (mode === 'signup');
+    document.getElementById('authTabSignup').classList.toggle('active', isSignup);
+    document.getElementById('authTabLogin').classList.toggle('active', !isSignup);
+    document.getElementById('signupSection').classList.toggle('hidden', !isSignup);
+    document.getElementById('loginSection').classList.toggle('hidden', isSignup);
   }
-  function closeProfile() {
-    document.getElementById('profileOverlay').classList.remove('active');
-    document.body.style.overflow = '';
-  }
-  document.getElementById('profileOverlay').addEventListener('click', function(e) {
-    if (e.target === this) closeProfile();
-  });
 
-  // ====== Registration form → Google Sheets ======
-  const GAS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwcQUx-garVxvfyhhf16LuJLTV1x-m5Knr1V6rKwnzTxkzKXxq_vRfeAm0_TZGt8pLZ7A/exec';
-
+  // ====== 登録フォーム ======
   document.getElementById('regForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const btn = document.getElementById('regSubmit');
-    const status = document.getElementById('regStatus');
     const fd = new FormData(this);
     const data = {};
-    fd.forEach((v, k) => { data[k] = v.trim(); });
+    fd.forEach((v, k) => {
+      if (k !== 'password' && k !== 'passwordConfirm') data[k] = v.trim();
+    });
+    const password = (fd.get('password') || '').trim();
+    const passwordConfirm = (fd.get('passwordConfirm') || '').trim();
 
     const required = ['lastName','firstName','lastNameKana','firstNameKana','university','faculty','graduationYear','club','email','phone'];
     for (const f of required) {
-      if (!data[f]) { showStatus('error', '必須項目をすべて入力してください。'); return; }
+      if (!data[f]) { showRegStatus('error', '必須項目をすべて入力してください。'); return; }
+    }
+    if (!password || password.length < 8) {
+      showRegStatus('error', 'パスワードは8文字以上で入力してください。'); return;
+    }
+    if (password !== passwordConfirm) {
+      showRegStatus('error', 'パスワードが一致しません。再度確認してください。'); return;
     }
 
     btn.disabled = true;
     btn.textContent = '送信中...';
-    status.style.display = 'none';
+
+    const userId = generateUUID();
+    const passwordHash = await sha256(password);
+    data.userId = userId;
+    data.passwordHash = passwordHash;
 
     try {
       await fetch(GAS_ENDPOINT, {
@@ -1048,25 +1352,283 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ type: 'student_registration', ...data, registeredAt: new Date().toLocaleString('ja-JP') })
       });
-      // ローカルに保存
       currentUser = { ...data };
       localStorage.setItem('budolink_user', JSON.stringify(currentUser));
       updateUIForLoggedIn(currentUser);
       closeModal();
-      setTimeout(() => showProfile(true), 320);
+      setTimeout(() => showMypage(true), 320);
     } catch (err) {
-      showStatus('error', '送信に失敗しました。時間をおいて再度お試しください。');
+      showRegStatus('error', '送信に失敗しました。時間をおいて再度お試しください。');
       btn.disabled = false;
       btn.textContent = '無料で登録する';
     }
   });
 
-  function showStatus(type, msg) {
+  function showRegStatus(type, msg) {
     const el = document.getElementById('regStatus');
     el.className = type;
     el.textContent = msg;
     el.style.display = 'block';
     el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // ====== ログインフォーム ======
+  document.getElementById('loginForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    const btn = document.getElementById('loginSubmit');
+    if (!email || !password) {
+      showLoginStatus('error', 'メールアドレスとパスワードを入力してください。'); return;
+    }
+    btn.disabled = true;
+    btn.textContent = 'ログイン中...';
+
+    const hash = await sha256(password);
+    let loginSuccess = false;
+    let userData = null;
+
+    // 1. GAS経由でログイン試行（Phase 2 GAS更新後に有効）
+    try {
+      const res = await fetch(GAS_ENDPOINT + '?type=login&email=' + encodeURIComponent(email) + '&hash=' + hash, { signal: AbortSignal.timeout(5000) });
+      if (res.ok) {
+        const json = await res.json();
+        if (json.success && json.user) { userData = json.user; loginSuccess = true; }
+      }
+    } catch (_) { /* fallback to localStorage */ }
+
+    // 2. localStorage フォールバック（同一デバイス）
+    if (!loginSuccess) {
+      const stored = JSON.parse(localStorage.getItem('budolink_user') || 'null');
+      if (stored && stored.email === email && stored.passwordHash === hash) {
+        userData = stored; loginSuccess = true;
+      }
+    }
+
+    if (loginSuccess && userData) {
+      currentUser = userData;
+      localStorage.setItem('budolink_user', JSON.stringify(currentUser));
+      updateUIForLoggedIn(currentUser);
+      closeModal();
+      setTimeout(() => showMypage(), 320);
+    } else {
+      showLoginStatus('error', 'メールアドレスまたはパスワードが正しくありません。');
+      btn.disabled = false;
+      btn.textContent = 'ログイン';
+    }
+  });
+
+  function showLoginStatus(type, msg) {
+    const el = document.getElementById('loginStatus');
+    el.className = type === 'error'
+      ? 'error'
+      : 'success';
+    el.textContent = msg;
+    el.style.cssText = type === 'error'
+      ? 'display:block;padding:10px 14px;border-radius:8px;font-size:0.85rem;margin-bottom:14px;background:#fff5f5;color:#c53030;border:1px solid #fc8181;'
+      : 'display:block;padding:10px 14px;border-radius:8px;font-size:0.85rem;margin-bottom:14px;background:#f0fff4;color:#2d7a4f;border:1px solid #9ae6b4;';
+  }
+
+  // ====== ヘッダー右側ボタン直接バインド ======
+  const btnLogin = document.querySelector('.btn-login');
+  const btnSignup = document.querySelector('.btn-signup');
+  if (btnLogin) btnLogin.onclick = () => openModal('login');
+  if (btnSignup) btnSignup.onclick = () => openModal('signup');
+
+  // ====== マイページ ======
+  function showMypage(justRegistered = false) {
+    if (!currentUser) { openModal(); return; }
+    // ヘッダー情報更新
+    document.getElementById('mypageAvatar').textContent = (currentUser.lastName || '武').charAt(0);
+    document.getElementById('mypageName').textContent = (currentUser.lastName || '') + ' ' + (currentUser.firstName || '');
+    document.getElementById('mypageUni').textContent = currentUser.university || '';
+    // プロフィール情報
+    document.getElementById('pi-name').textContent = (currentUser.lastName || '') + ' ' + (currentUser.firstName || '');
+    document.getElementById('pi-kana').textContent = (currentUser.lastNameKana || '') + ' ' + (currentUser.firstNameKana || '');
+    document.getElementById('pi-university').textContent = currentUser.university || '—';
+    document.getElementById('pi-faculty').textContent = (currentUser.faculty || '') + (currentUser.department ? '　' + currentUser.department : '');
+    document.getElementById('pi-grad').textContent = currentUser.graduationYear ? currentUser.graduationYear + '年卒' : '—';
+    document.getElementById('pi-club').textContent = (currentUser.club || '') + (currentUser.role ? '　' + currentUser.role : '');
+    document.getElementById('pi-email').textContent = currentUser.email || '—';
+    document.getElementById('pi-phone').textContent = currentUser.phone || '—';
+    // LINE連携バッジ
+    const lineBadgeEl = document.getElementById('pi-line-badge');
+    if (lineBadgeEl) {
+      lineBadgeEl.innerHTML = currentUser.lineName
+        ? `<span style="display:inline-flex;align-items:center;gap:6px;background:#f0fff4;color:#2d7a4f;font-size:0.78rem;font-weight:600;padding:5px 12px;border-radius:6px;border:1px solid #9ae6b4;"><svg width="14" height="14" viewBox="0 0 24 24" fill="#06C755"><path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967C23.418 14.218 24 12.329 24 10.304"/></svg>LINE連携済み：${escHtml(currentUser.lineName)}</span>`
+        : '';
+    }
+    // ガクチカ
+    document.getElementById('gakuchikaText').value = currentUser.gakuchika || '';
+    updateCharCount();
+    // 業界チェックボックス
+    const industries = currentUser.industries || [];
+    document.querySelectorAll('.industry-check').forEach(cb => {
+      cb.checked = industries.includes(cb.value);
+      cb.closest('.check-label').classList.toggle('checked', cb.checked);
+    });
+    // 職種チェックボックス
+    const occupations = currentUser.occupations || [];
+    document.querySelectorAll('.occupation-check').forEach(cb => {
+      cb.checked = occupations.includes(cb.value);
+      cb.closest('.check-label').classList.toggle('checked', cb.checked);
+    });
+    // チェックボックスのラベルクリックイベント
+    document.querySelectorAll('.check-label').forEach(lbl => {
+      lbl.onclick = () => {
+        const cb = lbl.querySelector('input[type="checkbox"]');
+        setTimeout(() => lbl.classList.toggle('checked', cb.checked), 0);
+      };
+    });
+    // 成功バナー
+    const successBanner = document.getElementById('mypageSuccessBanner');
+    if (successBanner) successBanner.style.display = justRegistered ? 'flex' : 'none';
+    // ステータスリセット
+    ['gakuchikaSaveStatus','industriesSaveStatus','occupationsSaveStatus','contactStatus'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) { el.className = ''; el.style.display = 'none'; el.textContent = ''; }
+    });
+    switchMypageTab('profile');
+    document.getElementById('mypageOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMypage() {
+    document.getElementById('mypageOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('mypageOverlay').addEventListener('click', function(e) {
+    if (e.target === this) closeMypage();
+  });
+
+  function switchMypageTab(panel) {
+    document.querySelectorAll('.mypage-tab-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.panel === panel);
+    });
+    document.querySelectorAll('.mypage-panel').forEach(p => {
+      p.classList.toggle('active', p.id === 'panel-' + panel);
+    });
+  }
+
+  // ====== ログアウト ======
+  function doLogout() {
+    if (!confirm('ログアウトしますか？')) return;
+    currentUser = null;
+    localStorage.removeItem('budolink_user');
+    closeMypage();
+    location.reload();
+  }
+
+  // ====== ガクチカ保存 ======
+  function updateCharCount() {
+    const len = (document.getElementById('gakuchikaText').value || '').length;
+    document.getElementById('charCountNum').textContent = len;
+  }
+  async function saveGakuchika() {
+    if (!currentUser) return;
+    const text = document.getElementById('gakuchikaText').value;
+    currentUser.gakuchika = text;
+    localStorage.setItem('budolink_user', JSON.stringify(currentUser));
+    try {
+      await fetch(GAS_ENDPOINT, {
+        method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'student_update', userId: currentUser.userId, email: currentUser.email, gakuchika: text })
+      });
+    } catch(_) {}
+    showSaveStatus('gakuchikaSaveStatus', 'success', '✅ ガクチカを保存しました');
+  }
+
+  // ====== 業界保存 ======
+  async function saveIndustries() {
+    if (!currentUser) return;
+    const selected = [...document.querySelectorAll('.industry-check:checked')].map(cb => cb.value);
+    currentUser.industries = selected;
+    localStorage.setItem('budolink_user', JSON.stringify(currentUser));
+    try {
+      await fetch(GAS_ENDPOINT, {
+        method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'student_update', userId: currentUser.userId, email: currentUser.email, industries: selected.join(',') })
+      });
+    } catch(_) {}
+    showSaveStatus('industriesSaveStatus', 'success', '✅ 業界選択を保存しました');
+  }
+
+  // ====== 職種保存 ======
+  async function saveOccupations() {
+    if (!currentUser) return;
+    const selected = [...document.querySelectorAll('.occupation-check:checked')].map(cb => cb.value);
+    currentUser.occupations = selected;
+    localStorage.setItem('budolink_user', JSON.stringify(currentUser));
+    try {
+      await fetch(GAS_ENDPOINT, {
+        method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'student_update', userId: currentUser.userId, email: currentUser.email, occupations: selected.join(',') })
+      });
+    } catch(_) {}
+    showSaveStatus('occupationsSaveStatus', 'success', '✅ 職種選択を保存しました');
+  }
+
+  // ====== お問い合わせ送信 ======
+  async function submitContact() {
+    if (!currentUser) return;
+    const subject = document.getElementById('contactSubject').value.trim();
+    const body = document.getElementById('contactBody').value.trim();
+    if (!subject || !body) { showSaveStatus('contactStatus', 'error', '件名と内容を入力してください。'); return; }
+    try {
+      await fetch(GAS_ENDPOINT, {
+        method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'contact_form',
+          userId: currentUser.userId || '',
+          email: currentUser.email,
+          name: (currentUser.lastName || '') + (currentUser.firstName || ''),
+          subject, body,
+          sentAt: new Date().toLocaleString('ja-JP')
+        })
+      });
+      document.getElementById('contactSubject').value = '';
+      document.getElementById('contactBody').value = '';
+      showSaveStatus('contactStatus', 'success', '✅ お問い合わせを送信しました。');
+    } catch(_) {
+      showSaveStatus('contactStatus', 'error', '送信に失敗しました。時間をおいて再度お試しください。');
+    }
+  }
+
+  function showSaveStatus(id, type, msg) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = msg;
+    el.style.cssText = type === 'success'
+      ? 'display:block;padding:10px 14px;border-radius:8px;font-size:0.85rem;margin-bottom:14px;background:#f0fff4;color:#2d7a4f;border:1px solid #9ae6b4;'
+      : 'display:block;padding:10px 14px;border-radius:8px;font-size:0.85rem;margin-bottom:14px;background:#fff5f5;color:#c53030;border:1px solid #fc8181;';
+    setTimeout(() => { el.style.display = 'none'; }, 4000);
+  }
+
+  // ====== 検索フィルター ======
+  function filterCompanies(query) {
+    const q = query.toLowerCase();
+    document.querySelectorAll('.company-card').forEach(card => {
+      const match = !q || (card.dataset.name||'').toLowerCase().includes(q) || (card.dataset.industry||'').toLowerCase().includes(q);
+      card.style.display = match ? '' : 'none';
+    });
+  }
+  function filterJobs(query) {
+    const q = query.toLowerCase();
+    document.querySelectorAll('.job-card').forEach(card => {
+      const match = !q || (card.dataset.title||'').toLowerCase().includes(q) || (card.dataset.company||'').toLowerCase().includes(q) || (card.dataset.tags||'').toLowerCase().includes(q);
+      card.style.display = match ? '' : 'none';
+    });
+  }
+  function filterObog(query) {
+    const q = query.toLowerCase();
+    document.querySelectorAll('.obog-card').forEach(card => {
+      const match = !q || (card.dataset.name||'').toLowerCase().includes(q) || (card.dataset.uni||'').toLowerCase().includes(q) || (card.dataset.industry||'').toLowerCase().includes(q);
+      card.style.display = match ? '' : 'none';
+    });
   }
 
   // ====== LINE LIFF パラメータ受け取り ======
@@ -1081,7 +1643,7 @@
       document.getElementById('lineNameDisplay').textContent = lineName;
       document.getElementById('lineBanner').style.display = 'flex';
     }
-    openModal();
+    openModal('signup');
     history.replaceState({}, '', location.pathname);
   })();
 </script>
