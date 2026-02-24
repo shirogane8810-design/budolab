@@ -28,7 +28,7 @@
     .portal-tabs { background: #fff; border-top: 1px solid #eef0f6; overflow-x: auto; -webkit-overflow-scrolling: touch; }
     .portal-tabs::-webkit-scrollbar { display: none; }
     .portal-tabs-inner { display: flex; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-    .portal-tab { display: flex; align-items: center; gap: 6px; padding: 14px 20px; font-size: 0.88rem; font-weight: 600; color: #5a6577; border-bottom: 3px solid transparent; white-space: nowrap; transition: color 0.2s, border-color 0.2s; background: none; border-top: none; border-left: none; border-right: none; }
+    .portal-tab { display: flex; align-items: center; gap: 6px; padding: 14px 20px; font-size: 0.88rem; font-weight: 700; color: #374151; border-bottom: 3px solid transparent; white-space: nowrap; transition: color 0.2s, border-color 0.2s; background: none; border-top: none; border-left: none; border-right: none; }
     .portal-tab:hover { color: #0028FF; }
     .portal-tab.active { color: #0028FF; border-bottom-color: #0028FF; }
     .portal-tab .tab-badge { background: #0028FF; color: #fff; font-size: 0.65rem; font-weight: 800; padding: 2px 6px; border-radius: 999px; margin-left: 2px; }
@@ -1214,6 +1214,111 @@
     const buf = await crypto.subtle.digest('SHA-256', enc);
     return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
   }
+
+  // ====== 動的データ読み込み（Google Sheets → GAS） ======
+  const GRADIENTS = [
+    'linear-gradient(135deg,#0028FF,#00C8FF)',
+    'linear-gradient(135deg,#1a1a2e,#16213e)',
+    'linear-gradient(135deg,#e53e3e,#fc8181)',
+    'linear-gradient(135deg,#06C755,#00a844)',
+    'linear-gradient(135deg,#8b5cf6,#a78bfa)',
+    'linear-gradient(135deg,#f59e0b,#fbbf24)',
+    'linear-gradient(135deg,#0ea5e9,#38bdf8)',
+    'linear-gradient(135deg,#be185d,#ec4899)',
+  ];
+
+  function renderCompanyCard(c, idx) {
+    const grad = c.coverGradient || GRADIENTS[idx % GRADIENTS.length];
+    return `<div class="company-card" data-name="${escHtml(c.name||'')}" data-industry="${escHtml(c.industry||'')}">
+      <div class="company-cover" style="background:${grad};"></div>
+      <div class="company-logo-wrap"><div class="company-logo">${escHtml(c.logoText||(c.name||'?').charAt(0))}</div></div>
+      <div class="company-body">
+        <div class="company-name">${escHtml(c.name||'')}</div>
+        <div class="company-industry">${escHtml(c.industry||'')}</div>
+        <div class="company-meta">
+          <span class="meta-tag">${escHtml(c.location||'')}</span>
+          <span class="meta-obog">OB/OG ${c.obogCount||0}人</span>
+        </div>
+        <button class="btn-follow" onclick="toggleFollow(this)">フォローする</button>
+      </div>
+    </div>`;
+  }
+
+  function renderJobCard(j) {
+    const tags = (j.tags||'').split(',').map(t => `<span class="job-tag tag-budo">${escHtml(t.trim())}</span>`).join('');
+    return `<div class="job-card" data-title="${escHtml(j.title||'')}" data-company="${escHtml(j.company||'')}" data-tags="${escHtml(j.tags||'')}">
+      <div class="job-logo">${escHtml(j.logoText||(j.company||'?').charAt(0))}</div>
+      <div class="job-body">
+        <div class="job-title">${escHtml(j.title||'')}</div>
+        <div class="job-company">${escHtml(j.company||'')}</div>
+        <div class="job-tags">${tags}</div>
+        <div class="job-detail">${escHtml(j.detail||'')}</div>
+      </div>
+      <div class="job-action">
+        <button class="btn-apply" onclick="openModal('signup')">応募する</button>
+        <button class="btn-bookmark">🔖 保存</button>
+      </div>
+    </div>`;
+  }
+
+  function renderObogCard(o) {
+    const sport = o.sport ? `<span class="obog-tag">${escHtml(o.sport)}</span>` : '';
+    const uni   = o.university ? `<span class="obog-tag">${escHtml(o.university)}</span>` : '';
+    const ind   = o.industry ? `<span class="obog-tag">${escHtml(o.industry)}</span>` : '';
+    return `<div class="obog-card" data-name="${escHtml(o.name||'')}" data-uni="${escHtml(o.university||'')}" data-industry="${escHtml(o.industry||'')}">
+      <div class="obog-top">
+        <div class="obog-avatar">${escHtml((o.initial||(o.name||'?').charAt(0)))}</div>
+        <div class="obog-info">
+          <div class="obog-name">${escHtml(o.name||'')} さん</div>
+          <div class="obog-company">${escHtml(o.company||'')}</div>
+          <div class="obog-role">${escHtml(o.role||'')}</div>
+        </div>
+      </div>
+      <div class="obog-tags">${sport}${uni}${ind}</div>
+      <button class="btn-obog" onclick="openModal('signup')">訪問リクエスト</button>
+    </div>`;
+  }
+
+  async function loadPortalData() {
+    try {
+      // 企業
+      const cRes = await fetch(GAS_ENDPOINT + '?type=get_companies', { signal: AbortSignal.timeout(8000) });
+      if (cRes.ok) {
+        const cJson = await cRes.json();
+        if (cJson.success && cJson.data && cJson.data.length > 0) {
+          const grid = document.getElementById('companyGrid');
+          if (grid) grid.innerHTML = cJson.data.map((c,i) => renderCompanyCard(c,i)).join('');
+        }
+      }
+    } catch(_) {}
+
+    try {
+      // 求人
+      const jRes = await fetch(GAS_ENDPOINT + '?type=get_jobs', { signal: AbortSignal.timeout(8000) });
+      if (jRes.ok) {
+        const jJson = await jRes.json();
+        if (jJson.success && jJson.data && jJson.data.length > 0) {
+          const list = document.getElementById('jobList');
+          if (list) list.innerHTML = jJson.data.map(j => renderJobCard(j)).join('');
+        }
+      }
+    } catch(_) {}
+
+    try {
+      // OB/OG
+      const oRes = await fetch(GAS_ENDPOINT + '?type=get_obog', { signal: AbortSignal.timeout(8000) });
+      if (oRes.ok) {
+        const oJson = await oRes.json();
+        if (oJson.success && oJson.data && oJson.data.length > 0) {
+          const grid = document.getElementById('obogGrid');
+          if (grid) grid.innerHTML = oJson.data.map(o => renderObogCard(o)).join('');
+        }
+      }
+    } catch(_) {}
+  }
+
+  // ページ読み込み時に動的データ取得
+  loadPortalData();
 
   // ====== UUID v4 生成 ======
   function generateUUID() {

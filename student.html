@@ -56,9 +56,9 @@
     .drawer-overlay.active { opacity: 1; visibility: visible; }
     .side-drawer { position: fixed; top: 0; right: -375px; width: 375px; max-width: 85vw; height: 100vh; z-index: 1050; background: linear-gradient(180deg, #0a1628 0%, #0028FF 100%); transition: right 0.4s cubic-bezier(0.4,0,0.2,1); padding: 100px 40px 40px; overflow-y: auto; }
     .side-drawer.active { right: 0; }
-    .side-drawer nav { display: flex; flex-direction: column; gap: 24px; }
-    .side-drawer nav a { font-size: 1.3rem; font-weight: 700; color: rgba(255,255,255,0.85); transition: color 0.3s, transform 0.3s; }
-    .side-drawer nav a:hover { color: #00C8FF; transform: translateX(8px); }
+    .side-drawer { display: flex; flex-direction: column; gap: 24px; }
+    .side-drawer a { font-size: 1.3rem; font-weight: 700; color: rgba(255,255,255,0.9); transition: color 0.3s, transform 0.3s; display: block; }
+    .side-drawer a:hover { color: #00C8FF; transform: translateX(8px); }
 
     /* ====== HERO ====== */
     .hero { margin-top: 72px; min-height: calc(100vh - 72px); display: flex; align-items: center; position: relative; overflow: hidden; background: linear-gradient(135deg, #0a1628 0%, #0028FF 55%, #00C8FF 100%); }
