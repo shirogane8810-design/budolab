@@ -4,9 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>BUDO LINK — 新歓支援広告</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <style>
+<style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap');
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -23,26 +21,7 @@
       gap: 16px;
     }
 
-    /* ===== ダウンロードボタン ===== */
-    .dl-btn {
-      background: linear-gradient(135deg, #0028FF, #00C8FF);
-      color: #fff;
-      border: none;
-      border-radius: 50px;
-      padding: 12px 36px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 6px 20px rgba(0,40,255,0.3);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: transform 0.15s, box-shadow 0.15s;
-    }
-    .dl-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,40,255,0.4); }
-    .dl-btn:active { transform: translateY(0); }
-
-    /* ===== ポスター本体 ===== */
+/* ===== ポスター本体 ===== */
     .poster {
       width: 100%;
       max-width: 500px;
@@ -286,11 +265,7 @@
 </head>
 <body>
 
-  <button class="dl-btn" onclick="downloadPDF()">
-    ⬇️ PDFをダウンロード
-  </button>
-
-  <div class="poster" id="poster">
+<div class="poster" id="poster">
 
     <!-- ヘッダー -->
     <div class="header">
@@ -364,49 +339,6 @@
 
   </div>
 
-  <script>
-    async function downloadPDF() {
-      const btn = document.querySelector('.dl-btn');
-      btn.textContent = '⏳ 生成中...';
-      btn.disabled = true;
-
-      try {
-        const { jsPDF } = window.jspdf;
-        const poster = document.getElementById('poster');
-
-        const canvas = await html2canvas(poster, {
-          scale: 3,
-          useCORS: true,
-          backgroundColor: '#ffffff',
-          logging: false
-        });
-
-        const imgData = canvas.toDataURL('image/jpeg', 0.95);
-        const pxW = canvas.width;
-        const pxH = canvas.height;
-
-        // A4縦に収める
-        const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-        const pageW = pdf.internal.pageSize.getWidth();
-        const pageH = pdf.internal.pageSize.getHeight();
-
-        const ratio = Math.min(pageW / pxW, pageH / pxH);
-        const imgW = pxW * ratio;
-        const imgH = pxH * ratio;
-        const offsetX = (pageW - imgW) / 2;
-        const offsetY = (pageH - imgH) / 2;
-
-        pdf.addImage(imgData, 'JPEG', offsetX, offsetY, imgW, imgH);
-        pdf.save('BUDOLINK_新歓支援広告.pdf');
-
-      } catch (err) {
-        alert('PDFの生成に失敗しました: ' + err.message);
-      } finally {
-        btn.textContent = '⬇️ PDFをダウンロード';
-        btn.disabled = false;
-      }
-    }
-  </script>
 
 </body>
 </html>
