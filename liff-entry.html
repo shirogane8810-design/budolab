@@ -53,7 +53,7 @@
     <div style="margin-top:20px;">
       <div class="step active" id="step1"><span class="step-icon">🔐</span> LIFF初期化中</div>
       <div class="step" id="step2"><span class="step-icon">👤</span> プロフィール取得中</div>
-      <div class="step" id="step3"><span class="step-icon">🚀</span> 登録ページへ移動</div>
+      <div class="step" id="step3"><span class="step-icon">🚀</span> アンケートへ移動</div>
     </div>
   </div>
 
@@ -87,14 +87,12 @@
         const profile = await liff.getProfile();
 
         setStep(3);
-        const params = new URLSearchParams({
-          lineUserId:   profile.userId,
-          lineName:     profile.displayName,
-          lineFrom:     '1'
-        });
+        const formUrl =
+          'https://docs.google.com/forms/d/e/1FAIpQLSfpVqMAcvrnfEzK5dxWwleDCNd_r8HlltL0J7FgVNkhyVa8nA/viewform'
+          + '?entry.1199573303=' + encodeURIComponent(profile.userId);
 
-        // student-portal.html の登録フォームへ LINE 情報を渡して遷移
-        location.replace('student-portal.html?' + params.toString());
+        // アンケートフォームへ LINE User ID を自動入力して遷移
+        location.replace(formUrl);
 
       } catch (e) {
         showError(e.message || String(e));
