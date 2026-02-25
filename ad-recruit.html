@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>BUDO LINK — 新歓支援広告</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap');
 
@@ -11,189 +13,266 @@
 
     body {
       font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
-      background: #0a0f1e;
+      background: #e8f0fe;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 20px;
+      padding: 24px 16px;
+      gap: 16px;
     }
+
+    /* ===== ダウンロードボタン ===== */
+    .dl-btn {
+      background: linear-gradient(135deg, #0028FF, #00C8FF);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 12px 36px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(0,40,255,0.3);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .dl-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,40,255,0.4); }
+    .dl-btn:active { transform: translateY(0); }
 
     /* ===== ポスター本体 ===== */
     .poster {
       width: 100%;
-      max-width: 540px;
-      background: #0a0f1e;
-      border-radius: 24px;
+      max-width: 500px;
+      background: #fff;
+      border-radius: 28px;
       overflow: hidden;
-      position: relative;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+      box-shadow: 0 20px 60px rgba(0,40,255,0.15);
     }
 
-    /* ===== ヘッダー部 ===== */
+    /* ===== ヘッダー ===== */
     .header {
-      background: linear-gradient(135deg, #0028FF 0%, #0066FF 50%, #00C8FF 100%);
-      padding: 36px 32px 28px;
+      background: linear-gradient(135deg, #0028FF 0%, #0077FF 55%, #00C8FF 100%);
+      padding: 30px 28px 26px;
       position: relative;
       overflow: hidden;
     }
     .header::before {
       content: '';
       position: absolute;
-      top: -60px; right: -60px;
-      width: 220px; height: 220px;
+      top: -50px; right: -50px;
+      width: 200px; height: 200px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.1);
     }
     .header::after {
       content: '';
       position: absolute;
-      bottom: -40px; left: -40px;
-      width: 160px; height: 160px;
+      bottom: -30px; left: 20px;
+      width: 120px; height: 120px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.07);
     }
 
-    .logo {
-      font-size: 1.05rem;
-      font-weight: 900;
-      color: rgba(255,255,255,0.9);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       margin-bottom: 14px;
+      position: relative; z-index: 1;
+    }
+    .logo-badge {
+      background: rgba(255,255,255,0.2);
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-size: 0.65rem;
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+    .logo {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: 0.12em;
     }
     .logo span { color: #7FEFFF; }
 
-    .header-title {
-      font-size: 1.85rem;
+    .header-catch {
+      font-size: 1.75rem;
       font-weight: 900;
       color: #fff;
-      line-height: 1.3;
-      position: relative;
-      z-index: 1;
+      line-height: 1.35;
+      position: relative; z-index: 1;
     }
-    .header-title .accent {
-      color: #FFE566;
-      display: block;
-    }
+    .header-catch .yellow { color: #FFE566; }
 
     .header-sub {
-      margin-top: 10px;
-      font-size: 0.85rem;
-      color: rgba(255,255,255,0.8);
-      line-height: 1.7;
-      position: relative;
-      z-index: 1;
+      margin-top: 8px;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.88);
+      line-height: 1.65;
+      position: relative; z-index: 1;
     }
 
-    /* ===== 武道イメージ帯 ===== */
+    /* ===== 種目タグ ===== */
     .tag-band {
-      background: #111827;
-      padding: 10px 32px;
+      background: #f0f5ff;
+      padding: 10px 20px;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid #dde8ff;
+    }
+    .tag-band span {
+      font-size: 0.7rem;
+      color: #0040CC;
+      background: #dde8ff;
+      border-radius: 20px;
+      padding: 3px 10px;
+      font-weight: 700;
+    }
+
+    /* ===== 特典 ===== */
+    .benefits {
+      padding: 18px 24px 14px;
+      background: #fff;
+    }
+    .benefits-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #0040CC;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .benefit-row {
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
     }
-    .tag-band span {
-      font-size: 0.72rem;
-      color: #00C8FF;
-      background: rgba(0,200,255,0.1);
-      border: 1px solid rgba(0,200,255,0.3);
-      border-radius: 20px;
-      padding: 3px 10px;
-      white-space: nowrap;
-    }
-
-    /* ===== 特典リスト ===== */
-    .benefits {
-      padding: 24px 32px 0;
-    }
-    .benefits-title {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #00C8FF;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-    }
-    .benefit-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-    .benefit-icon {
-      width: 28px; height: 28px;
-      border-radius: 8px;
-      background: linear-gradient(135deg, #0028FF, #00C8FF);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.85rem;
-      flex-shrink: 0;
-    }
-    .benefit-text {
-      font-size: 0.82rem;
-      color: #e2e8f0;
-      line-height: 1.5;
-      padding-top: 4px;
-    }
-    .benefit-text strong { color: #fff; }
-
-    /* ===== QRコード部 ===== */
-    .qr-section {
-      padding: 24px 32px 28px;
+    .benefit-pill {
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 5px;
+      background: #f0f5ff;
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 0.75rem;
+      color: #1a3a8a;
+      font-weight: 700;
     }
-    .qr-box {
-      background: #fff;
-      border-radius: 16px;
-      padding: 12px;
-      flex-shrink: 0;
-      box-shadow: 0 8px 30px rgba(0,40,255,0.25);
-    }
-    .qr-box img {
-      width: 130px; height: 130px;
-      display: block;
-    }
-    .qr-info {
-      flex: 1;
-    }
-    .qr-step {
+    .benefit-pill .icon { font-size: 0.85rem; }
+
+    /* ===== QRコード強調エリア ===== */
+    .qr-section {
+      padding: 20px 24px 18px;
       display: flex;
-      align-items: flex-start;
-      gap: 10px;
+      flex-direction: column;
+      align-items: center;
+      background: linear-gradient(180deg, #fff 0%, #f4f8ff 100%);
+    }
+    .qr-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #0040CC;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       margin-bottom: 10px;
     }
-    .step-num {
-      width: 22px; height: 22px;
+    .qr-frame {
+      position: relative;
+      padding: 16px;
+      background: #fff;
+      border-radius: 24px;
+      box-shadow:
+        0 0 0 3px #0028FF,
+        0 12px 40px rgba(0,40,255,0.2),
+        0 4px 12px rgba(0,40,255,0.1);
+    }
+    .qr-frame::before {
+      content: '';
+      position: absolute;
+      inset: -8px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(0,40,255,0.08), rgba(0,200,255,0.08));
+      z-index: -1;
+    }
+    .qr-frame img {
+      width: 190px;
+      height: 190px;
+      display: block;
+    }
+    .qr-badge {
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(90deg, #0028FF, #00C8FF);
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 900;
+      padding: 4px 16px;
+      border-radius: 20px;
+      white-space: nowrap;
+      letter-spacing: 0.06em;
+      box-shadow: 0 3px 10px rgba(0,40,255,0.35);
+    }
+
+    /* ===== 登録ステップ ===== */
+    .steps {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      padding: 28px 20px 22px;
+      background: #f4f8ff;
+    }
+    .step-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      position: relative;
+    }
+    .step-item:not(:last-child)::after {
+      content: '→';
+      position: absolute;
+      right: -6px;
+      top: 14px;
+      color: #0028FF;
+      font-size: 1rem;
+      font-weight: 900;
+    }
+    .step-circle {
+      width: 36px; height: 36px;
       border-radius: 50%;
       background: linear-gradient(135deg, #0028FF, #00C8FF);
       color: #fff;
-      font-size: 0.72rem;
-      font-weight: 900;
+      font-size: 1rem;
       display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-      margin-top: 1px;
+      margin-bottom: 6px;
+      box-shadow: 0 4px 12px rgba(0,40,255,0.3);
     }
-    .step-text {
-      font-size: 0.8rem;
-      color: #cbd5e1;
-      line-height: 1.5;
+    .step-name {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #1a3a8a;
+      text-align: center;
     }
-    .step-text strong { color: #fff; font-weight: 700; }
 
     /* ===== フッター ===== */
     .footer {
-      background: linear-gradient(135deg, #0028FF 0%, #00C8FF 100%);
-      padding: 14px 32px;
+      background: linear-gradient(90deg, #0028FF, #0077FF, #00C8FF);
+      padding: 14px 24px;
       text-align: center;
     }
     .footer-text {
-      font-size: 0.78rem;
-      color: rgba(255,255,255,0.9);
-      font-weight: 700;
-      letter-spacing: 0.05em;
+      font-size: 0.82rem;
+      color: #fff;
+      font-weight: 900;
+      letter-spacing: 0.06em;
     }
     .footer-text span { color: #FFE566; }
 
@@ -201,27 +280,34 @@
     @media print {
       body { background: white; padding: 0; }
       .poster { box-shadow: none; max-width: 100%; border-radius: 0; }
+      .dl-btn { display: none; }
     }
   </style>
 </head>
 <body>
-  <div class="poster">
+
+  <button class="dl-btn" onclick="downloadPDF()">
+    ⬇️ PDFをダウンロード
+  </button>
+
+  <div class="poster" id="poster">
 
     <!-- ヘッダー -->
     <div class="header">
-      <div class="logo">BUDO <span>LINK</span></div>
-      <h1 class="header-title">
-        武道系学生のための<br>
-        <span class="accent">就活・新歓支援</span>
-        無料で受け取ろう
+      <div class="logo-wrap">
+        <div class="logo">BUDO <span>LINK</span></div>
+        <div class="logo-badge">武道系学生専用</div>
+      </div>
+      <h1 class="header-catch">
+        武道経験を<br>
+        <span class="yellow">就活の武器</span>に変えよう
       </h1>
       <p class="header-sub">
-        武道経験者専門のキャリア支援サービス。<br>
-        LINEに登録するだけで、スカウトや求人情報が届く。
+        スカウト・求人・OB訪問・就活対策が<br>すべて無料で使える就活支援サービス
       </p>
     </div>
 
-    <!-- 種目タグ帯 -->
+    <!-- 種目タグ -->
     <div class="tag-band">
       <span>⚔️ 剣道</span>
       <span>🥋 柔道</span>
@@ -230,59 +316,95 @@
       <span>☯️ 合気道</span>
       <span>🤼 相撲</span>
       <span>🥷 少林寺</span>
-      <span>💪 その他武道</span>
+      <span>＋ その他武道</span>
     </div>
 
-    <!-- 特典リスト -->
+    <!-- 特典 -->
     <div class="benefits">
-      <div class="benefits-title">登録するとできること</div>
-
-      <div class="benefit-item">
-        <div class="benefit-icon">📩</div>
-        <div class="benefit-text"><strong>企業からスカウトが届く</strong><br>武道経験者を求める企業から直接オファー</div>
-      </div>
-      <div class="benefit-item">
-        <div class="benefit-icon">🏢</div>
-        <div class="benefit-text"><strong>優良企業の求人・インターン情報</strong><br>武道系学生向けの厳選求人を配信</div>
-      </div>
-      <div class="benefit-item">
-        <div class="benefit-icon">👔</div>
-        <div class="benefit-text"><strong>OB/OG訪問</strong><br>同じ武道出身の社会人に話を聞ける</div>
-      </div>
-      <div class="benefit-item">
-        <div class="benefit-icon">🎓</div>
-        <div class="benefit-text"><strong>就活対策コンテンツ（JOBLAB）</strong><br>武道経験を活かした面接・自己PR対策</div>
+      <div class="benefits-label">登録するとできること</div>
+      <div class="benefit-row">
+        <div class="benefit-pill"><span class="icon">📩</span> 企業スカウト</div>
+        <div class="benefit-pill"><span class="icon">🏢</span> 求人・インターン</div>
+        <div class="benefit-pill"><span class="icon">👔</span> OB/OG訪問</div>
+        <div class="benefit-pill"><span class="icon">🎓</span> 就活対策JOBLAB</div>
       </div>
     </div>
 
-    <!-- QRコード -->
+    <!-- QRコード強調 -->
     <div class="qr-section">
-      <div class="qr-box">
-        <img src="qr_codes/L_gainfriends_2dbarcodes_GW.png" alt="BUDO LINK LINE公式QRコード">
+      <div class="qr-label">▼ QRコードを読み取って今すぐ登録 ▼</div>
+      <div class="qr-frame">
+        <img src="qr_codes/L_gainfriends_2dbarcodes_GW.png" alt="BUDO LINK LINE登録QRコード">
+        <div class="qr-badge">LINE公式アカウント</div>
       </div>
-      <div class="qr-info">
-        <div class="qr-step">
-          <div class="step-num">1</div>
-          <div class="step-text"><strong>QRコードを読み取る</strong><br>LINEカメラで読み取るだけ</div>
-        </div>
-        <div class="qr-step">
-          <div class="step-num">2</div>
-          <div class="step-text"><strong>友だち追加</strong><br>BUDO LINK公式LINEを追加</div>
-        </div>
-        <div class="qr-step">
-          <div class="step-num">3</div>
-          <div class="step-text"><strong>アンケートに回答</strong><br>30秒で完了。支援スタート！</div>
-        </div>
+    </div>
+
+    <!-- 登録ステップ（サブ文なし） -->
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-circle">📷</div>
+        <div class="step-name">QR読み取り</div>
+      </div>
+      <div class="step-item">
+        <div class="step-circle">➕</div>
+        <div class="step-name">友だち追加</div>
+      </div>
+      <div class="step-item">
+        <div class="step-circle">📝</div>
+        <div class="step-name">アンケート回答</div>
       </div>
     </div>
 
     <!-- フッター -->
     <div class="footer">
-      <div class="footer-text">
-        完全無料 · 武道系学生専用 · <span>今すぐ登録</span>
-      </div>
+      <div class="footer-text">完全無料 · 登録30秒 · <span>今すぐスタート</span></div>
     </div>
 
   </div>
+
+  <script>
+    async function downloadPDF() {
+      const btn = document.querySelector('.dl-btn');
+      btn.textContent = '⏳ 生成中...';
+      btn.disabled = true;
+
+      try {
+        const { jsPDF } = window.jspdf;
+        const poster = document.getElementById('poster');
+
+        const canvas = await html2canvas(poster, {
+          scale: 3,
+          useCORS: true,
+          backgroundColor: '#ffffff',
+          logging: false
+        });
+
+        const imgData = canvas.toDataURL('image/jpeg', 0.95);
+        const pxW = canvas.width;
+        const pxH = canvas.height;
+
+        // A4縦に収める
+        const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+        const pageW = pdf.internal.pageSize.getWidth();
+        const pageH = pdf.internal.pageSize.getHeight();
+
+        const ratio = Math.min(pageW / pxW, pageH / pxH);
+        const imgW = pxW * ratio;
+        const imgH = pxH * ratio;
+        const offsetX = (pageW - imgW) / 2;
+        const offsetY = (pageH - imgH) / 2;
+
+        pdf.addImage(imgData, 'JPEG', offsetX, offsetY, imgW, imgH);
+        pdf.save('BUDOLINK_新歓支援広告.pdf');
+
+      } catch (err) {
+        alert('PDFの生成に失敗しました: ' + err.message);
+      } finally {
+        btn.textContent = '⬇️ PDFをダウンロード';
+        btn.disabled = false;
+      }
+    }
+  </script>
+
 </body>
 </html>
