@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BUDO LINK — 新歓支援広告</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+      background: #0a0f1e;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    /* ===== ポスター本体 ===== */
+    .poster {
+      width: 100%;
+      max-width: 540px;
+      background: #0a0f1e;
+      border-radius: 24px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+    }
+
+    /* ===== ヘッダー部 ===== */
+    .header {
+      background: linear-gradient(135deg, #0028FF 0%, #0066FF 50%, #00C8FF 100%);
+      padding: 36px 32px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 220px; height: 220px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.07);
+    }
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; left: -40px;
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .logo {
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .logo span { color: #7FEFFF; }
+
+    .header-title {
+      font-size: 1.85rem;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.3;
+      position: relative;
+      z-index: 1;
+    }
+    .header-title .accent {
+      color: #FFE566;
+      display: block;
+    }
+
+    .header-sub {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.7;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== 武道イメージ帯 ===== */
+    .tag-band {
+      background: #111827;
+      padding: 10px 32px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .tag-band span {
+      font-size: 0.72rem;
+      color: #00C8FF;
+      background: rgba(0,200,255,0.1);
+      border: 1px solid rgba(0,200,255,0.3);
+      border-radius: 20px;
+      padding: 3px 10px;
+      white-space: nowrap;
+    }
+
+    /* ===== 特典リスト ===== */
+    .benefits {
+      padding: 24px 32px 0;
+    }
+    .benefits-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #00C8FF;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .benefit-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .benefit-icon {
+      width: 28px; height: 28px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #0028FF, #00C8FF);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+    .benefit-text {
+      font-size: 0.82rem;
+      color: #e2e8f0;
+      line-height: 1.5;
+      padding-top: 4px;
+    }
+    .benefit-text strong { color: #fff; }
+
+    /* ===== QRコード部 ===== */
+    .qr-section {
+      padding: 24px 32px 28px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .qr-box {
+      background: #fff;
+      border-radius: 16px;
+      padding: 12px;
+      flex-shrink: 0;
+      box-shadow: 0 8px 30px rgba(0,40,255,0.25);
+    }
+    .qr-box img {
+      width: 130px; height: 130px;
+      display: block;
+    }
+    .qr-info {
+      flex: 1;
+    }
+    .qr-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .step-num {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0028FF, #00C8FF);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .step-text {
+      font-size: 0.8rem;
+      color: #cbd5e1;
+      line-height: 1.5;
+    }
+    .step-text strong { color: #fff; font-weight: 700; }
+
+    /* ===== フッター ===== */
+    .footer {
+      background: linear-gradient(135deg, #0028FF 0%, #00C8FF 100%);
+      padding: 14px 32px;
+      text-align: center;
+    }
+    .footer-text {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.9);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+    .footer-text span { color: #FFE566; }
+
+    /* ===== 印刷用 ===== */
+    @media print {
+      body { background: white; padding: 0; }
+      .poster { box-shadow: none; max-width: 100%; border-radius: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="poster">
+
+    <!-- ヘッダー -->
+    <div class="header">
+      <div class="logo">BUDO <span>LINK</span></div>
+      <h1 class="header-title">
+        武道系学生のための<br>
+        <span class="accent">就活・新歓支援</span>
+        無料で受け取ろう
+      </h1>
+      <p class="header-sub">
+        武道経験者専門のキャリア支援サービス。<br>
+        LINEに登録するだけで、スカウトや求人情報が届く。
+      </p>
+    </div>
+
+    <!-- 種目タグ帯 -->
+    <div class="tag-band">
+      <span>⚔️ 剣道</span>
+      <span>🥋 柔道</span>
+      <span>🥊 空手</span>
+      <span>🏹 弓道</span>
+      <span>☯️ 合気道</span>
+      <span>🤼 相撲</span>
+      <span>🥷 少林寺</span>
+      <span>💪 その他武道</span>
+    </div>
+
+    <!-- 特典リスト -->
+    <div class="benefits">
+      <div class="benefits-title">登録するとできること</div>
+
+      <div class="benefit-item">
+        <div class="benefit-icon">📩</div>
+        <div class="benefit-text"><strong>企業からスカウトが届く</strong><br>武道経験者を求める企業から直接オファー</div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">🏢</div>
+        <div class="benefit-text"><strong>優良企業の求人・インターン情報</strong><br>武道系学生向けの厳選求人を配信</div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">👔</div>
+        <div class="benefit-text"><strong>OB/OG訪問</strong><br>同じ武道出身の社会人に話を聞ける</div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">🎓</div>
+        <div class="benefit-text"><strong>就活対策コンテンツ（JOBLAB）</strong><br>武道経験を活かした面接・自己PR対策</div>
+      </div>
+    </div>
+
+    <!-- QRコード -->
+    <div class="qr-section">
+      <div class="qr-box">
+        <img src="qr_codes/L_gainfriends_2dbarcodes_GW.png" alt="BUDO LINK LINE公式QRコード">
+      </div>
+      <div class="qr-info">
+        <div class="qr-step">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>QRコードを読み取る</strong><br>LINEカメラで読み取るだけ</div>
+        </div>
+        <div class="qr-step">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>友だち追加</strong><br>BUDO LINK公式LINEを追加</div>
+        </div>
+        <div class="qr-step">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>アンケートに回答</strong><br>30秒で完了。支援スタート！</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- フッター -->
+    <div class="footer">
+      <div class="footer-text">
+        完全無料 · 武道系学生専用 · <span>今すぐ登録</span>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
