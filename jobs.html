@@ -554,13 +554,13 @@
       try {
         const res = await fetch(JOBS_API_ENDPOINT);
         const data = await res.json();
-        if (data.result === 'success' && data.jobs.length > 0) {
-          masterJobs = data.jobs;
+        if (data.success && Array.isArray(data.data) && data.data.length > 0) {
+          masterJobs = data.data;
         } else {
-          masterJobs = SAMPLE_JOBS;
+          masterJobs = [];
         }
       } catch (e) {
-        masterJobs = SAMPLE_JOBS;
+        masterJobs = [];
       }
       updateCounts();
       renderJobs();
@@ -583,9 +583,22 @@
       var jobs = getFiltered();
       var label = currentCategory ? CAT_LABELS[currentCategory] : 'すべて';
       document.getElementById('jobsLabel').textContent = label + 'の求人';
-      document.getElementById('jobsCount').textContent = jobs.length + '件';
+      document.getElementById('jobsCount').textContent = masterJobs.length > 0 ? jobs.length + '件' : '-';
 
       var grid = document.getElementById('jobsGrid');
+
+      // 求人データが0件の場合 → Coming Soon
+      if (masterJobs.length === 0) {
+        grid.innerHTML =
+          '<div class="empty-state" style="padding:64px 20px;text-align:center;">' +
+          '<div style="display:inline-block;padding:14px 48px;border-radius:999px;background:linear-gradient(135deg,#0028FF,#00C8FF);color:#fff;font-size:1.2rem;font-weight:900;letter-spacing:0.16em;box-shadow:0 6px 24px rgba(0,40,255,0.25);margin-bottom:20px;">COMING SOON</div>' +
+          '<h3 style="font-size:1.15rem;color:#1a2744;margin-bottom:10px;">求人情報を準備中です</h3>' +
+          '<p style="color:#5a6577;line-height:1.9;">武道学生の強みを評価する企業の求人情報を順次掲載します。<br>LINEでお知らせを受け取り、最新情報をいち早くキャッチしてください。</p>' +
+          '<a href="https://lin.ee/KtxrF6x" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;margin-top:24px;padding:14px 32px;border-radius:999px;background:#06C755;color:#fff;font-weight:700;font-size:0.95rem;">LINE友達追加で通知を受け取る</a>' +
+          '</div>';
+        return;
+      }
+
       if (jobs.length === 0) {
         grid.innerHTML = '<div class="empty-state">' +
           '<div class="empty-state-icon">&#128270;</div>' +

@@ -185,6 +185,35 @@
     .footer-col a:hover { color: #00C8FF; }
     .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; text-align: center; font-size: 0.78rem; }
 
+    /* ====== ロゴ白背景 ====== */
+    .header .logo {
+      background: #fff;
+      border-radius: 10px;
+      padding: 4px 14px;
+      box-shadow: 0 2px 8px rgba(0,40,255,0.10);
+    }
+
+    /* ====== COMING SOON ====== */
+    .cs-wrap { position: relative; }
+    .cs-overlay {
+      position: absolute; inset: 0;
+      background: rgba(247,248,250,0.92);
+      backdrop-filter: blur(3px);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      border-radius: 16px; z-index: 5; gap: 12px;
+    }
+    .cs-badge {
+      display: inline-block; padding: 12px 40px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #0028FF, #00C8FF);
+      color: #fff; font-size: 1.1rem; font-weight: 900;
+      letter-spacing: 0.16em;
+      box-shadow: 0 6px 24px rgba(0,40,255,0.25);
+    }
+    .cs-sub { font-size: 0.85rem; color: #8a95a8; letter-spacing: 0.05em; }
+    .cs-wrap > *:not(.cs-overlay) { filter: blur(3px); pointer-events: none; user-select: none; }
+
     /* ====== RESPONSIVE ====== */
     @media (max-width: 900px) {
       .pc-nav { display: none; }
@@ -272,20 +301,20 @@
   <div class="container">
     <div class="stats-grid">
       <div class="stat-item">
-        <div class="stat-num" data-count="1200">0</div>
+        <div class="stat-num">準備中</div>
         <div class="stat-label">登録学生数</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num" data-count="85">0</div>
+        <div class="stat-num">準備中</div>
         <div class="stat-label">提携部活動数</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num" data-count="230">0</div>
+        <div class="stat-num">準備中</div>
         <div class="stat-label">連携企業数</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num" data-count="95">0</div>
-        <div class="stat-label">入社後定着率（%）</div>
+        <div class="stat-num">準備中</div>
+        <div class="stat-label">掲載求人数</div>
       </div>
     </div>
   </div>
@@ -301,9 +330,9 @@
       <div class="about-text fade-in">
         <span class="section-label">About BUDO LINK</span>
         <h2 class="heading-lg">武道リンクとは</h2>
-        <p>BUDO LINKは、武道経験を持つ学生に特化したキャリア支援プラットフォームです。礼節・忍耐力・精神力・チームワーク——武道で培った資質を、企業が正しく評価できる仕組みを提供します。</p>
-        <p>就職活動支援だけでなく、大学武道部への新歓資金補助を通じて、競技人口の減少という武道界の課題にも正面から取り組んでいます。</p>
-        <p>「武道を続けてきてよかった」と心から思える未来を、入部から就職まで一貫して支え続けることがBUDO LINKの使命です。</p>
+        <p>BUDO LINKは「武道が社会と繋がる場所」を理念に掲げ、学生・企業・運営が<strong>三方よしの関係</strong>で結ばれるプラットフォームです。</p>
+        <p>学生は、JOBLAB連携による就職支援・活動資金の給付・アルバイト情報の取得・SNSを介した高校生へのリクルート機会など、<strong>競技生活と卒業後の環境を一括で整えられます。</strong></p>
+        <p>礼節・忍耐力・精神力・チームワーク——武道で培った資質を、企業が正しく評価できる仕組みを提供し、<strong>「武道を続けてきてよかった」と心から思える未来</strong>を入部から就職まで一貫して支えることがBUDO LINKの使命です。</p>
         <div class="cta-wrap">
           <a href="student-portal.html" class="btn btn-primary">無料でマイページを作成 →</a>
         </div>
@@ -321,60 +350,22 @@
       <p>BUDO LINKは全国の大学武道部と連携し、新歓活動資金の補助・就職支援を行っています。</p>
     </div>
 
-    <div class="supporter-grid">
-      <div class="supporter-card fade-in">
-        <div class="supporter-uni">中</div>
-        <h4>中央大学</h4>
-        <p class="sport">剣道部・拳法部</p>
-        <span class="supporter-tag tag-done">資金支援済み</span>
+    <div class="cs-wrap fade-in" style="min-height: 240px;">
+      <div class="supporter-grid" aria-hidden="true">
+        <div class="supporter-card"><div class="supporter-uni">大</div><h4>〇〇大学</h4><p class="sport">武道部</p></div>
+        <div class="supporter-card"><div class="supporter-uni">大</div><h4>〇〇大学</h4><p class="sport">武道部</p></div>
+        <div class="supporter-card"><div class="supporter-uni">大</div><h4>〇〇大学</h4><p class="sport">武道部</p></div>
+        <div class="supporter-card"><div class="supporter-uni">大</div><h4>〇〇大学</h4><p class="sport">武道部</p></div>
       </div>
-      <div class="supporter-card fade-in">
-        <div class="supporter-uni">明</div>
-        <h4>明治大学</h4>
-        <p class="sport">柔道部・空手道部</p>
-        <span class="supporter-tag tag-done">資金支援済み</span>
-      </div>
-      <div class="supporter-card fade-in">
-        <div class="supporter-uni">立</div>
-        <h4>立教大学</h4>
-        <p class="sport">剣道部・合気道部</p>
-        <span class="supporter-tag tag-done">資金支援済み</span>
-      </div>
-      <div class="supporter-card fade-in">
-        <div class="supporter-uni">法</div>
-        <h4>法政大学</h4>
-        <p class="sport">柔道部・弓道部</p>
-        <span class="supporter-tag tag-done">資金支援済み</span>
-      </div>
-      <div class="supporter-card fade-in">
-        <div class="supporter-uni">青</div>
-        <h4>青山学院大学</h4>
-        <p class="sport">空手道部・柔道部</p>
-        <span class="supporter-tag tag-done">資金支援済み</span>
-      </div>
-      <div class="supporter-card fade-in">
-        <div class="supporter-uni">早</div>
-        <h4>早稲田大学</h4>
-        <p class="sport">剣道部・拳法部</p>
-        <span class="supporter-tag tag-plan">支援予定</span>
-      </div>
-      <div class="supporter-card fade-in">
-        <div class="supporter-uni">慶</div>
-        <h4>慶應義塾大学</h4>
-        <p class="sport">柔道部・剣道部</p>
-        <span class="supporter-tag tag-plan">支援予定</span>
-      </div>
-      <div class="supporter-card fade-in">
-        <div class="supporter-uni">東</div>
-        <h4>東京大学</h4>
-        <p class="sport">合気道部・柔道部</p>
-        <span class="supporter-tag tag-plan">支援予定</span>
+      <div class="cs-overlay">
+        <div class="cs-badge">COMING SOON</div>
+        <p class="cs-sub">支援団体を順次掲載予定です</p>
       </div>
     </div>
 
     <div class="supporters-cta fade-in">
       <p>支援をご希望の大学武道部はお気軽にご相談ください</p>
-      <a href="corporate.html" class="btn btn-primary">支援を申し込む</a>
+      <a href="contact.html" class="btn btn-primary">支援を申し込む</a>
     </div>
   </div>
 </section>
@@ -388,30 +379,29 @@
       <p>武道学生の採用・育成に積極的な企業・団体がBUDO LINKを支援しています。</p>
     </div>
 
-    <div class="sponsor-grid">
+    <!-- 確定済み協賛 -->
+    <div class="sponsor-grid" style="margin-bottom: 24px;">
       <div class="sponsor-card fade-in">
         <div class="sponsor-logo">A</div>
         <h4>株式会社ANCa</h4>
         <p>JOBLAB就活支援<br>人材育成プログラム</p>
       </div>
-      <div class="sponsor-card fade-in">
-        <div class="sponsor-logo">J</div>
-        <h4>JOBLAB</h4>
-        <p>武道学生専門<br>就活支援プログラム</p>
+    </div>
+
+    <!-- 募集中枠 -->
+    <div class="cs-wrap fade-in" style="min-height: 180px;">
+      <div class="sponsor-grid" aria-hidden="true">
+        <div class="sponsor-card"><div class="sponsor-logo">?</div><h4>募集中</h4><p>協賛企業</p></div>
+        <div class="sponsor-card"><div class="sponsor-logo">?</div><h4>募集中</h4><p>協賛企業</p></div>
+        <div class="sponsor-card"><div class="sponsor-logo">?</div><h4>募集中</h4><p>協賛企業</p></div>
       </div>
-      <div class="sponsor-card fade-in">
-        <div class="sponsor-logo">💪</div>
-        <h4>スポーツサプリ各社</h4>
-        <p>プロテイン・サプリメント<br>割引特典を提供</p>
-      </div>
-      <div class="sponsor-card fade-in">
-        <div class="sponsor-logo">🏋</div>
-        <h4>提携ジム各社</h4>
-        <p>ジム施設の月会費割引<br>特典を提供</p>
+      <div class="cs-overlay">
+        <div class="cs-badge">COMING SOON</div>
+        <p class="cs-sub">協賛企業を募集中です</p>
       </div>
     </div>
 
-    <p class="sponsor-note fade-in">※ 協賛・広告掲載のお問い合わせは <strong>info@budolink.jp</strong> まで</p>
+    <p class="sponsor-note fade-in">※ 協賛・広告掲載のお問い合わせは <a href="contact.html" style="color:#0028FF;font-weight:700;">こちら</a> まで</p>
   </div>
 </section>
 
@@ -440,15 +430,17 @@
         <h3>OB/OG訪問</h3>
         <p>同じ武道出身の先輩社会人に直接相談。業界のリアルな情報とキャリアのヒントを得ることができます。</p>
       </div>
-      <div class="service-card fade-in">
+      <div class="service-card fade-in" style="position:relative; overflow:hidden;">
         <div class="service-icon">📩</div>
         <h3>スカウト機能</h3>
         <p>プロフィールを登録するだけで企業からスカウトが届きます。受動的なキャリア探索も可能です。</p>
+        <span style="position:absolute;top:14px;right:14px;background:linear-gradient(135deg,#0028FF,#00C8FF);color:#fff;font-size:0.65rem;font-weight:800;letter-spacing:0.1em;padding:3px 10px;border-radius:999px;">COMING SOON</span>
       </div>
-      <div class="service-card fade-in">
+      <div class="service-card fade-in" style="position:relative; overflow:hidden;">
         <div class="service-icon">🎁</div>
         <h3>お得情報・特典</h3>
         <p>協賛企業からのプロテイン割引・ジム会費割引・武道具の団体購入割引など、武道学生専用の特典を掲載。</p>
+        <span style="position:absolute;top:14px;right:14px;background:linear-gradient(135deg,#0028FF,#00C8FF);color:#fff;font-size:0.65rem;font-weight:800;letter-spacing:0.1em;padding:3px 10px;border-radius:999px;">COMING SOON</span>
       </div>
       <div class="service-card fade-in">
         <div class="service-icon">🌸</div>

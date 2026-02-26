@@ -624,16 +624,24 @@ form.addEventListener('submit', async (e) => {
       return;
     }
 
+    const org = document.getElementById('contact-org').value.trim().substring(0, 200);
+    const categoryLabel = {
+      student: '学生登録・サービス', joblab: 'JOBLAB就活支援',
+      jobs: '求人・アルバイト', corporate: '企業掲載・広告',
+      obog: 'OB/OG', other: 'その他'
+    }[category] || category;
+
+    // GASが受け取るフィールド: name / email / message
     const payload = {
-      type:     'contact_form',
-      _hp:      hpVal,
-      name:     name.substring(0, 100),
-      email:    email.substring(0, 254),
-      subject:  subject.substring(0, 200),
-      body:     message.substring(0, 2000),
-      category: category,
-      org:      document.getElementById('contact-org').value.trim().substring(0, 200),
-      sentAt:   new Date().toLocaleString('ja-JP'),
+      name:    name.substring(0, 100),
+      email:   email.substring(0, 254),
+      message: [
+        `【種別】${categoryLabel}`,
+        org ? `【所属】${org}` : '',
+        `【件名】${subject.substring(0, 200)}`,
+        '',
+        message.substring(0, 2000),
+      ].filter(Boolean).join('\n'),
     };
 
     const res = await fetch(GAS_URL, {
@@ -643,7 +651,7 @@ form.addEventListener('submit', async (e) => {
     });
 
     const data = await res.json();
-    if (data.success) {
+    if (data.result === 'success') {
       showStatus('✅ お問い合わせを受け付けました。2〜3営業日以内にご返信いたします。', 'success');
       form.reset();
       countEl.textContent = '0 / 2000';
