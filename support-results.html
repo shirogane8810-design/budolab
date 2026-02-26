@@ -2,6 +2,38 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+  <!-- ═══════════════════════════════════════════════════
+       SECURITY HEADERS — BUDO LINK
+       GitHub Pages は HTTP ヘッダーを設定できないため
+       meta タグで同等のセキュリティを実装しています
+  ════════════════════════════════════════════════════ -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src  'self' 'unsafe-inline'
+                https://www.googletagmanager.com
+                https://www.google-analytics.com
+                https://script.google.com
+                https://apis.google.com
+                https://fonts.googleapis.com;
+    style-src   'self' 'unsafe-inline'
+                https://fonts.googleapis.com;
+    font-src    'self' https://fonts.gstatic.com data:;
+    img-src     'self' data: blob: https:;
+    connect-src 'self'
+                https://script.google.com
+                https://joblab.anca.co.jp
+                https://lin.ee
+                https://www.google-analytics.com;
+    frame-src   https://joblab.anca.co.jp https://lin.ee;
+    object-src  'none';
+    base-uri    'self';
+    form-action 'self' https://script.google.com;
+  ">
+  <meta http-equiv="X-Content-Type-Options"  content="nosniff">
+  <meta http-equiv="X-Frame-Options"         content="SAMEORIGIN">
+  <meta http-equiv="Referrer-Policy"         content="strict-origin-when-cross-origin">
+  <meta http-equiv="Permissions-Policy"      content="camera=(), microphone=(), geolocation=(), payment=()">
+  <!-- ═══════════════════════════════════════════════ -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>支援実績 | BUDO LINK</title>
   <style>
@@ -113,7 +145,7 @@
         <a href="student.html">TOP</a>
         <a href="jobs.html">求人情報</a>
         <a href="joblab.html">JOBLAB</a>
-        <a href="student.html#contact">お問い合わせ</a>
+        <a href="contact.html">お問い合わせ</a>
       </nav>
     </div>
   </header>
@@ -184,7 +216,7 @@
           <div>
             <strong>団体ごとの課題に合わせて、募集設計から当日運営まで支援します。</strong>
           </div>
-          <a class="btn" href="student.html#contact">相談する</a>
+          <a class="btn" href="contact.html">相談する</a>
         </div>
       </div>
     </section>

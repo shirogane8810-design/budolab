@@ -2,6 +2,38 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+  <!-- ═══════════════════════════════════════════════════
+       SECURITY HEADERS — BUDO LINK
+       GitHub Pages は HTTP ヘッダーを設定できないため
+       meta タグで同等のセキュリティを実装しています
+  ════════════════════════════════════════════════════ -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src  'self' 'unsafe-inline'
+                https://www.googletagmanager.com
+                https://www.google-analytics.com
+                https://script.google.com
+                https://apis.google.com
+                https://fonts.googleapis.com;
+    style-src   'self' 'unsafe-inline'
+                https://fonts.googleapis.com;
+    font-src    'self' https://fonts.gstatic.com data:;
+    img-src     'self' data: blob: https:;
+    connect-src 'self'
+                https://script.google.com
+                https://joblab.anca.co.jp
+                https://lin.ee
+                https://www.google-analytics.com;
+    frame-src   https://joblab.anca.co.jp https://lin.ee;
+    object-src  'none';
+    base-uri    'self';
+    form-action 'self' https://script.google.com;
+  ">
+  <meta http-equiv="X-Content-Type-Options"  content="nosniff">
+  <meta http-equiv="X-Frame-Options"         content="SAMEORIGIN">
+  <meta http-equiv="Referrer-Policy"         content="strict-origin-when-cross-origin">
+  <meta http-equiv="Permissions-Policy"      content="camera=(), microphone=(), geolocation=(), payment=()">
+  <!-- ═══════════════════════════════════════════════ -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>求人情報 - BUDO LINK</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -323,7 +355,7 @@
         <a href="joblab.html">JOBLAB</a>
         <a href="obog.html">OB/OG</a>
         <a href="jobs.html" class="active">求人情報</a>
-        <a href="student.html#contact">Contact</a>
+        <a href="contact.html">Contact</a>
       </nav>
       <div class="header-right">
         <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -344,7 +376,7 @@
       <a href="joblab.html">JOBLAB</a>
       <a href="obog.html">OB/OG</a>
       <a href="jobs.html">求人情報</a>
-      <a href="student.html#contact">Contact</a>
+      <a href="contact.html">Contact</a>
     </nav>
   </div>
 
@@ -437,7 +469,7 @@
           <div class="footer-col">
             <h4>BUDO LINK</h4>
             <a href="student.html#about">About</a>
-            <a href="student.html#contact">お問い合わせ</a>
+            <a href="contact.html">お問い合わせ</a>
             <a href="corporate.html">企業の方</a>
             <a href="obog-register.html">OB/OGの方</a>
           </div>
@@ -588,7 +620,7 @@
             '<div class="job-card-desc">' + esc(job.description) + '</div>' +
             '<div class="job-card-footer">' +
               '<div class="job-card-req">&#128203; ' + esc(job.requirements) + '</div>' +
-              '<a href="student.html#contact" class="btn btn-primary">&#9993; 応募・相談する</a>' +
+              '<a href="contact.html" class="btn btn-primary">&#9993; 応募・相談する</a>' +
             '</div>' +
           '</div>' +
         '</div>';

@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <!-- ═══ SECURITY HEADERS ═══ -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://script.google.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; connect-src 'self' https://script.google.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://script.google.com;">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()">
+  <!-- ═══════════════════════ -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="BUDO LINK へのお問い合わせはこちら。武道学生向けキャリア支援・企業掲載・JOBLAB連携に関するご相談をお受けします。">
+  <title>お問い合わせ | BUDO LINK</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Inter", "游ゴシック体", YuGothic, "游ゴシック", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+      color: #1a2744;
+      background: #f4f6fb;
+      min-height: 100vh;
+    }
+
+    /* ── Nav ── */
+    .nav {
+      background: #0a1628;
+      padding: 16px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: .06em;
+    }
+    .nav-logo span { color: #00C8FF; }
+    .nav-links { display: flex; gap: 24px; }
+    .nav-links a {
+      color: rgba(255,255,255,.7);
+      font-size: .9rem;
+      font-weight: 600;
+      transition: color .2s;
+      text-decoration: none;
+    }
+    .nav-links a:hover { color: #00C8FF; }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, #0a1628 0%, #0028FF 100%);
+      padding: 80px 28px 60px;
+      text-align: center;
+      color: #fff;
+    }
+    .hero-label {
+      font-size: .85rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: #00C8FF;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 900;
+      margin-bottom: 16px;
+      font-family: "Noto Serif JP", serif;
+    }
+    .hero p {
+      font-size: 1rem;
+      color: rgba(255,255,255,.75);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    /* ── Main layout ── */
+    .main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 40px;
+      align-items: start;
+    }
+
+    /* ── Form card ── */
+    .form-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 48px 44px;
+      box-shadow: 0 4px 32px rgba(0,40,255,.07);
+    }
+    .form-card h2 {
+      font-size: 1.3rem;
+      font-weight: 900;
+      margin-bottom: 8px;
+      color: #0028FF;
+    }
+    .form-card .form-desc {
+      font-size: .9rem;
+      color: #666;
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+
+    .form-group {
+      margin-bottom: 22px;
+    }
+    .form-group label {
+      display: block;
+      font-size: .88rem;
+      font-weight: 700;
+      color: #1a2744;
+      margin-bottom: 6px;
+    }
+    .form-group label .req {
+      color: #e02020;
+      margin-left: 4px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid #d1d9e8;
+      border-radius: 10px;
+      font-size: .95rem;
+      font-family: inherit;
+      color: #1a2744;
+      background: #f8faff;
+      transition: border-color .2s, box-shadow .2s;
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #0028FF;
+      box-shadow: 0 0 0 3px rgba(0,40,255,.12);
+      background: #fff;
+    }
+    .form-group textarea { min-height: 140px; resize: vertical; }
+
+    /* ハニーポット（ボット対策）: 人間には見えない */
+    .hp-field { opacity: 0; position: absolute; top: -9999px; left: -9999px; height: 0; }
+
+    .char-count {
+      text-align: right;
+      font-size: .78rem;
+      color: #999;
+      margin-top: 4px;
+    }
+    .char-count.warn { color: #e07000; }
+
+    .form-submit {
+      background: linear-gradient(135deg, #0028FF, #0050ff);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 16px 32px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      transition: opacity .2s, transform .1s;
+      margin-top: 8px;
+    }
+    .form-submit:hover:not(:disabled) { opacity: .88; transform: translateY(-1px); }
+    .form-submit:disabled { opacity: .5; cursor: not-allowed; }
+
+    .form-notice {
+      font-size: .8rem;
+      color: #888;
+      text-align: center;
+      margin-top: 14px;
+      line-height: 1.6;
+    }
+
+    /* ── Status messages ── */
+    .status-box {
+      display: none;
+      padding: 14px 18px;
+      border-radius: 10px;
+      font-size: .9rem;
+      font-weight: 600;
+      margin-top: 16px;
+    }
+    .status-box.success { background: #e8f8f0; color: #1a7a45; border: 1.5px solid #9de0bc; display: block; }
+    .status-box.error   { background: #fdf0f0; color: #b02020; border: 1.5px solid #f5a8a8; display: block; }
+
+    /* ── Sidebar ── */
+    .sidebar { display: flex; flex-direction: column; gap: 24px; }
+
+    .info-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 28px 26px;
+      box-shadow: 0 4px 20px rgba(0,40,255,.06);
+    }
+    .info-card h3 {
+      font-size: 1rem;
+      font-weight: 900;
+      color: #0028FF;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .info-card h3::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 18px;
+      background: #0028FF;
+      border-radius: 2px;
+    }
+    .info-card p {
+      font-size: .88rem;
+      color: #555;
+      line-height: 1.75;
+    }
+    .info-card a {
+      color: #0028FF;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .info-card a:hover { text-decoration: underline; }
+
+    .contact-items { display: flex; flex-direction: column; gap: 12px; margin-top: 4px; }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: .88rem;
+      color: #333;
+    }
+    .contact-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: #e8eeff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    /* JOBLAB カード */
+    .joblab-card {
+      background: linear-gradient(135deg, #0028FF 0%, #0050ff 100%);
+      border-radius: 16px;
+      padding: 28px 26px;
+      color: #fff;
+    }
+    .joblab-card h3 {
+      font-size: 1rem;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+    .joblab-card p {
+      font-size: .85rem;
+      color: rgba(255,255,255,.85);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .joblab-btn {
+      display: block;
+      background: #fff;
+      color: #0028FF;
+      font-weight: 800;
+      font-size: .9rem;
+      text-align: center;
+      padding: 12px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: opacity .2s;
+    }
+    .joblab-btn:hover { opacity: .9; }
+
+    /* ── FAQ ── */
+    .faq-section {
+      max-width: 960px;
+      margin: 0 auto 80px;
+      padding: 0 24px;
+    }
+    .faq-section h2 {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #0028FF;
+      margin-bottom: 28px;
+      text-align: center;
+    }
+    .faq-list { display: flex; flex-direction: column; gap: 12px; }
+    .faq-item {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,40,255,.05);
+      overflow: hidden;
+    }
+    .faq-q {
+      padding: 18px 22px;
+      font-weight: 700;
+      font-size: .95rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+      color: #1a2744;
+    }
+    .faq-q .icon { font-size: 1.2rem; transition: transform .3s; color: #0028FF; }
+    .faq-item.open .faq-q .icon { transform: rotate(45deg); }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s ease;
+      padding: 0 22px;
+      font-size: .9rem;
+      color: #555;
+      line-height: 1.8;
+    }
+    .faq-item.open .faq-a {
+      max-height: 400px;
+      padding-bottom: 18px;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: #0a1628;
+      color: rgba(255,255,255,.55);
+      text-align: center;
+      padding: 32px 20px;
+      font-size: .82rem;
+    }
+    footer a { color: rgba(255,255,255,.7); text-decoration: none; margin: 0 10px; }
+    footer a:hover { color: #00C8FF; }
+
+    /* ── Responsive ── */
+    @media (max-width: 780px) {
+      .main { grid-template-columns: 1fr; }
+      .form-card { padding: 32px 22px; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav class="nav">
+  <a href="index.html" class="nav-logo">BUDO <span>LINK</span></a>
+  <div class="nav-links">
+    <a href="student.html">学生の方へ</a>
+    <a href="corporate.html">企業の方へ</a>
+    <a href="jobs.html">求人情報</a>
+    <a href="joblab.html">JOBLAB</a>
+    <a href="contact.html" style="color:#00C8FF;">お問い合わせ</a>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="hero">
+  <p class="hero-label">Contact</p>
+  <h1>お問い合わせ</h1>
+  <p>武道学生のキャリア支援・企業掲載・JOBLAB連携についてのご相談・ご質問はこちらからお気軽にどうぞ。</p>
+</section>
+
+<!-- ── Main ── -->
+<div class="main">
+
+  <!-- フォーム -->
+  <div class="form-card">
+    <h2>お問い合わせフォーム</h2>
+    <p class="form-desc">
+      通常2〜3営業日以内にご返信いたします。<br>
+      就活支援（JOBLAB）に関するお問い合わせも受け付けています。
+    </p>
+
+    <form id="contact-form" novalidate>
+      <!-- ハニーポット（ボット対策） -->
+      <div class="hp-field" aria-hidden="true">
+        <input type="text" name="_hp" id="_hp" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div class="form-group">
+        <label for="contact-category">お問い合わせ種別<span class="req">*</span></label>
+        <select id="contact-category" name="category" required>
+          <option value="">選択してください</option>
+          <option value="student">学生登録・サービスについて</option>
+          <option value="joblab">JOBLAB就活支援について</option>
+          <option value="jobs">求人・アルバイト情報について</option>
+          <option value="corporate">企業掲載・広告について</option>
+          <option value="obog">OB/OG登録・訪問について</option>
+          <option value="other">その他</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="contact-name">お名前<span class="req">*</span></label>
+        <input type="text" id="contact-name" name="name"
+               placeholder="例：山田 太郎" maxlength="100" required>
+      </div>
+
+      <div class="form-group">
+        <label for="contact-email">メールアドレス<span class="req">*</span></label>
+        <input type="email" id="contact-email" name="email"
+               placeholder="例：taro@example.com" maxlength="254" required>
+      </div>
+
+      <div class="form-group">
+        <label for="contact-org">所属（大学名・企業名など）</label>
+        <input type="text" id="contact-org" name="org"
+               placeholder="例：〇〇大学 剣道部、株式会社〇〇" maxlength="200">
+      </div>
+
+      <div class="form-group">
+        <label for="contact-subject">件名<span class="req">*</span></label>
+        <input type="text" id="contact-subject" name="subject"
+               placeholder="例：JOBLAB就活支援の利用について" maxlength="200" required>
+      </div>
+
+      <div class="form-group">
+        <label for="contact-message">お問い合わせ内容<span class="req">*</span></label>
+        <textarea id="contact-message" name="message"
+                  placeholder="ご質問・ご要望の詳細をご記入ください。（2000文字以内）"
+                  maxlength="2000" required></textarea>
+        <div class="char-count" id="char-count">0 / 2000</div>
+      </div>
+
+      <button type="submit" class="form-submit" id="submit-btn">
+        送信する
+      </button>
+
+      <div class="status-box" id="form-status"></div>
+
+      <p class="form-notice">
+        送信内容は暗号化されて安全に送信されます。<br>
+        個人情報は <a href="#" style="color:#0028FF">プライバシーポリシー</a> に従い適切に管理します。
+      </p>
+    </form>
+  </div>
+
+  <!-- サイドバー -->
+  <aside class="sidebar">
+
+    <!-- JOBLAB カード -->
+    <div class="joblab-card">
+      <h3>🎓 無料の就活支援 — JOBLAB</h3>
+      <p>武道学生向けに、ANCaが提供する完全無料の就活支援サービスです。面接対策・ES添削・企業紹介まで一貫してサポートします。</p>
+      <a href="https://joblab.anca.co.jp/" target="_blank" rel="noopener noreferrer" class="joblab-btn">
+        JOBLABの詳細を見る →
+      </a>
+    </div>
+
+    <!-- 連絡先情報 -->
+    <div class="info-card">
+      <h3>その他の連絡先</h3>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div>
+            <div style="font-weight:700;margin-bottom:2px;">メール</div>
+            <a href="mailto:info@budolink.jp">info@budolink.jp</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">💬</div>
+          <div>
+            <div style="font-weight:700;margin-bottom:2px;">LINE</div>
+            <a href="https://lin.ee/KtxrF6x" target="_blank" rel="noopener noreferrer">
+              LINE公式アカウント
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 受付時間 -->
+    <div class="info-card">
+      <h3>受付・返信について</h3>
+      <p>
+        通常 <strong>2〜3営業日以内</strong> にご返信いたします。<br><br>
+        お急ぎの方は LINE 公式アカウントからご連絡いただくと迅速に対応できます。
+      </p>
+    </div>
+
+  </aside>
+</div>
+
+<!-- ── FAQ ── -->
+<section class="faq-section">
+  <h2>よくあるご質問</h2>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q">BUDO LINKの利用は有料ですか？<span class="icon">＋</span></div>
+      <div class="faq-a">学生の方は完全無料でご利用いただけます。企業向けの掲載サービスについては、プランによって費用が異なります。詳しくは企業向けページをご覧ください。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">JOBLABとはどのようなサービスですか？<span class="icon">＋</span></div>
+      <div class="faq-a">JOBLABは株式会社ANCaが運営する就活支援サービスです。BUDO LINKの協賛企業として、武道学生に無料でES添削・面接練習・業界研究セミナー・企業紹介を提供しています。<a href="https://joblab.anca.co.jp/" target="_blank" rel="noopener noreferrer">JOBLAB公式サイト</a>でも詳細をご覧いただけます。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">求人・アルバイト情報を掲載したいのですが？<span class="icon">＋</span></div>
+      <div class="faq-a">企業・団体の方は「企業の方へ」ページからお問い合わせください。武道学生に特化したターゲティング広告・求人掲載プランをご用意しています。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">OB/OGとして登録したいのですが？<span class="icon">＋</span></div>
+      <div class="faq-a">武道部出身の方であればどなたでもOB/OGメンターとして登録できます。「OB/OG登録」ページからLINEでご登録ください。後輩の就活をサポートしていただけます。</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">返信が来ない場合はどうすれば？<span class="icon">＋</span></div>
+      <div class="faq-a">メールが迷惑メールフォルダに振り分けられている可能性があります。3営業日以上経過してもご連絡がない場合は、LINE公式アカウントからお問い合わせください。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <div style="margin-bottom:12px;">
+    <a href="index.html">ホーム</a>
+    <a href="student.html">学生の方へ</a>
+    <a href="corporate.html">企業の方へ</a>
+    <a href="jobs.html">求人情報</a>
+    <a href="joblab.html">JOBLAB</a>
+    <a href="contact.html">お問い合わせ</a>
+  </div>
+  <p>© 2025 BUDO LINK. All rights reserved.</p>
+</footer>
+
+<script>
+/* ─── GAS エンドポイント（デプロイ後に差し替え） ─── */
+const GAS_URL = 'YOUR_GAS_DEPLOYMENT_URL_HERE';
+
+/* ─── 文字数カウンター ─── */
+const msgEl    = document.getElementById('contact-message');
+const countEl  = document.getElementById('char-count');
+msgEl.addEventListener('input', () => {
+  const len = msgEl.value.length;
+  countEl.textContent = `${len} / 2000`;
+  countEl.className = 'char-count' + (len > 1800 ? ' warn' : '');
+});
+
+/* ─── FAQ アコーディオン ─── */
+document.querySelectorAll('.faq-q').forEach(q => {
+  q.addEventListener('click', () => {
+    const item = q.closest('.faq-item');
+    item.classList.toggle('open');
+  });
+});
+
+/* ─── レート制限（クライアント側補助） ─── */
+function clientRateLimit() {
+  const key  = 'bl_contact_ts';
+  const last = parseInt(localStorage.getItem(key) || '0', 10);
+  if (Date.now() - last < 60000) {
+    return false; // 1分間に1回まで
+  }
+  localStorage.setItem(key, Date.now().toString());
+  return true;
+}
+
+/* ─── フォーム送信 ─── */
+const form      = document.getElementById('contact-form');
+const submitBtn = document.getElementById('submit-btn');
+const statusBox = document.getElementById('form-status');
+
+function showStatus(msg, type) {
+  statusBox.textContent = msg;
+  statusBox.className   = 'status-box ' + type;
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  /* クライアント側レート制限 */
+  if (!clientRateLimit()) {
+    showStatus('送信間隔が短すぎます。1分ほどおいてから再度お試しください。', 'error');
+    return;
+  }
+
+  /* ハニーポットチェック */
+  const hpVal = document.getElementById('_hp').value;
+  if (hpVal) return; // ボットは静かに無視
+
+  /* 入力検証 */
+  const name     = document.getElementById('contact-name').value.trim();
+  const email    = document.getElementById('contact-email').value.trim();
+  const subject  = document.getElementById('contact-subject').value.trim();
+  const message  = document.getElementById('contact-message').value.trim();
+  const category = document.getElementById('contact-category').value;
+
+  if (!name || !email || !subject || !message || !category) {
+    showStatus('必須項目（*）をすべてご入力ください。', 'error');
+    return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+    showStatus('正しいメールアドレスを入力してください。', 'error');
+    return;
+  }
+  if (message.length > 2000) {
+    showStatus('お問い合わせ内容は2000文字以内でご入力ください。', 'error');
+    return;
+  }
+
+  /* 送信 */
+  submitBtn.disabled    = true;
+  submitBtn.textContent = '送信中…';
+
+  try {
+    if (!GAS_URL || GAS_URL === 'YOUR_GAS_DEPLOYMENT_URL_HERE') {
+      /* GAS未設定時はデモ動作 */
+      await new Promise(r => setTimeout(r, 800));
+      showStatus('✅ お問い合わせを受け付けました。2〜3営業日以内にご返信いたします。', 'success');
+      form.reset();
+      countEl.textContent = '0 / 2000';
+      return;
+    }
+
+    const payload = {
+      type:     'contact_form',
+      _hp:      hpVal,
+      name:     name.substring(0, 100),
+      email:    email.substring(0, 254),
+      subject:  subject.substring(0, 200),
+      body:     message.substring(0, 2000),
+      category: category,
+      org:      document.getElementById('contact-org').value.trim().substring(0, 200),
+      sentAt:   new Date().toLocaleString('ja-JP'),
+    };
+
+    const res = await fetch(GAS_URL, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload),
+    });
+
+    const data = await res.json();
+    if (data.success) {
+      showStatus('✅ お問い合わせを受け付けました。2〜3営業日以内にご返信いたします。', 'success');
+      form.reset();
+      countEl.textContent = '0 / 2000';
+    } else {
+      showStatus('送信に失敗しました。時間をおいて再度お試しください。', 'error');
+    }
+  } catch (_) {
+    showStatus('通信エラーが発生しました。LINE公式アカウントからお問い合わせください。', 'error');
+  } finally {
+    submitBtn.disabled    = false;
+    submitBtn.textContent = '送信する';
+  }
+});
+</script>
+</body>
+</html>

@@ -2,6 +2,38 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+  <!-- ═══════════════════════════════════════════════════
+       SECURITY HEADERS — BUDO LINK
+       GitHub Pages は HTTP ヘッダーを設定できないため
+       meta タグで同等のセキュリティを実装しています
+  ════════════════════════════════════════════════════ -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src  'self' 'unsafe-inline'
+                https://www.googletagmanager.com
+                https://www.google-analytics.com
+                https://script.google.com
+                https://apis.google.com
+                https://fonts.googleapis.com;
+    style-src   'self' 'unsafe-inline'
+                https://fonts.googleapis.com;
+    font-src    'self' https://fonts.gstatic.com data:;
+    img-src     'self' data: blob: https:;
+    connect-src 'self'
+                https://script.google.com
+                https://joblab.anca.co.jp
+                https://lin.ee
+                https://www.google-analytics.com;
+    frame-src   https://joblab.anca.co.jp https://lin.ee;
+    object-src  'none';
+    base-uri    'self';
+    form-action 'self' https://script.google.com;
+  ">
+  <meta http-equiv="X-Content-Type-Options"  content="nosniff">
+  <meta http-equiv="X-Frame-Options"         content="SAMEORIGIN">
+  <meta http-equiv="Referrer-Policy"         content="strict-origin-when-cross-origin">
+  <meta http-equiv="Permissions-Policy"      content="camera=(), microphone=(), geolocation=(), payment=()">
+  <!-- ═══════════════════════════════════════════════ -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BUDO LINK - OB/OG向け｜後輩支援・メンター登録</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -346,7 +378,7 @@
         <a href="corporate.html">企業の方</a>
         <a href="obog-register.html" class="active">OB/OGの方</a>
         <a href="student.html">学生ページ</a>
-        <a href="#register-cta">Contact</a>
+        <a href="contact.html">Contact</a>
       </nav>
       <div class="header-right">
         <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -364,7 +396,7 @@
       <a href="corporate.html">企業の方</a>
       <a href="obog-register.html">OB/OGの方</a>
       <a href="student.html">学生ページ</a>
-      <a href="#register-cta">Contact</a>
+      <a href="contact.html">Contact</a>
     </nav>
   </div>
 
@@ -378,7 +410,7 @@
           <h1 class="heading-xl">あなたの経験が、<br>後輩の未来をつくる。</h1>
           <p>武道部出身OB/OGとして、後輩の就活・キャリアを支援しませんか。<br>あなたの一歩が、武道界全体の未来を変えます。</p>
           <div class="hero-buttons">
-            <a href="#register-cta" class="btn btn-white">OB/OGとして登録する</a>
+            <a href="contact.html" class="btn btn-white">OB/OGとして登録する</a>
             <a href="#benefits" class="btn btn-outline-white">詳しく見る</a>
           </div>
         </div>

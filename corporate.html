@@ -2,6 +2,38 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+  <!-- ═══════════════════════════════════════════════════
+       SECURITY HEADERS — BUDO LINK
+       GitHub Pages は HTTP ヘッダーを設定できないため
+       meta タグで同等のセキュリティを実装しています
+  ════════════════════════════════════════════════════ -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src  'self' 'unsafe-inline'
+                https://www.googletagmanager.com
+                https://www.google-analytics.com
+                https://script.google.com
+                https://apis.google.com
+                https://fonts.googleapis.com;
+    style-src   'self' 'unsafe-inline'
+                https://fonts.googleapis.com;
+    font-src    'self' https://fonts.gstatic.com data:;
+    img-src     'self' data: blob: https:;
+    connect-src 'self'
+                https://script.google.com
+                https://joblab.anca.co.jp
+                https://lin.ee
+                https://www.google-analytics.com;
+    frame-src   https://joblab.anca.co.jp https://lin.ee;
+    object-src  'none';
+    base-uri    'self';
+    form-action 'self' https://script.google.com;
+  ">
+  <meta http-equiv="X-Content-Type-Options"  content="nosniff">
+  <meta http-equiv="X-Frame-Options"         content="SAMEORIGIN">
+  <meta http-equiv="Referrer-Policy"         content="strict-origin-when-cross-origin">
+  <meta http-equiv="Permissions-Policy"      content="camera=(), microphone=(), geolocation=(), payment=()">
+  <!-- ═══════════════════════════════════════════════ -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BUDO LINK - 企業向け｜広告・イベント掲載</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -379,7 +411,7 @@
         <a href="corporate.html" class="active">企業の方</a>
         <a href="obog-register.html">OB/OGの方</a>
         <a href="student.html">学生ページ</a>
-        <a href="#contact">Contact</a>
+        <a href="contact.html">Contact</a>
       </nav>
       <div class="header-right">
         <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -397,7 +429,7 @@
       <a href="corporate.html">企業の方</a>
       <a href="obog-register.html">OB/OGの方</a>
       <a href="student.html">学生ページ</a>
-      <a href="#contact">Contact</a>
+      <a href="contact.html">Contact</a>
     </nav>
   </div>
 
@@ -411,7 +443,7 @@
           <h1 class="heading-xl">武道学生に、<br>届く広告を。</h1>
           <p>BUDO LINKは武道学生向けのキャリア支援プラットフォームです。<br>貴社の広告・イベント情報を、全国の武道学生に直接届けます。</p>
           <div class="hero-buttons">
-            <a href="#contact" class="btn btn-white">お問い合わせ</a>
+            <a href="contact.html" class="btn btn-white">お問い合わせ</a>
             <a href="#services" class="btn btn-outline-white">掲載プランを見る</a>
           </div>
         </div>

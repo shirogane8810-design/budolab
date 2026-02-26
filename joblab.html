@@ -2,6 +2,38 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+  <!-- ═══════════════════════════════════════════════════
+       SECURITY HEADERS — BUDO LINK
+       GitHub Pages は HTTP ヘッダーを設定できないため
+       meta タグで同等のセキュリティを実装しています
+  ════════════════════════════════════════════════════ -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src  'self' 'unsafe-inline'
+                https://www.googletagmanager.com
+                https://www.google-analytics.com
+                https://script.google.com
+                https://apis.google.com
+                https://fonts.googleapis.com;
+    style-src   'self' 'unsafe-inline'
+                https://fonts.googleapis.com;
+    font-src    'self' https://fonts.gstatic.com data:;
+    img-src     'self' data: blob: https:;
+    connect-src 'self'
+                https://script.google.com
+                https://joblab.anca.co.jp
+                https://lin.ee
+                https://www.google-analytics.com;
+    frame-src   https://joblab.anca.co.jp https://lin.ee;
+    object-src  'none';
+    base-uri    'self';
+    form-action 'self' https://script.google.com;
+  ">
+  <meta http-equiv="X-Content-Type-Options"  content="nosniff">
+  <meta http-equiv="X-Frame-Options"         content="SAMEORIGIN">
+  <meta http-equiv="Referrer-Policy"         content="strict-origin-when-cross-origin">
+  <meta http-equiv="Permissions-Policy"      content="camera=(), microphone=(), geolocation=(), payment=()">
+  <!-- ═══════════════════════════════════════════════ -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JOBLAB 就活支援 - BUDO LINK × 株式会社ANCa</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -421,7 +453,7 @@
         <a href="joblab.html">JOBLAB</a>
         <a href="obog.html">OB/OG</a>
         <a href="jobs.html">求人情報</a>
-        <a href="student.html#contact">Contact</a>
+        <a href="contact.html">Contact</a>
       </nav>
       <div class="header-right">
         <div class="header-sns">
@@ -447,7 +479,7 @@
       <a href="joblab.html">JOBLAB</a>
       <a href="obog.html">OB/OG</a>
       <a href="jobs.html">求人情報</a>
-      <a href="student.html#contact">Contact</a>
+      <a href="contact.html">Contact</a>
     </nav>
     <div class="drawer-sns">
       <a href="https://lin.ee/KtxrF6x" target="_blank" rel="noopener" aria-label="LINE">
@@ -471,7 +503,7 @@
       <h1>武道学生のキャリアを、<br><em>JOBLAB</em>が加速させる。</h1>
       <p>株式会社ANCaが運営する就活支援プログラム「JOBLAB」と提携。<br>ビジネススキルの習得から特別選考まで、あなたの就職活動を全面サポートします。</p>
       <div class="hero-buttons">
-        <a href="https://www.anca.co.jp/joblab" target="_blank" rel="noopener" class="btn btn-primary btn-lg">JOBLAB 公式サイトへ</a>
+        <a href="https://joblab.anca.co.jp/" target="_blank" rel="noopener" class="btn btn-primary btn-lg">JOBLAB 公式サイトへ</a>
         <a href="#about-joblab" class="btn btn-outline-white btn-lg">詳しく見る</a>
       </div>
     </div>
@@ -642,7 +674,7 @@
       <h2>武道で培った力を、<br>キャリアの武器にしよう。</h2>
       <p>BUDO LINK &times; JOBLABの就活支援プログラムで、<br>あなたの可能性を最大限に引き出します。</p>
       <div class="cta-buttons">
-        <a href="https://www.anca.co.jp/joblab" target="_blank" rel="noopener" class="btn btn-white btn-lg">JOBLAB 公式サイトへ</a>
+        <a href="https://joblab.anca.co.jp/" target="_blank" rel="noopener" class="btn btn-white btn-lg">JOBLAB 公式サイトへ</a>
         <a href="student.html#contact" class="btn btn-outline-white btn-lg">お問い合わせ</a>
       </div>
     </div>
@@ -674,7 +706,7 @@
           <div class="footer-col">
             <h4>パートナー</h4>
             <a href="https://www.anca.co.jp" target="_blank" rel="noopener">株式会社ANCa</a>
-            <a href="https://www.anca.co.jp/joblab" target="_blank" rel="noopener">JOBLAB</a>
+            <a href="https://joblab.anca.co.jp/" target="_blank" rel="noopener">JOBLAB</a>
           </div>
         </div>
       </div>
