@@ -644,20 +644,19 @@ form.addEventListener('submit', async (e) => {
       ].filter(Boolean).join('\n'),
     };
 
-    const res = await fetch(GAS_URL, {
+    // GASはCORSプリフライトを処理できないため no-cors + text/plain で送信
+    await fetch(GAS_URL, {
       method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
+      mode:    'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
       body:    JSON.stringify(payload),
     });
 
-    const data = await res.json();
-    if (data.result === 'success') {
-      showStatus('✅ お問い合わせを受け付けました。2〜3営業日以内にご返信いたします。', 'success');
-      form.reset();
-      countEl.textContent = '0 / 2000';
-    } else {
-      showStatus('送信に失敗しました。時間をおいて再度お試しください。', 'error');
-    }
+    // no-cors ではレスポンスが読めないため、エラーなく到達＝成功とみなす
+    showStatus('✅ お問い合わせを受け付けました。2〜3営業日以内にご返信いたします。', 'success');
+    form.reset();
+    countEl.textContent = '0 / 2000';
+
   } catch (_) {
     showStatus('通信エラーが発生しました。LINE公式アカウントからお問い合わせください。', 'error');
   } finally {
