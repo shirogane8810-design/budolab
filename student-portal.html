@@ -292,6 +292,14 @@
     .article-excerpt { font-size: 0.82rem; color: #5a6577; line-height: 1.7; flex: 1; }
     .btn-article-line { display: flex; align-items: center; justify-content: center; gap: 6px; background: #06C755; color: #fff; padding: 9px 16px; border-radius: 8px; font-size: 0.82rem; font-weight: 700; border: none; cursor: pointer; transition: all 0.3s; width: 100%; text-decoration: none; margin-top: 4px; }
     .btn-article-line:hover { background: #05a848; transform: translateY(-1px); }
+    .article-body { margin-top: 14px; border-top: 1px solid #eef0f6; padding-top: 14px; display: none; }
+    .article-body p { font-size: 0.85rem; color: #374151; line-height: 1.85; margin-bottom: 12px; }
+    .article-body h4 { font-size: 0.88rem; font-weight: 800; color: #0028FF; margin: 18px 0 8px; }
+    .article-body ul { padding-left: 18px; margin-bottom: 12px; }
+    .article-body ul li { font-size: 0.85rem; color: #374151; line-height: 1.8; margin-bottom: 4px; }
+    .article-body .step { background: #f4f6fb; border-left: 3px solid #0028FF; border-radius: 0 8px 8px 0; padding: 10px 14px; margin-bottom: 10px; font-size: 0.83rem; color: #1a2744; line-height: 1.7; }
+    .btn-read-more { display: flex; align-items: center; justify-content: center; gap: 6px; background: none; border: 1.5px solid #0028FF; color: #0028FF; padding: 7px 16px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: all 0.3s; width: 100%; margin-top: 10px; }
+    .btn-read-more:hover { background: rgba(0,40,255,0.06); }
 
     /* ====== MYPAGE MODAL ====== */
     .mypage-overlay { position: fixed; inset: 0; background: rgba(10,22,40,0.65); backdrop-filter: blur(4px); z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
@@ -427,225 +435,25 @@
 
       <!-- ===== TAB: 企業一覧 ===== -->
       <div class="tab-section active" id="tab-companies">
-        <div class="search-bar">
-          <span class="search-icon">🔍</span>
-          <input type="text" class="search-input" placeholder="企業名・業界で検索..." oninput="filterCompanies(this.value)">
-        </div>
-        <div class="sec-header">
-          <h2>公認企業 <span style="font-size:0.8rem;color:#5a6577;font-weight:400;">全 24 社</span></h2>
-          <a href="#">すべて見る →</a>
-        </div>
-        <div class="company-grid" id="companyGrid">
-          <div class="company-card" data-name="株式会社ANCa" data-industry="人材育成・就活支援">
-            <div class="company-cover" style="background:linear-gradient(135deg,#0028FF,#00C8FF);"></div>
-            <div class="company-logo-wrap"><div class="company-logo">A</div></div>
-            <div class="company-body">
-              <div class="company-name">株式会社ANCa</div>
-              <div class="company-industry">人材育成・就活支援</div>
-              <div class="company-meta">
-                <span class="meta-tag">東京</span>
-                <span class="meta-obog">OB/OG 12人</span>
-              </div>
-              <button class="btn-follow" onclick="toggleFollow(this)">フォローする</button>
-            </div>
-          </div>
-          <div class="company-card" data-name="丸紅株式会社" data-industry="総合商社">
-            <div class="company-cover" style="background:linear-gradient(135deg,#1a1a2e,#16213e);"></div>
-            <div class="company-logo-wrap"><div class="company-logo">丸</div></div>
-            <div class="company-body">
-              <div class="company-name">丸紅株式会社</div>
-              <div class="company-industry">総合商社</div>
-              <div class="company-meta">
-                <span class="meta-tag">東京</span>
-                <span class="meta-obog">OB/OG 45人</span>
-              </div>
-              <button class="btn-follow" onclick="toggleFollow(this)">フォローする</button>
-            </div>
-          </div>
-          <div class="company-card" data-name="三菱商事" data-industry="総合商社">
-            <div class="company-cover" style="background:linear-gradient(135deg,#e53e3e,#fc8181);"></div>
-            <div class="company-logo-wrap"><div class="company-logo">三</div></div>
-            <div class="company-body">
-              <div class="company-name">三菱商事</div>
-              <div class="company-industry">総合商社</div>
-              <div class="company-meta">
-                <span class="meta-tag">東京</span>
-                <span class="meta-obog">OB/OG 38人</span>
-              </div>
-              <button class="btn-follow" onclick="toggleFollow(this)">フォローする</button>
-            </div>
-          </div>
-          <div class="company-card" data-name="野村証券" data-industry="金融・証券">
-            <div class="company-cover" style="background:linear-gradient(135deg,#06C755,#00a844);"></div>
-            <div class="company-logo-wrap"><div class="company-logo">N</div></div>
-            <div class="company-body">
-              <div class="company-name">野村証券</div>
-              <div class="company-industry">金融・証券</div>
-              <div class="company-meta">
-                <span class="meta-tag">東京・大阪</span>
-                <span class="meta-obog">OB/OG 31人</span>
-              </div>
-              <button class="btn-follow" onclick="toggleFollow(this)">フォローする</button>
-            </div>
-          </div>
-          <div class="company-card" data-name="電通グループ" data-industry="広告・PR・イベント">
-            <div class="company-cover" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa);"></div>
-            <div class="company-logo-wrap"><div class="company-logo">D</div></div>
-            <div class="company-body">
-              <div class="company-name">電通グループ</div>
-              <div class="company-industry">広告・PR・イベント</div>
-              <div class="company-meta">
-                <span class="meta-tag">東京</span>
-                <span class="meta-obog">OB/OG 29人</span>
-              </div>
-              <button class="btn-follow" onclick="toggleFollow(this)">フォローする</button>
-            </div>
-          </div>
-          <div class="company-card" data-name="スポーツライフ株式会社" data-industry="スポーツ・フィットネス">
-            <div class="company-cover" style="background:linear-gradient(135deg,#f59e0b,#fbbf24);"></div>
-            <div class="company-logo-wrap"><div class="company-logo">S</div></div>
-            <div class="company-body">
-              <div class="company-name">スポーツライフ株式会社</div>
-              <div class="company-industry">スポーツ・フィットネス</div>
-              <div class="company-meta">
-                <span class="meta-tag">全国</span>
-                <span class="meta-obog">OB/OG 9人</span>
-              </div>
-              <button class="btn-follow" onclick="toggleFollow(this)">フォローする</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="sec-header" style="margin-top:8px;">
-          <h2>あなたへのおすすめ企業</h2>
-          <a href="#">すべて見る →</a>
-        </div>
-        <div class="company-grid">
-          <div class="company-card" data-name="テックプラス株式会社" data-industry="IT・テクノロジー">
-            <div class="company-cover" style="background:linear-gradient(135deg,#0ea5e9,#38bdf8);"></div>
-            <div class="company-logo-wrap"><div class="company-logo">IT</div></div>
-            <div class="company-body">
-              <div class="company-name">テックプラス株式会社</div>
-              <div class="company-industry">IT・テクノロジー</div>
-              <div class="company-meta">
-                <span class="meta-tag">東京</span>
-                <span class="meta-obog">OB/OG 23人</span>
-              </div>
-              <button class="btn-follow" onclick="toggleFollow(this)">フォローする</button>
-            </div>
-          </div>
-          <div class="company-card" data-name="コンサルアドバイザーズ" data-industry="コンサルティング">
-            <div class="company-cover" style="background:linear-gradient(135deg,#0a1628,#0028FF);"></div>
-            <div class="company-logo-wrap"><div class="company-logo">C</div></div>
-            <div class="company-body">
-              <div class="company-name">コンサルアドバイザーズ</div>
-              <div class="company-industry">コンサルティング</div>
-              <div class="company-meta">
-                <span class="meta-tag">東京・大阪</span>
-                <span class="meta-obog">OB/OG 18人</span>
-              </div>
-              <button class="btn-follow" onclick="toggleFollow(this)">フォローする</button>
-            </div>
-          </div>
-          <div class="company-card" data-name="未来教育グループ" data-industry="教育・人材育成">
-            <div class="company-cover" style="background:linear-gradient(135deg,#be185d,#ec4899);"></div>
-            <div class="company-logo-wrap"><div class="company-logo">教</div></div>
-            <div class="company-body">
-              <div class="company-name">未来教育グループ</div>
-              <div class="company-industry">教育・人材育成</div>
-              <div class="company-meta">
-                <span class="meta-tag">全国</span>
-                <span class="meta-obog">OB/OG 14人</span>
-              </div>
-              <button class="btn-follow" onclick="toggleFollow(this)">フォローする</button>
-            </div>
-          </div>
+        <div style="text-align:center;padding:64px 24px 48px;">
+          <div style="font-size:3rem;margin-bottom:16px;">🏢</div>
+          <div style="font-size:0.72rem;font-weight:800;letter-spacing:0.18em;color:#0028FF;text-transform:uppercase;margin-bottom:12px;">Coming Soon</div>
+          <h2 style="font-size:1.2rem;font-weight:800;color:#0a1628;margin-bottom:14px;">企業一覧は準備中です</h2>
+          <p style="font-size:0.88rem;color:#5a6577;line-height:1.85;max-width:320px;margin:0 auto;">武道学生を積極採用する企業情報・<br>会社説明会・スカウト機能などを<br>近日公開予定です。お楽しみに！</p>
         </div>
       </div>
 
-      <!-- ===== TAB: 求人・インターン ===== -->
+            <!-- ===== TAB: 求人・インターン ===== -->
       <div class="tab-section" id="tab-jobs">
-        <div class="search-bar">
-          <span class="search-icon">🔍</span>
-          <input type="text" class="search-input" placeholder="求人タイトル・企業名・タグで検索..." oninput="filterJobs(this.value)">
-        </div>
-        <div class="sec-header">
-          <h2>武道経験者歓迎の求人 <span style="font-size:0.8rem;color:#5a6577;font-weight:400;">全 18 件</span></h2>
-          <a href="jobs.html">すべて見る →</a>
-        </div>
-        <div class="job-list" id="jobList">
-          <div class="job-card" data-title="夏期インターンシップ 総合商社営業コース" data-company="丸紅株式会社" data-tags="武道経験優遇 インターン">
-            <div class="job-logo">丸</div>
-            <div class="job-body">
-              <div class="job-title">【武道経験者歓迎】夏期インターンシップ 総合商社営業コース</div>
-              <div class="job-company">丸紅株式会社</div>
-              <div class="job-tags">
-                <span class="job-tag tag-budo">武道経験優遇</span>
-                <span class="job-tag tag-intern">インターン</span>
-                <span class="job-tag tag-remote">5days</span>
-              </div>
-              <div class="job-detail">開催日程：2025年8月5日〜9日｜場所：東京本社｜報酬：あり</div>
-            </div>
-            <div class="job-action">
-              <button class="btn-apply" onclick="openModal('signup')">応募する</button>
-              <button class="btn-bookmark">🔖 保存</button>
-            </div>
-          </div>
-          <div class="job-card" data-title="金融・証券 営業職 新卒採用 2026卒" data-company="野村証券" data-tags="武道経験優遇 正社員">
-            <div class="job-logo">N</div>
-            <div class="job-body">
-              <div class="job-title">【体育会・武道部歓迎】金融・証券 営業職 新卒採用 2026卒</div>
-              <div class="job-company">野村証券</div>
-              <div class="job-tags">
-                <span class="job-tag tag-budo">武道経験優遇</span>
-                <span class="job-tag tag-full">正社員</span>
-                <span class="job-tag tag-remote">全国</span>
-              </div>
-              <div class="job-detail">職種：営業職｜勤務地：全国各支店｜給与：月給25万円〜</div>
-            </div>
-            <div class="job-action">
-              <button class="btn-apply" onclick="openModal('signup')">応募する</button>
-              <button class="btn-bookmark">🔖 保存</button>
-            </div>
-          </div>
-          <div class="job-card" data-title="JOBLAB ビジネススキル育成インターン（長期）" data-company="株式会社ANCa JOBLAB" data-tags="武道経験優遇 長期インターン リモート">
-            <div class="job-logo">A</div>
-            <div class="job-body">
-              <div class="job-title">JOBLAB ビジネススキル育成インターン（長期）</div>
-              <div class="job-company">株式会社ANCa / JOBLAB</div>
-              <div class="job-tags">
-                <span class="job-tag tag-budo">武道経験優遇</span>
-                <span class="job-tag tag-intern">長期インターン</span>
-                <span class="job-tag tag-remote">東京・リモート</span>
-              </div>
-              <div class="job-detail">期間：3ヶ月〜｜週3日〜｜時給1,200円〜｜スキル習得後の特別選考あり</div>
-            </div>
-            <div class="job-action">
-              <button class="btn-apply" onclick="openModal('signup')">応募する</button>
-              <button class="btn-bookmark">🔖 保存</button>
-            </div>
-          </div>
-          <div class="job-card" data-title="スポーツ・フィットネス業界 体育会学生向け新卒採用" data-company="スポーツライフ株式会社" data-tags="体育会系歓迎 正社員">
-            <div class="job-logo">S</div>
-            <div class="job-body">
-              <div class="job-title">スポーツ・フィットネス業界 体育会学生向け新卒採用</div>
-              <div class="job-company">スポーツライフ株式会社</div>
-              <div class="job-tags">
-                <span class="job-tag tag-budo">体育会系歓迎</span>
-                <span class="job-tag tag-full">正社員</span>
-                <span class="job-tag tag-remote">全国</span>
-              </div>
-              <div class="job-detail">職種：インストラクター・店舗運営｜給与：月給22万円〜</div>
-            </div>
-            <div class="job-action">
-              <button class="btn-apply" onclick="openModal('signup')">応募する</button>
-              <button class="btn-bookmark">🔖 保存</button>
-            </div>
-          </div>
+        <div style="text-align:center;padding:64px 24px 48px;">
+          <div style="font-size:3rem;margin-bottom:16px;">💼</div>
+          <div style="font-size:0.72rem;font-weight:800;letter-spacing:0.18em;color:#0028FF;text-transform:uppercase;margin-bottom:12px;">Coming Soon</div>
+          <h2 style="font-size:1.2rem;font-weight:800;color:#0a1628;margin-bottom:14px;">求人・インターン情報は準備中です</h2>
+          <p style="font-size:0.88rem;color:#5a6577;line-height:1.85;max-width:320px;margin:0 auto;">武道・体育会学生向けの求人・<br>インターンシップ情報を<br>近日公開予定です。お楽しみに！</p>
         </div>
       </div>
 
-      <!-- ===== TAB: OB/OG訪問 ===== -->
+            <!-- ===== TAB: OB/OG訪問 ===== -->
       <div class="tab-section" id="tab-obog">
         <div class="search-bar">
           <span class="search-icon">🔍</span>
@@ -739,42 +547,155 @@
           <h2>就活対策コンテンツ</h2>
         </div>
         <div class="article-grid">
+
+          <!-- 記事1 -->
           <div class="article-card">
             <span class="article-tag">就活ノウハウ</span>
             <div class="article-title">武道学生が就活で有利な理由</div>
             <div class="article-excerpt">礼節・忍耐力・精神力・チームワーク——企業が武道経験者を高く評価する理由と、その強みを最大限アピールする方法を解説します。</div>
-            <a href="https://lin.ee/KtxrF6x" class="btn-article-line" target="_blank" rel="noopener">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967C23.418 14.218 24 12.329 24 10.304"/></svg>
-              続きはLINEで →
-            </a>
+            <div class="article-body" id="article-1">
+              <p>武道を通じて培われたスキルは、就活市場で非常に高く評価されます。企業が武道経験者に注目する理由と、効果的なアピール方法を解説します。</p>
+              <h4>■ 礼節・礼儀正しさ</h4>
+              <p>武道は「礼に始まり礼に終わる」精神が根付いています。道場での振る舞い、先生・先輩への接し方で培われた礼節は、面接の第一印象から職場での日常対応まで、社会人として即戦力となる資質です。</p>
+              <h4>■ 忍耐力・継続力</h4>
+              <p>長期にわたる厳しい練習を耐え抜いた経験は、仕事の壁を乗り越える力に直結します。「続ける力」は特に営業職・ルーティンワークが多い職種で高く評価されます。</p>
+              <h4>■ 精神力・プレッシャーへの耐性</h4>
+              <p>試合・昇段審査など本番で実力を発揮する経験を積んできた武道学生は、締め切り・プレゼン・交渉などビジネスのプレッシャー下でも安定したパフォーマンスを発揮できます。</p>
+              <h4>■ チームワーク・協調性</h4>
+              <p>部活動を通じたチームビルディング、後輩指導、大会への共同準備——組織としての動き方を実践的に学んでいる武道学生は、入社後すぐにチームで活躍できます。</p>
+              <h4>■ 具体的なアピールポイント</h4>
+              <ul>
+                <li>武道歴と実績を数字で示す（例：7年間・黒帯取得・大会3位）</li>
+                <li>部活内での役割（主将・副将・幹事など）を明示する</li>
+                <li>武道で身についたスキルが仕事にどう活きるか具体的に伝える</li>
+                <li>困難を乗り越えたエピソードを一つ必ず用意しておく</li>
+              </ul>
+            </div>
+            <button class="btn-read-more" onclick="toggleArticle(this,'article-1')">続きを読む ↓</button>
           </div>
+
+          <!-- 記事2 -->
           <div class="article-card">
             <span class="article-tag">面接対策</span>
             <div class="article-title">面接で武道経験をアピールする方法</div>
             <div class="article-excerpt">「武道を続けてきてよかった」と思える面接の答え方。STARメソッドを使って武道経験を具体的なエピソードに変換するテクニックを紹介。</div>
-            <a href="https://lin.ee/KtxrF6x" class="btn-article-line" target="_blank" rel="noopener">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967C23.418 14.218 24 12.329 24 10.304"/></svg>
-              続きはLINEで →
-            </a>
+            <div class="article-body" id="article-2">
+              <p>面接で武道経験を効果的に伝えるには「STARメソッド」を活用するのが最も効果的です。</p>
+              <h4>■ STARメソッドとは？</h4>
+              <div class="step"><strong>S（Situation）</strong>：どんな状況・課題があったか</div>
+              <div class="step"><strong>T（Task）</strong>：自分が担うべき役割・目標は何か</div>
+              <div class="step"><strong>A（Action）</strong>：具体的にどう行動したか</div>
+              <div class="step"><strong>R（Result）</strong>：どんな成果・学びが得られたか</div>
+              <h4>■ 例：主将としての経験（回答例）</h4>
+              <p>「3年次に主将を務めた際、部員のモチベーション低下と退部者増加という課題がありました。チームをまとめ全国大会出場を目指すため、個別面談を週1回実施し各部員の悩みを把握。練習メニューを個人のレベルに合わせ再設計した結果、翌年の退部者をゼロにし、3年ぶりの地区大会優勝を達成しました。」</p>
+              <h4>■ よくある失敗と対策</h4>
+              <ul>
+                <li>「忍耐力がつきました」だけで終わる → 具体的な場面と発揮方法まで話す</li>
+                <li>大会成績だけを語る → プロセスと学びを重視する</li>
+                <li>自分の話だけになる → チームへの貢献も盛り込む</li>
+              </ul>
+              <h4>■ 職種別アピールポイント</h4>
+              <ul>
+                <li><strong>営業職</strong>：忍耐力・目標達成力・コミュニケーション力</li>
+                <li><strong>管理職候補</strong>：リーダーシップ・チームマネジメント</li>
+                <li><strong>企画職</strong>：課題発見力・改善提案力</li>
+              </ul>
+            </div>
+            <button class="btn-read-more" onclick="toggleArticle(this,'article-2')">続きを読む ↓</button>
           </div>
+
+          <!-- 記事3 -->
           <div class="article-card">
             <span class="article-tag">キャリア戦略</span>
             <div class="article-title">体育会系学生のキャリア戦略</div>
             <div class="article-excerpt">体育会・武道学生が活躍しやすい業界・職種の選び方。内定を勝ち取った先輩たちの就活スケジュールと対策方法を完全ガイド。</div>
-            <a href="https://lin.ee/KtxrF6x" class="btn-article-line" target="_blank" rel="noopener">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967C23.418 14.218 24 12.329 24 10.304"/></svg>
-              続きはLINEで →
-            </a>
+            <div class="article-body" id="article-3">
+              <p>武道・体育会出身学生が実力を発揮しやすい業界を知り、就活を有利に進めましょう。</p>
+              <h4>■ 武道学生が活躍しやすい業界 TOP5</h4>
+              <ul>
+                <li><strong>金融・証券</strong>：営業力・数字への強さ・粘り強さが評価される</li>
+                <li><strong>総合商社</strong>：タフネス・チームワーク・グローバル対応力が武器</li>
+                <li><strong>人材・コンサルティング</strong>：対人力・課題解決力を活かせる</li>
+                <li><strong>IT・SaaS</strong>：論理的思考・成長意欲・自己管理力が刺さる</li>
+                <li><strong>不動産・建設</strong>：忍耐力・体力・現場対応力が活きる</li>
+              </ul>
+              <h4>■ 就活スケジュール（26卒・27卒向け）</h4>
+              <div class="step"><strong>3年6月〜</strong>　自己分析・業界研究スタート</div>
+              <div class="step"><strong>3年夏</strong>　サマーインターン参加（武道経験者優遇枠あり）</div>
+              <div class="step"><strong>3年秋冬</strong>　OB/OG訪問・ウィンターインターン</div>
+              <div class="step"><strong>3年3月</strong>　本選考エントリー開始</div>
+              <div class="step"><strong>4年6月</strong>　内定・就活終了が理想ライン</div>
+              <h4>■ 武道×就活で意識すること</h4>
+              <ul>
+                <li>試合シーズンと就活が重なるケースが多い → 早期に動き出す</li>
+                <li>体育会学生向けの特別選考ルートを積極的に活用する</li>
+                <li>推薦・オープンキャンパス制度のある企業を事前に調べておく</li>
+                <li>強みを「スキルセット」として整理し業界ニーズと紐づける</li>
+              </ul>
+            </div>
+            <button class="btn-read-more" onclick="toggleArticle(this,'article-3')">続きを読む ↓</button>
           </div>
+
+          <!-- 記事4 -->
           <div class="article-card">
             <span class="article-tag">OB/OG訪問</span>
-            <div class="article-title">OB/OG訪問の進め方と質問リスト</div>
+            <div class="article-title">OB/OG訪問の進め方と質問リスト20選</div>
             <div class="article-excerpt">OB/OG訪問で聞くべき20の質問と、訪問前後のマナー。武道出身の先輩社会人から本音を引き出すコミュニケーション術を解説します。</div>
-            <a href="https://lin.ee/KtxrF6x" class="btn-article-line" target="_blank" rel="noopener">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967C23.418 14.218 24 12.329 24 10.304"/></svg>
-              続きはLINEで →
-            </a>
+            <div class="article-body" id="article-4">
+              <p>武道出身の先輩社会人から本音を引き出すためのOB/OG訪問完全ガイドです。</p>
+              <h4>■ 基本ステップ</h4>
+              <div class="step"><strong>STEP1</strong>　候補者リストアップ（BUDO LINK・大学OB名簿を活用）</div>
+              <div class="step"><strong>STEP2</strong>　アポイントメール送付（日程候補3つ以上・丁寧な文面で）</div>
+              <div class="step"><strong>STEP3</strong>　事前準備（企業・業界・相手の経歴を必ず調べる）</div>
+              <div class="step"><strong>STEP4</strong>　訪問（メモ持参・録音は許可取得・時間厳守）</div>
+              <div class="step"><strong>STEP5</strong>　お礼メール（当日中に必ず送付）</div>
+              <h4>■ 聞くべき質問リスト20選</h4>
+              <p style="font-size:0.78rem;color:#8a95a8;margin-bottom:6px;font-weight:700;">《仕事内容》</p>
+              <ul>
+                <li>現在の仕事内容・1日のスケジュールを教えてください</li>
+                <li>入社前後でギャップはありましたか？</li>
+                <li>仕事で最もやりがいを感じる瞬間はどんな時ですか？</li>
+                <li>大変だと感じることはどんなことですか？</li>
+                <li>この会社を選んだ決め手は何ですか？</li>
+              </ul>
+              <p style="font-size:0.78rem;color:#8a95a8;margin-bottom:6px;font-weight:700;">《武道経験との関連》</p>
+              <ul>
+                <li>武道経験が仕事に活きている場面はありますか？</li>
+                <li>体育会出身であることで有利だと感じたことは？</li>
+                <li>部活との両立はどのようにしていましたか？</li>
+              </ul>
+              <p style="font-size:0.78rem;color:#8a95a8;margin-bottom:6px;font-weight:700;">《就活・キャリア》</p>
+              <ul>
+                <li>就活でどんな軸を持っていましたか？</li>
+                <li>面接で武道経験をどうアピールしましたか？</li>
+                <li>今振り返って、就活でやっておけばよかったことは？</li>
+                <li>他にどんな企業・業界を検討していましたか？</li>
+                <li>就活中に参考にした本・サービスはありますか？</li>
+              </ul>
+              <p style="font-size:0.78rem;color:#8a95a8;margin-bottom:6px;font-weight:700;">《社風・成長》</p>
+              <ul>
+                <li>職場の雰囲気・社内での武道経験者の評価を教えてください</li>
+                <li>入社後最も成長できた経験は何ですか？</li>
+                <li>社会人になってから始めた勉強・習慣はありますか？</li>
+                <li>キャリアアップのために大切にしていることは？</li>
+              </ul>
+              <p style="font-size:0.78rem;color:#8a95a8;margin-bottom:6px;font-weight:700;">《アドバイス》</p>
+              <ul>
+                <li>就活生へのアドバイスをお願いします</li>
+                <li>学生時代にやっておいてよかったことは何ですか？</li>
+                <li>BUDO LINKのOB/OG登録を検討していただけますか？</li>
+              </ul>
+              <h4>■ 訪問前後のマナー</h4>
+              <ul>
+                <li>服装：スーツまたはオフィスカジュアル</li>
+                <li>到着：5〜10分前が理想</li>
+                <li>名刺：両手で受け取りテーブルに丁寧に置く</li>
+                <li>お礼メール：24時間以内に必ず送付する</li>
+              </ul>
+            </div>
+            <button class="btn-read-more" onclick="toggleArticle(this,'article-4')">続きを読む ↓</button>
           </div>
+
         </div>
       </div>
 
@@ -1417,6 +1338,14 @@
   });
 
   // ====== フォローボタン ======
+  // ====== 記事展開トグル ======
+  function toggleArticle(btn, id) {
+    const body = document.getElementById(id);
+    const isOpen = body.style.display === 'block';
+    body.style.display = isOpen ? 'none' : 'block';
+    btn.textContent = isOpen ? '続きを読む ↓' : '閉じる ↑';
+  }
+
   function toggleFollow(btn) {
     if (btn.classList.contains('following')) {
       btn.classList.remove('following');
