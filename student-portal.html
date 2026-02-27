@@ -372,6 +372,13 @@
       .mypage-header { padding: 20px; }
       .joblab-banner { padding: 28px 24px; }
       .joblab-banner h2 { font-size: 1.3rem; }
+      /* ===== モバイルヘッダー修正 ===== */
+      .portal-header-top { padding: 0 14px; overflow: hidden; }
+      .portal-logo { font-size: 1.1rem; }
+      .portal-header-right { gap: 6px; }
+      .btn-login { border: none; padding: 5px 10px; font-size: 0.78rem; font-weight: 700; color: #0028FF; background: none; }
+      .btn-login:hover { background: none; color: #0028FF; }
+      .btn-signup { padding: 5px 12px; font-size: 0.78rem; border-radius: 50px; }
     }
   </style>
 </head>
@@ -1085,6 +1092,7 @@
       <button class="mypage-tab-btn" data-panel="occupations" onclick="switchMypageTab('occupations')">💼 気になる職種</button>
       <button class="mypage-tab-btn" data-panel="scouts" onclick="switchMypageTab('scouts')">📩 スカウト</button>
       <button class="mypage-tab-btn" data-panel="contact" onclick="switchMypageTab('contact')">📧 お問い合わせ</button>
+      <button class="mypage-tab-btn" data-panel="companies" onclick="switchMypageTab('companies')">🏢 企業</button>
     </div>
     <!-- Body -->
     <div class="mypage-body">
@@ -1223,6 +1231,16 @@
         <button class="btn-save" onclick="submitContact()">送信する</button>
       </div>
 
+
+      <!-- 企業パネル（Coming Soon） -->
+      <div class="mypage-panel" id="panel-companies">
+        <div style="text-align:center;padding:48px 24px;">
+          <div style="font-size:3rem;margin-bottom:16px;">🏢</div>
+          <div style="font-size:0.72rem;font-weight:800;letter-spacing:0.18em;color:#0028FF;text-transform:uppercase;margin-bottom:10px;">Coming Soon</div>
+          <h3 style="font-size:1.1rem;font-weight:800;color:#0a1628;margin-bottom:12px;">企業機能は準備中です</h3>
+          <p style="font-size:0.85rem;color:#5a6577;line-height:1.8;">フォロー中の企業・企業からのメッセージなどを<br>こちらで確認できるようになります。<br>お楽しみに！</p>
+        </div>
+      </div>
     </div><!-- end mypage-body -->
   </div>
 </div>
