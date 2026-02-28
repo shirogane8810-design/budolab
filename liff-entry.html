@@ -3,13 +3,14 @@
 <head>
   <meta charset="utf-8">
   <!-- ═══ SECURITY HEADERS ═══ -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://static.line-scdn.net; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: blob: https:; connect-src 'self' https://api.line.me https://access.line.me https://liff.line.me; frame-src https://access.line.me https://liff.line.me; object-src 'none'; base-uri 'self'; form-action 'none';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://script.google.com https://apis.google.com https://fonts.googleapis.com https://static.line-scdn.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; connect-src 'self' https://script.google.com https://joblab.anca.co.jp https://lin.ee https://api.line.me https://access.line.me https://liff.line.me; frame-src https://joblab.anca.co.jp https://lin.ee https://access.line.me https://liff.line.me; object-src 'none'; base-uri 'self'; form-action 'self' https://script.google.com;">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()">
   <!-- ══════════════════════ -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BUDO LINK アンケート</title>
+  <title>BUDO LINK</title>
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -24,7 +25,7 @@
       border-radius: 20px;
       padding: 40px 32px;
       text-align: center;
-      max-width: 380px;
+      max-width: 360px;
       width: 90%;
       box-shadow: 0 20px 60px rgba(0,0,0,0.2);
     }
@@ -39,7 +40,7 @@
       margin: 0 auto 20px;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
-    #msg { font-size: 0.9rem; color: #5a6577; line-height: 1.8; margin-bottom: 4px; }
+    #msg { font-size: 0.9rem; color: #5a6577; line-height: 1.8; }
     .step {
       display: flex; align-items: center; gap: 10px;
       background: #f4f6fb; border-radius: 10px;
@@ -47,37 +48,8 @@
       font-size: 0.82rem; color: #5a6577; text-align: left;
     }
     .step.active { background: rgba(0,40,255,0.06); color: #0028FF; font-weight: 600; }
-    .step.done { background: #f0fff4; color: #22c55e; }
-    .step.error { background: #fff5f5; color: #e53e3e; }
+    .step.done { color: #22c55e; }
     .step-icon { font-size: 1rem; flex-shrink: 0; }
-    .error-box {
-      display: none;
-      margin-top: 20px;
-      background: #fff5f5;
-      border: 1px solid #fed7d7;
-      border-radius: 12px;
-      padding: 16px;
-      text-align: left;
-    }
-    .error-box .err-title { font-size: 0.88rem; font-weight: 700; color: #c53030; margin-bottom: 8px; }
-    .error-box .err-detail { font-size: 0.76rem; color: #aaa; word-break: break-all; margin-bottom: 12px; font-family: monospace; }
-    .btn-fallback {
-      display: block; width: 100%;
-      background: linear-gradient(135deg, #0028FF, #00C8FF);
-      color: #fff; border: none; border-radius: 50px;
-      padding: 12px 20px; font-size: 0.88rem; font-weight: 700;
-      cursor: pointer; text-decoration: none; margin-top: 12px;
-      transition: opacity 0.2s;
-    }
-    .btn-fallback:hover { opacity: 0.85; }
-    .open-in-line {
-      display: none;
-      margin-top: 20px;
-      background: #f4f6fb;
-      border-radius: 12px;
-      padding: 20px;
-    }
-    .open-in-line p { font-size: 0.88rem; color: #374151; line-height: 1.8; margin-bottom: 12px; }
   </style>
 </head>
 <body>
@@ -85,106 +57,53 @@
     <div class="logo">BUDO <span>LINK</span></div>
     <div class="spinner" id="spinner"></div>
     <p id="msg">LINEと連携中...</p>
-
-    <div style="margin-top:20px;" id="stepArea">
+    <div style="margin-top:20px;">
       <div class="step active" id="step1"><span class="step-icon">🔐</span> LIFF初期化中</div>
       <div class="step" id="step2"><span class="step-icon">👤</span> プロフィール取得中</div>
       <div class="step" id="step3"><span class="step-icon">🚀</span> アンケートへ移動</div>
     </div>
-
-    <!-- エラー時フォールバック -->
-    <div class="error-box" id="errorBox">
-      <div class="err-title">⚠️ エラーの詳細</div>
-      <div class="err-detail" id="errDetail">—</div>
-      <p style="font-size:0.82rem;color:#5a6577;margin-bottom:8px;">
-        下のボタンからアンケートを開いてください（LINE IDは手動入力）
-      </p>
-      <a class="btn-fallback"
-         href="https://docs.google.com/forms/d/e/1FAIpQLSfpVqMAcvrnfEzK5dxWwleDCNd_r8HlltL0J7FgVNkhyVa8nA/viewform"
-         target="_blank" rel="noopener">
-        📋 アンケートを直接開く
-      </a>
-    </div>
-
-    <!-- LINEアプリ外で開いた場合 -->
-    <div class="open-in-line" id="openInLine">
-      <p>📱 このページは<strong>LINEアプリ内</strong>から開いてください。</p>
-      <p style="font-size:0.8rem;color:#8a95a8;">BUDO LINKの公式LINEアカウントのメニューまたはトーク画面のリンクからアクセスしてください。</p>
-      <a class="btn-fallback"
-         href="https://docs.google.com/forms/d/e/1FAIpQLSfpVqMAcvrnfEzK5dxWwleDCNd_r8HlltL0J7FgVNkhyVa8nA/viewform"
-         target="_blank" rel="noopener">
-        📋 アンケートを直接開く（LINE IDなし）
-      </a>
-    </div>
   </div>
 
   <script>
-    const LIFF_ID   = '2009131828-EL8cWuuz';
-    const FORM_BASE = 'https://docs.google.com/forms/d/e/1FAIpQLSfpVqMAcvrnfEzK5dxWwleDCNd_r8HlltL0J7FgVNkhyVa8nA/viewform';
-    const ENTRY_KEY = 'entry.1199573303';
+    const LIFF_ID = '2009131828-EL8cWuuz';
 
-    function setStep(n, isError) {
+    function setStep(n) {
       for (let i = 1; i <= 3; i++) {
         const el = document.getElementById('step' + i);
-        if (i < n) {
-          el.className = 'step done';
-        } else if (i === n) {
-          el.className = isError ? 'step error' : 'step active';
-        } else {
-          el.className = 'step';
-        }
+        el.className = 'step' + (i < n ? ' done' : i === n ? ' active' : '');
       }
     }
 
-    function showError(msg, stepN) {
+    function showError(msg) {
       document.getElementById('spinner').style.display = 'none';
-      document.getElementById('msg').textContent = 'エラーが発生しました';
-      if (stepN) setStep(stepN, true);
-      document.getElementById('errDetail').textContent = msg;
-      document.getElementById('errorBox').style.display = 'block';
-      console.error('[LIFF Error]', msg);
-    }
-
-    function showOpenInLine() {
-      document.getElementById('spinner').style.display = 'none';
-      document.getElementById('msg').textContent = 'LINEアプリから開いてください';
-      document.getElementById('stepArea').style.display = 'none';
-      document.getElementById('openInLine').style.display = 'block';
+      document.getElementById('msg').innerHTML =
+        '⚠️ エラーが発生しました。<br>LINEアプリから開き直してください。<br><small style="color:#aaa">' + msg + '</small>';
     }
 
     (async () => {
       try {
-        // ── STEP 1: LIFF初期化 ──────────────────────────
         setStep(1);
-        await liff.init({ liffId: LIFF_ID });
+        await liff.init({ liffId: LIFF_ID, withLoginOnExternalBrowser: true });
 
-        // LINE内ブラウザ以外は直接フォームへ誘導
-        if (!liff.isInClient()) {
-          showOpenInLine();
+        if (!liff.isLoggedIn()) {
+          liff.login({ redirectUri: location.href });
           return;
         }
 
-        // ── STEP 2: プロフィール取得 ─────────────────────
         setStep(2);
         const profile = await liff.getProfile();
 
-        if (!profile || !profile.userId) {
-          showError('userId が取得できませんでした (profile: ' + JSON.stringify(profile) + ')', 2);
-          return;
-        }
-
-        // ── STEP 3: アンケートへリダイレクト ─────────────
         setStep(3);
-        const formUrl = FORM_BASE + '?' + ENTRY_KEY + '=' + encodeURIComponent(profile.userId);
+        const formUrl =
+          'https://docs.google.com/forms/d/e/1FAIpQLSfpVqMAcvrnfEzK5dxWwleDCNd_r8HlltL0J7FgVNkhyVa8nA/viewform'
+          + '?entry.1199573303=' + encodeURIComponent(profile.userId);
+
+        // アンケートフォームへ LINE User ID を自動入力して遷移
         location.replace(formUrl);
 
       } catch (e) {
-        const msg = (e && e.message) ? e.message : String(e);
-        // どのステップで失敗したか判定
-        const stepN = document.querySelector('.step.active')
-          ? parseInt(document.querySelector('.step.active').id.replace('step', ''))
-          : 1;
-        showError(msg, stepN);
+        showError(e.message || String(e));
+        console.error(e);
       }
     })();
   </script>
