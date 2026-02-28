@@ -137,11 +137,7 @@
     }
 
     function goToPortal() {
-      if (liff.isInClient()) {
-        liff.closeWindow();
-      } else {
-        location.href = 'student-portal.html';
-      }
+      location.href = 'student-portal.html?from=liff';
     }
 
     (async () => {

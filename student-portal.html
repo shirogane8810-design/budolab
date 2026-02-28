@@ -388,9 +388,32 @@
       .btn-login:hover { background: none; color: #0028FF; }
       .btn-signup { padding: 5px 12px; font-size: 0.78rem; border-radius: 50px; }
     }
+
+    /* ====== LIFF完了バナー ====== */
+    #liff-done-banner {
+      display: none;
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 2000;
+      background: linear-gradient(90deg, #0028FF, #00C8FF);
+      color: #fff; padding: 12px 20px;
+      align-items: center; justify-content: space-between; gap: 12px;
+      box-shadow: 0 2px 12px rgba(0,40,255,0.25);
+    }
+    #liff-done-banner p { font-size: 0.88rem; font-weight: 600; }
+    #liff-done-banner button {
+      background: #fff; color: #0028FF;
+      border: none; border-radius: 50px;
+      padding: 7px 18px; font-size: 0.82rem; font-weight: 700;
+      white-space: nowrap; flex-shrink: 0; cursor: pointer;
+    }
   </style>
 </head>
 <body>
+
+<!-- ====== LIFF完了バナー ====== -->
+<div id="liff-done-banner">
+  <p>✅ アンケートの送信が完了しました！ありがとうございます</p>
+  <button onclick="window.location.href='line://'">LINEに戻る</button>
+</div>
 
 <!-- ====== PORTAL HEADER ====== -->
 <header class="portal-header">
@@ -1579,6 +1602,13 @@
   // ====== LINE LIFF パラメータ受け取り ======
   (function() {
     const params = new URLSearchParams(location.search);
+    // LIFFアンケート完了バナー
+    if (params.get('from') === 'liff') {
+      const banner = document.getElementById('liff-done-banner');
+      banner.style.display = 'flex';
+      history.replaceState({}, '', location.pathname);
+    }
+
     if (params.get('lineFrom') !== '1') return;
     const lineUserId = params.get('lineUserId') || '';
     const lineName   = params.get('lineName')   || '';
